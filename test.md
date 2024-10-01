@@ -1,0 +1,1 @@
+This is GitHub Merge Conflits Test
