@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformControl : MonoBehaviour
 {
-    private float sensitivity = 20f;
+    private float sensitivity = 40f;
     private bool isActive = false;
     private Vector3 initialPosition;
 
