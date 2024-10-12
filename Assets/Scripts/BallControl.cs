@@ -95,13 +95,14 @@ public class BallControl : MonoBehaviour
             
             if (currentPlatform != null)
             {
-                ChangeColor(currentPlatform.gameObject, Color.white);  // White
+                // ChangeColor(currentPlatform.gameObject, Color.white);  // White
                 currentPlatform.SetActive(false);
             }
 
             currentPlatform = platform;
             currentPlatform.SetActive(true);
-            ChangeColor(currentPlatform.gameObject, new Color(0.4f, 0.8f, 0.4f));  // Green
+            
+            // ChangeColor(currentPlatform.gameObject, new Color(0.4f, 0.8f, 0.4f));  // Green
 
             if (ballRenderer != null)
             {
