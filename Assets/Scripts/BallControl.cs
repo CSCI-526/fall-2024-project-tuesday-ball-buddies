@@ -21,6 +21,7 @@ public class BallControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
         hudManager = FindObjectOfType<HUDManager>();
 
@@ -161,7 +162,7 @@ public class BallControl : MonoBehaviour
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            if (!renderer.gameObject.CompareTag("Goal"))
+            if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy"))
             {
                 renderer.material.color = color;
             }
