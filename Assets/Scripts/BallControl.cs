@@ -176,7 +176,7 @@ public class BallControl : MonoBehaviour
         Debug.Log("Checkpoint set at: " + position);
     }
 
-    void RestartFromCheckpoint()
+    public void RestartFromCheckpoint()
     {
         if (checkpointManager != null && checkpointManager.HasCheckpoint())
         {
@@ -230,7 +230,7 @@ public class BallControl : MonoBehaviour
         }
     }
 
-    void RestartGame()
+    public void RestartGame()
     {
         if (checkpointManager != null)
         {

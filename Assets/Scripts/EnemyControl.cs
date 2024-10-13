@@ -9,6 +9,7 @@ public class EnemyControl : MonoBehaviour
     public float moveSpeed = 1f;
     public float turnSpeed = 90f;
 
+    private CheckpointManager checkpointManager;
     private int curWaypointId = 0;
     private bool isTurning = false;
     private Vector3 targetDir, targetEulerAngle;
@@ -20,6 +21,11 @@ public class EnemyControl : MonoBehaviour
     {
         if (waypoints.Count == 0)
             this.enabled = false;
+        checkpointManager = CheckpointManager.Instance;
+        if (checkpointManager == null)
+        {
+            Debug.LogError("CheckpointManager not found in the scene!");
+        }
     }
 
     // Update is called once per frame
@@ -76,6 +82,24 @@ public class EnemyControl : MonoBehaviour
             transform.localEulerAngles = newEulerAngles;
 
             targetAngle = Mathf.Abs(Mathf.DeltaAngle(newYAngle, targetEulerAngle.y));
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        BallControl ball = other.GetComponent<BallControl>();
+        if (ball != null)
+        {
+            if (checkpointManager != null && checkpointManager.HasCheckpoint())
+            {
+                Debug.Log("Restarting from checkpoint");
+                ball.RestartFromCheckpoint();
+            }
+            else
+            {
+                Debug.Log("Restarting game");
+                ball.RestartGame();
+            }
         }
     }
 }
