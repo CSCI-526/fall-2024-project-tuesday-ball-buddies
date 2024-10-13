@@ -8,8 +8,7 @@ TagManager:
   - Platform
   - Bridge
   - Goal
-  - Checkpoint
-  - Enemy
+  - Star
   layers:
   - Default
   - TransparentFX
