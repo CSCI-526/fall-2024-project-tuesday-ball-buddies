@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour
 {
-    private float jumpForce = 4000f;  
+    private float jumpForce = 5000f;  
     private float moveForce = 20000f;  
     private float fallThreshold = -50f;  
     public bool onBridge = false;  
