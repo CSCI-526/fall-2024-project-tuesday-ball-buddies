@@ -62,11 +62,9 @@ public class BridgeControl : MonoBehaviour
     public void ResetBridge()
     {
         isResetting = true;  // Trigger the smooth reset
-        gameObject.SetActive(false); 
-        // Reset bridge to its initial state
-        // Debug.Log("Bridge reset to its initial state");
-        // transform.localScale = initialScale;
-        // Debug.Log("Current scale: " + transform.localScale);
-        // SetActive(false);
+        gameObject.SetActive(true);  // Ensure the bridge is active
+        Debug.Log("Bridge reset to its initial state");
+        transform.localScale = initialScale;
+        SetActive(false);
     }
 }
