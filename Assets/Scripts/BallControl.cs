@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour
 {
-    private float jumpForce = 5000f;  
+    private float jumpForce = 4000f;  
     private float moveForce = 20000f;  
     private float fallThreshold = -50f;  
     public bool onBridge = false;  
@@ -148,11 +148,12 @@ public class BallControl : MonoBehaviour
         //GOAL
         if (collision.gameObject.CompareTag("Goal"))
         {
+            Debug.Log("Goal reached!");
             if (hudManager != null)
             {
                 hudManager.ShowWinMessage();
                 Time.timeScale = 0;
-                rb.velocity = Vector3.zero;
+                rb.velocity = Vector3.zero; 
             }
         }
         
@@ -163,7 +164,9 @@ public class BallControl : MonoBehaviour
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy"))
+            // if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy")) 
+                if (!renderer.gameObject.CompareTag("Goal"))
+
             {
                 renderer.material.color = color;
             }

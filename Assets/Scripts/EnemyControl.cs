@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     public List<GameObject> waypoints;
-    public float moveSpeed = 1f;
+    public float moveSpeed = 5f;
     public float turnSpeed = 90f;
 
     private CheckpointManager checkpointManager;
@@ -15,26 +15,41 @@ public class EnemyControl : MonoBehaviour
     private Vector3 targetDir, targetEulerAngle;
     private Quaternion targetRot;
     private float targetAngle;
+    private int frameCounter = 0; // Frame counter
+    private int updateInterval = 5; // Refresh every 100 frames
+    
 
     // Start is called before the first frame update
     void Start()
     {
         if (waypoints.Count == 0)
+        {
             this.enabled = false;
+            Debug.LogError("No waypoints assigned to the enemy!");
+        }
+        
         checkpointManager = CheckpointManager.Instance;
         if (checkpointManager == null)
         {
             Debug.LogError("CheckpointManager not found in the scene!");
         }
+        // Debug.Log("EnemyControl initialized");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isTurning)
-            Turn();
-        else
-            Move();
+        frameCounter++;
+
+        // Only update logic every 'updateInterval' frames
+        if (frameCounter >= updateInterval)
+        {
+            frameCounter = 0; // Reset counter
+            if (isTurning)
+                Turn();
+            else
+                Move();
+        }
     }
 
     private bool IsReached(Vector3 targetPos)
@@ -60,9 +75,15 @@ public class EnemyControl : MonoBehaviour
             transform.localPosition = targetPos;
             curWaypointId = (curWaypointId + 1) % waypoints.Count;
             ComputeTurn(waypoints[curWaypointId].transform.localPosition);
+            // Debug.Log("Reached waypoint " + curWaypointId);
         }
         else
-            transform.localPosition += targetDir * moveSpeed * Time.deltaTime;
+        {
+            // Debug.Log("Moving Speed is" + moveSpeed);
+            Vector3 v = targetDir * moveSpeed * Time.deltaTime;
+            transform.localPosition += v;
+            // Debug.Log("Moving to waypoint " + "by" + targetDir +  moveSpeed +"x"+ Time.deltaTime);
+        }
     }
 
     private void Turn()
