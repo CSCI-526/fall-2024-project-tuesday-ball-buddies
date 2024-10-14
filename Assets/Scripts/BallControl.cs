@@ -236,8 +236,8 @@ public class BallControl : MonoBehaviour
         }
     }
 
-public void RestartGame()
-{
+    public void RestartGame()
+    {
     // Check if the checkpoint manager is available
     if (checkpointManager != null && checkpointManager.HasCheckpoint())
     {
@@ -280,8 +280,7 @@ public void RestartGame()
     currentBridge = null;
     onBridge = false;
     canJump = true;
-
-}
+    }
 
 
     public void SetCheckpoint()
