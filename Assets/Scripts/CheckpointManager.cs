@@ -51,7 +51,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void ResetCheckpoint()
     {
-        lastCheckpoint = Vector3.zero;
+        lastCheckpoint = new Vector3(28,3 ,44);
         PlayerPrefs.DeleteKey(CHECKPOINT_X);
         PlayerPrefs.DeleteKey(CHECKPOINT_Y);
         PlayerPrefs.DeleteKey(CHECKPOINT_Z);

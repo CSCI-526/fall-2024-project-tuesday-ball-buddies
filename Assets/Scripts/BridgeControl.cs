@@ -8,6 +8,7 @@ public class BridgeControl : MonoBehaviour
     private float widthIncreasePerPress = 0.25f;  
     private bool isActive = false;
     private Vector3 initialScale;
+    private bool isResetting = false;
 
     void Start()
     {
@@ -34,6 +35,22 @@ public class BridgeControl : MonoBehaviour
             {
                 gameObject.SetActive(false); 
             }
+
+             // If we are in the process of resetting
+            if (isResetting)
+        {
+            // Smoothly transition the scale to the initial scale
+            transform.localScale = Vector3.Lerp(transform.localScale, initialScale, Time.deltaTime * 2);
+
+            // Stop resetting once close enough to the original size
+            if (Vector3.Distance(transform.localScale, initialScale) < 0.01f)
+            {
+                transform.localScale = initialScale;
+                isResetting = false;
+                Debug.Log("Bridge reset to original size.");
+            }
+        }
+
         } 
     }
 
@@ -44,10 +61,12 @@ public class BridgeControl : MonoBehaviour
 
     public void ResetBridge()
     {
+        isResetting = true;  // Trigger the smooth reset
+        gameObject.SetActive(false); 
         // Reset bridge to its initial state
-        Debug.Log("Bridge reset to its initial state");
-        transform.localScale = initialScale;
-        Debug.Log("Current scale: " + transform.localScale);
-        SetActive(false);
+        // Debug.Log("Bridge reset to its initial state");
+        // transform.localScale = initialScale;
+        // Debug.Log("Current scale: " + transform.localScale);
+        // SetActive(false);
     }
 }

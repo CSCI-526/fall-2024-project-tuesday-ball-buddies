@@ -58,11 +58,6 @@ public class BallControl : MonoBehaviour
                 Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
             }
 
-            // Reset the current bridge if it exists
-            if (currentBridge != null)
-            {
-                currentBridge.ResetBridge();
-            }
 
             if (checkpointManager != null && checkpointManager.HasCheckpoint())
             {
@@ -247,7 +242,7 @@ public class BallControl : MonoBehaviour
     else
     {
         // If no checkpoint, reset to the starting position (you can set this as the original spawn position)
-        transform.position = new Vector3(104, 13, 42);  // Adjust this to your ball's starting position
+        transform.position = new Vector3(28, 3, 44);  // Adjust this to your ball's starting position
     }
 
     // Reset ball's velocity and angular velocity
