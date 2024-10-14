@@ -58,6 +58,12 @@ public class BallControl : MonoBehaviour
                 Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
             }
 
+            // Reset the current bridge if it exists
+            if (currentBridge != null)
+            {
+                currentBridge.ResetBridge();
+            }
+
             if (checkpointManager != null && checkpointManager.HasCheckpoint())
             {
                 Debug.Log("Restarting from checkpoint");
@@ -148,12 +154,11 @@ public class BallControl : MonoBehaviour
         //GOAL
         if (collision.gameObject.CompareTag("Goal"))
         {
-            Debug.Log("Goal reached!");
             if (hudManager != null)
             {
                 hudManager.ShowWinMessage();
                 Time.timeScale = 0;
-                rb.velocity = Vector3.zero; 
+                rb.velocity = Vector3.zero;
             }
         }
         
@@ -164,9 +169,7 @@ public class BallControl : MonoBehaviour
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            // if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy")) 
-                if (!renderer.gameObject.CompareTag("Goal"))
-
+            if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy") && !renderer.gameObject.CompareTag("Star"))
             {
                 renderer.material.color = color;
             }
@@ -233,14 +236,53 @@ public class BallControl : MonoBehaviour
         }
     }
 
-    public void RestartGame()
+public void RestartGame()
+{
+    // Check if the checkpoint manager is available
+    if (checkpointManager != null && checkpointManager.HasCheckpoint())
     {
-        if (checkpointManager != null)
-        {
-            checkpointManager.ResetCheckpoint();
-        }
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        // Use the last checkpoint if it exists
+        transform.position = checkpointManager.GetLastCheckpoint();
     }
+    else
+    {
+        // If no checkpoint, reset to the starting position (you can set this as the original spawn position)
+        transform.position = new Vector3(104, 13, 42);  // Adjust this to your ball's starting position
+    }
+
+    // Reset ball's velocity and angular velocity
+    rb.velocity = Vector3.zero;
+    rb.angularVelocity = Vector3.zero;
+
+    // Reset platforms
+    PlatformControl[] platforms = FindObjectsOfType<PlatformControl>();
+    foreach (PlatformControl platform in platforms)
+    {
+        platform.ResetPlatform();
+    }
+
+    // Reset bridges
+    BridgeControl[] bridges = FindObjectsOfType<BridgeControl>(true);  // Ensure this is finding all bridges, including inactive ones
+    Debug.Log("Found " + bridges.Length + " bridges.");
+
+    foreach (BridgeControl bridge in bridges)
+    {
+        Debug.Log("Calling ResetBridge on " + bridge.gameObject.name);
+        bridge.ResetBridge();
+    }
+
+
+    // Reset the color of the current platform and bridge
+    ResetCurrentPlatformAndBridgeColor();
+
+    // Reset current platform and bridge references
+    currentPlatform = null;
+    currentBridge = null;
+    onBridge = false;
+    canJump = true;
+
+}
+
 
     public void SetCheckpoint()
     {

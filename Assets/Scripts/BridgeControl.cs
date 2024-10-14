@@ -45,6 +45,8 @@ public class BridgeControl : MonoBehaviour
     public void ResetBridge()
     {
         // Reset bridge to its initial state
+
+        Debug.Log("Bridge reset to its initial state");
         transform.localScale = initialScale;
         SetActive(false);
     }

@@ -9,6 +9,9 @@ TagManager:
   - Bridge
   - Goal
   - Star
+  - Checkpoint
+  - Enemy
+  - Ball
   layers:
   - Default
   - TransparentFX
