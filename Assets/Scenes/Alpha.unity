@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 36116004}
   - component: {fileID: 36116003}
   - component: {fileID: 36116002}
+  - component: {fileID: 36116005}
   m_Layer: 0
   m_Name: star2
   m_TagString: Star
@@ -246,7 +247,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -302,6 +303,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36116000}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &36116005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36116000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 1
+  levelToggles: []
+  toggleIndex: 1
 --- !u!1 &81018163
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,8 +1128,7 @@ GameObject:
   - component: {fileID: 229437651}
   - component: {fileID: 229437650}
   - component: {fileID: 229437649}
-  - component: {fileID: 229437648}
-  - component: {fileID: 229437647}
+  - component: {fileID: 229437653}
   m_Layer: 0
   m_Name: Bridge2
   m_TagString: Bridge
@@ -1121,45 +1136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &229437647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229437646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c82cf1a03f6824b6c831f993a6bb5d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!54 &229437648
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229437646}
-  serializedVersion: 4
-  m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &229437649
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1246,6 +1222,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &229437653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229437646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82cf1a03f6824b6c831f993a6bb5d9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &232029194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1379,7 @@ GameObject:
   - component: {fileID: 241995824}
   - component: {fileID: 241995823}
   - component: {fileID: 241995822}
+  - component: {fileID: 241995825}
   m_Layer: 0
   m_Name: star1
   m_TagString: Star
@@ -1428,7 +1417,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1484,6 +1473,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241995820}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &241995825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241995820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 1
+  levelToggles: []
+  toggleIndex: 0
 --- !u!1 &243015769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2775,7 +2779,7 @@ GameObject:
   - component: {fileID: 478946641}
   - component: {fileID: 478946640}
   m_Layer: 0
-  m_Name: Stage 2
+  m_Name: Level2
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3052,7 +3056,7 @@ GameObject:
   - component: {fileID: 499729701}
   m_Layer: 0
   m_Name: Bridge1
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4172,7 +4176,7 @@ Transform:
   m_GameObject: {fileID: 669540903}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 107.42, y: 12.39, z: 42.43}
+  m_LocalPosition: {x: 123.6, y: 14.3, z: 94.6}
   m_LocalScale: {x: 1.1569122, y: 1.1569122, z: 1.1569122}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5327,7 +5331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 940991931}
-  - component: {fileID: 940991930}
+  - component: {fileID: 940991932}
   m_Layer: 0
   m_Name: StarManager
   m_TagString: Untagged
@@ -5335,31 +5339,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &940991930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 940991929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3586e7360b2364e98af41817d018b130, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  starControl: {fileID: 0}
-  level1Toggles:
-  - {fileID: 2050677979}
-  - {fileID: 482225561}
-  - {fileID: 1524016404}
-  level2Toggles:
-  - {fileID: 928721828}
-  - {fileID: 1591462918}
-  - {fileID: 1192435159}
-  level3Toggles:
-  - {fileID: 212989852}
-  - {fileID: 741711461}
-  - {fileID: 1355459235}
 --- !u!4 &940991931
 Transform:
   m_ObjectHideFlags: 0
@@ -5375,6 +5354,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &940991932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940991929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3586e7360b2364e98af41817d018b130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level1Toggles:
+  - {fileID: 2050677979}
+  - {fileID: 482225561}
+  - {fileID: 1524016404}
+  level2Toggles:
+  - {fileID: 928721828}
+  - {fileID: 1591462918}
+  - {fileID: 1192435159}
+  level3Toggles:
+  - {fileID: 212989852}
+  - {fileID: 741711461}
+  - {fileID: 1355459235}
 --- !u!1 &945775457
 GameObject:
   m_ObjectHideFlags: 0
@@ -5930,6 +5933,7 @@ GameObject:
   - component: {fileID: 1005578298}
   - component: {fileID: 1005578297}
   - component: {fileID: 1005578296}
+  - component: {fileID: 1005578299}
   m_Layer: 0
   m_Name: star1 (1)
   m_TagString: Star
@@ -6023,6 +6027,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005578294}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1005578299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005578294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 0
+  levelToggles: []
+  toggleIndex: 1
 --- !u!1 &1019329244
 GameObject:
   m_ObjectHideFlags: 0
@@ -6246,6 +6265,7 @@ GameObject:
   - component: {fileID: 1106503995}
   - component: {fileID: 1106503994}
   - component: {fileID: 1106503993}
+  - component: {fileID: 1106503996}
   m_Layer: 0
   m_Name: star1 (2)
   m_TagString: Star
@@ -6339,6 +6359,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106503991}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1106503996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106503991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 0
+  levelToggles: []
+  toggleIndex: 2
 --- !u!1 &1133328076
 GameObject:
   m_ObjectHideFlags: 0
@@ -6614,7 +6649,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -6682,7 +6717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 0
+  levelIndex: 2
+  levelToggles: []
   toggleIndex: 0
 --- !u!1 &1192435157
 GameObject:
@@ -7988,6 +8024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 0
+  levelToggles: []
   toggleIndex: 0
 --- !u!1 &1441565759
 GameObject:
@@ -8001,6 +8038,7 @@ GameObject:
   - component: {fileID: 1441565763}
   - component: {fileID: 1441565762}
   - component: {fileID: 1441565761}
+  - component: {fileID: 1441565764}
   m_Layer: 0
   m_Name: star3
   m_TagString: Star
@@ -8038,7 +8076,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8094,6 +8132,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441565759}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1441565764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441565759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 2
+  levelToggles: []
+  toggleIndex: 2
 --- !u!1 &1458639329
 GameObject:
   m_ObjectHideFlags: 0
@@ -9076,6 +9129,7 @@ GameObject:
   - component: {fileID: 1636533731}
   - component: {fileID: 1636533730}
   - component: {fileID: 1636533729}
+  - component: {fileID: 1636533732}
   m_Layer: 0
   m_Name: star3
   m_TagString: Star
@@ -9113,7 +9167,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -9169,6 +9223,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636533727}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1636533732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636533727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 1
+  levelToggles: []
+  toggleIndex: 2
 --- !u!1 &1642431006
 GameObject:
   m_ObjectHideFlags: 0
@@ -11275,6 +11344,7 @@ GameObject:
   - component: {fileID: 2119243358}
   - component: {fileID: 2119243357}
   - component: {fileID: 2119243356}
+  - component: {fileID: 2119243359}
   m_Layer: 0
   m_Name: star2
   m_TagString: Star
@@ -11312,7 +11382,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -11368,6 +11438,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119243354}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2119243359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119243354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelIndex: 2
+  levelToggles: []
+  toggleIndex: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11376,10 +11461,10 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 945775462}
   - {fileID: 669540907}
-  - {fileID: 1133328078}
   - {fileID: 1914784283}
+  - {fileID: 478946645}
+  - {fileID: 2044731067}
   - {fileID: 499729700}
   - {fileID: 229437652}
-  - {fileID: 2044731067}
-  - {fileID: 478946645}
   - {fileID: 940991931}
+  - {fileID: 1133328078}
