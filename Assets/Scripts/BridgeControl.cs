@@ -20,7 +20,7 @@ public class BridgeControl : MonoBehaviour
         if (isActive) {
             Vector3 currentScale = transform.localScale;
 
-            if (Input.GetKeyDown(KeyCode.J))
+            /*if (Input.GetKeyDown(KeyCode.J))
             {
                 float newWidth = currentScale.x + widthIncreasePerPress;
                 transform.localScale = new Vector3(newWidth, currentScale.y, currentScale.z);
@@ -29,7 +29,7 @@ public class BridgeControl : MonoBehaviour
             {
                 float newXScale = Mathf.Max(0, currentScale.x - shrinkSpeed * Time.deltaTime);
                 transform.localScale = new Vector3(newXScale, currentScale.y, currentScale.z);
-            }
+            }*/
 
             if (transform.localScale.x == 0)
             {
