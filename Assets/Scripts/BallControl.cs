@@ -97,23 +97,28 @@ public class BallControl : MonoBehaviour
             
             if (currentPlatform != null)
             {
-                // ChangeColor(currentPlatform.gameObject, Color.white);  // White
+                ChangeColor(currentPlatform.gameObject, Color.white);
                 currentPlatform.SetActive(false);
             }
 
             currentPlatform = platform;
             currentPlatform.SetActive(true);
             
-            // ChangeColor(currentPlatform.gameObject, new Color(0.4f, 0.8f, 0.4f));  // Green
+            // Change the color of the child GameObject with "Platform" tag to a subtle light green
+            Transform platformChild = currentPlatform.transform.Find("Platform");
+            if (platformChild != null && platformChild.CompareTag("Platform"))
+            {
+                ChangeColor(platformChild.gameObject, new Color(0.7f, 1f, 0.7f)); // Slightly more green
+            }
 
             if (ballRenderer != null)
             {
-                ballRenderer.material.color = Color.white;  // White 
+                ballRenderer.material.color = Color.white;
             }
             
             if (currentBridge != null)
             {
-                ChangeColor(currentBridge.gameObject, Color.white);  // White
+                ChangeColor(currentBridge.gameObject, Color.white);
             }
         }
 
@@ -138,7 +143,7 @@ public class BallControl : MonoBehaviour
                 ballRenderer.material.color = new Color(0.25f, 0.41f, 0.88f);  // Blue
             }
 
-            ChangeColor(currentBridge.gameObject, Color.magenta);  // Gray
+            // ChangeColor(currentBridge.gameObject, Color.magenta);  /
 
             if (currentPlatform != null)
             {
@@ -233,48 +238,48 @@ public class BallControl : MonoBehaviour
 
     public void RestartGame()
     {
-    // Check if the checkpoint manager is available
-    if (checkpointManager != null && checkpointManager.HasCheckpoint())
-    {
-        // Use the last checkpoint if it exists
-        transform.position = checkpointManager.GetLastCheckpoint();
-    }
-    else
-    {
-        // If no checkpoint, reset to the starting position (you can set this as the original spawn position)
-        transform.position = new Vector3(28, 3, 44);  // Adjust this to your ball's starting position
-    }
+        // Check if the checkpoint manager is available
+        if (checkpointManager != null && checkpointManager.HasCheckpoint())
+        {
+            // Use the last checkpoint if it exists
+            transform.position = checkpointManager.GetLastCheckpoint();
+        }
+        else
+        {
+            // If no checkpoint, reset to the starting position (you can set this as the original spawn position)
+            transform.position = new Vector3(28, 3, 44);  // Adjust this to your ball's starting position
+        }
 
-    // Reset ball's velocity and angular velocity
-    rb.velocity = Vector3.zero;
-    rb.angularVelocity = Vector3.zero;
+        // Reset ball's velocity and angular velocity
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
-    // Reset platforms
-    PlatformControl[] platforms = FindObjectsOfType<PlatformControl>();
-    foreach (PlatformControl platform in platforms)
-    {
-        platform.ResetPlatform();
-    }
+        // Reset platforms
+        PlatformControl[] platforms = FindObjectsOfType<PlatformControl>();
+        foreach (PlatformControl platform in platforms)
+        {
+            platform.ResetPlatform();
+        }
 
-    // Reset bridges
-    BridgeControl[] bridges = FindObjectsOfType<BridgeControl>(true);  // Ensure this is finding all bridges, including inactive ones
-    Debug.Log("Found " + bridges.Length + " bridges.");
+        // Reset bridges
+        BridgeControl[] bridges = FindObjectsOfType<BridgeControl>(true);  // Ensure this is finding all bridges, including inactive ones
+        Debug.Log("Found " + bridges.Length + " bridges.");
 
-    foreach (BridgeControl bridge in bridges)
-    {
-        Debug.Log("Calling ResetBridge on " + bridge.gameObject.name);
-        bridge.ResetBridge();
-    }
+        foreach (BridgeControl bridge in bridges)
+        {
+            Debug.Log("Calling ResetBridge on " + bridge.gameObject.name);
+            bridge.ResetBridge();
+        }
 
 
-    // Reset the color of the current platform and bridge
-    ResetCurrentPlatformAndBridgeColor();
+        // Reset the color of the current platform and bridge
+        ResetCurrentPlatformAndBridgeColor();
 
-    // Reset current platform and bridge references
-    currentPlatform = null;
-    currentBridge = null;
-    onBridge = false;
-    canJump = true;
+        // Reset current platform and bridge references
+        currentPlatform = null;
+        currentBridge = null;
+        onBridge = false;
+        canJump = true;
     }
 
 
