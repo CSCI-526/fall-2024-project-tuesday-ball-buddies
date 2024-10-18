@@ -13,13 +13,16 @@ public class EnemyControl : MonoBehaviour
     private int curWaypointId = 0;
     private bool isTurning = false;
     private Vector3 targetDir, targetEulerAngle;
-    private Quaternion targetRot;
     private float targetAngle;
-    private int frameCounter = 0; // Frame counter
-    private int updateInterval = 5; // Refresh every 100 frames
-    
+    private int frameCounter = 0;
+    private int updateInterval = 5;
 
-    // Start is called before the first frame update
+    private Renderer[] childRenderers;
+    private Color colorStart = Color.red;
+    private Color colorEnd = new Color(1f, 0.65f, 0f); // Orange color
+    private float colorChangeSpeed = 1f;
+    private float lerpTime = 0f;
+
     void Start()
     {
         if (waypoints.Count == 0)
@@ -27,34 +30,75 @@ public class EnemyControl : MonoBehaviour
             this.enabled = false;
             Debug.LogError("No waypoints assigned to the enemy!");
         }
-        
+        else
+        {
+            Debug.Log(waypoints);
+            Debug.Log(waypoints.Count);
+        }
+
         checkpointManager = CheckpointManager.Instance;
         if (checkpointManager == null)
         {
             Debug.LogError("CheckpointManager not found in the scene!");
         }
-        // Debug.Log("EnemyControl initialized");
+
+        // Get all Renderer components from child objects
+        childRenderers = GetComponentsInChildren<Renderer>();
+
+        if (childRenderers.Length == 0)
+        {
+            Debug.LogWarning("No Renderer found in child objects! Color change will be skipped.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         frameCounter++;
 
-        // Only update logic every 'updateInterval' frames
         if (frameCounter >= updateInterval)
         {
-            frameCounter = 0; // Reset counter
+            frameCounter = 0;
             if (isTurning)
                 Turn();
             else
                 Move();
         }
+
+        if (childRenderers.Length > 0)
+        {
+            HandleColorChange();
+        }
     }
+
+    private void HandleColorChange()
+    {
+        lerpTime += Time.deltaTime * colorChangeSpeed;
+        float lerpValue = Mathf.PingPong(lerpTime, 1f);
+        Color currentColor = Color.Lerp(colorStart, colorEnd, lerpValue);
+
+        foreach (Renderer renderer in childRenderers)
+        {
+            renderer.material.color = currentColor;
+        }
+    } 
 
     private bool IsReached(Vector3 targetPos)
     {
-        return Vector3.Distance(transform.localPosition, targetPos) < moveSpeed * Time.deltaTime;
+        
+        bool res = Vector3.Distance(transform.localPosition, targetPos) < moveSpeed * Time.fixedDeltaTime;
+        Debug.Log("Vector3.Distance(transform.localPosition, targetPos)" +
+            Vector3.Distance(transform.localPosition, targetPos));
+        Debug.Log("moveSpeed * Time.fixedDeltaTime" + moveSpeed * Time.fixedDeltaTime);
+        if (res)
+        {
+            Debug.Log("reached");
+        }
+        else
+        {
+            Debug.Log("Not reached");
+        }
+
+        return res;
     }
 
     private void ComputeTurn(Vector3 targetPos)
@@ -75,14 +119,14 @@ public class EnemyControl : MonoBehaviour
             transform.localPosition = targetPos;
             curWaypointId = (curWaypointId + 1) % waypoints.Count;
             ComputeTurn(waypoints[curWaypointId].transform.localPosition);
-            // Debug.Log("Reached waypoint " + curWaypointId);
         }
         else
         {
-            // Debug.Log("Moving Speed is" + moveSpeed);
-            Vector3 v = targetDir * moveSpeed * Time.deltaTime;
+            Vector3 v = targetDir * moveSpeed * Time.fixedDeltaTime;
+            Debug.Log("Time.deltaTime" + Time.fixedDeltaTime);
+            Debug.Log("moveSpeed" + moveSpeed);
+            Debug.Log("targetDir" + targetDir);
             transform.localPosition += v;
-            // Debug.Log("Moving to waypoint " + "by" + targetDir +  moveSpeed +"x"+ Time.deltaTime);
         }
     }
 
