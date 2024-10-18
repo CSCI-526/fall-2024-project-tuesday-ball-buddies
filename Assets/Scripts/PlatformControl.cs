@@ -67,7 +67,7 @@ public class PlatformControl : MonoBehaviour
     public void ResetPlatform()
     {
         // Reset platform to its initial position and flat rotation
-        SetActive(true);
+        SetActive(false);
         transform.position = initialPosition;
         transform.rotation = Quaternion.identity; // Set to flat rotation
         currentRotation = Vector3.zero; // Reset the currentRotation
