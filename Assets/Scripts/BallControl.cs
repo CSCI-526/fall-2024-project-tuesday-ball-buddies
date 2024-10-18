@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallControl : MonoBehaviour
 {
     private float jumpForce = 4000f;  
-    private float moveForce = 20000f;  
+    private float moveForce = 40000f;  
     private float fallThreshold = -50f;  
     public bool onBridge = false;  
     private bool canJump = true;
@@ -111,7 +111,7 @@ public class BallControl : MonoBehaviour
             Transform platformChild = currentPlatform.transform.Find("Platform");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
-                ChangeColor(platformChild.gameObject, new Color(0.7f, 1f, 0.7f)); // Slightly more green
+                ChangeColor(platformChild.gameObject, new Color(0.6f, 1f, 0.6f)); // Slightly more green
             }
 
             if (ballRenderer != null)

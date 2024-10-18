@@ -5,7 +5,7 @@ public class CheckpointManager : MonoBehaviour
     public static CheckpointManager Instance { get; private set; }
     private Vector3 lastCheckpoint;
     private const string CHECKPOINT_X = "6.0";
-    private const string CHECKPOINT_Y = "-4.085";
+    private const string CHECKPOINT_Y = "15";
     private const string CHECKPOINT_Z = "57.6";
 
     void Awake()
