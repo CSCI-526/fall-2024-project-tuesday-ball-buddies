@@ -35,6 +35,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void SetCheckpoint(Vector3 position)
     {
+        position.y += 3;
         lastCheckpoint = position;
         PlayerPrefs.SetFloat(CHECKPOINT_X, position.x);
         PlayerPrefs.SetFloat(CHECKPOINT_Y, position.y);
