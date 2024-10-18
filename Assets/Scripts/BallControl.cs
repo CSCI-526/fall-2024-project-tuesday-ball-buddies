@@ -289,7 +289,7 @@ public class BallControl : MonoBehaviour
         else
         {
             // If no checkpoint, reset to the starting position (you can set this as the original spawn position)
-            transform.position = new Vector3(28, 13, 44);  // Adjust this to your ball's starting position
+            transform.position = new Vector3(-23, 12, 42);  // Adjust this to your ball's starting position
             print("!");
         }
     }
