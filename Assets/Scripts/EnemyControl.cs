@@ -86,9 +86,9 @@ public class EnemyControl : MonoBehaviour
     {
 
         bool res = Vector3.Distance(transform.localPosition, targetPos) < moveSpeed * Time.fixedDeltaTime;
-        Debug.Log("Vector3.Distance(transform.localPosition, targetPos)" +
-            Vector3.Distance(transform.localPosition, targetPos));
-        Debug.Log("moveSpeed * Time.fixedDeltaTime" + moveSpeed * Time.fixedDeltaTime);
+        // Debug.Log("Vector3.Distance(transform.localPosition, targetPos)" +
+        //     Vector3.Distance(transform.localPosition, targetPos));
+        // Debug.Log("moveSpeed * Time.fixedDeltaTime" + moveSpeed * Time.fixedDeltaTime);
         if (res)
         {
             Debug.Log("reached");
@@ -123,9 +123,9 @@ public class EnemyControl : MonoBehaviour
         else
         {
             Vector3 v = targetDir * moveSpeed * Time.fixedDeltaTime;
-            Debug.Log("Time.deltaTime" + Time.fixedDeltaTime);
-            Debug.Log("moveSpeed" + moveSpeed);
-            Debug.Log("targetDir" + targetDir);
+            // Debug.Log("Time.deltaTime" + Time.fixedDeltaTime);
+            // Debug.Log("moveSpeed" + moveSpeed);
+            // Debug.Log("targetDir" + targetDir);
             transform.localPosition += v;
         }
     }

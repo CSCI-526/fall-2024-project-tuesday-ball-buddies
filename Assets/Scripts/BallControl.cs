@@ -163,11 +163,14 @@ public class BallControl : MonoBehaviour
             {
                 Debug.Log("player won");
                 // upload the stage time to firestore
-                stageTimeManager.GameEnd();
-
                 hudManager.ShowWinMessage();
+
                 Time.timeScale = 0;
                 rb.velocity = Vector3.zero;
+                stageTimeManager.GameEnd();
+
+                
+                
             }
         }
         
@@ -202,17 +205,17 @@ public class BallControl : MonoBehaviour
     {
         if (checkpointManager != null && checkpointManager.HasCheckpoint())
         {
-            // Reset ball position and physics
-            transform.position = checkpointManager.GetLastCheckpoint();
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-
             // Reset platforms
             PlatformControl[] platforms = FindObjectsOfType<PlatformControl>();
             foreach (PlatformControl platform in platforms)
             {
                 platform.ResetPlatform();
             }
+
+            // Reset ball position and physics
+            transform.position = checkpointManager.GetLastCheckpoint();
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
 
             // Reset bridges
             BridgeControl[] bridges = FindObjectsOfType<BridgeControl>();
