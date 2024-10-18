@@ -16,7 +16,7 @@ public class BallControl : MonoBehaviour
     private Renderer ballRenderer; 
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
-    
+    private StageTimeManager stageTimeManager;
 
     void Start()
     {
@@ -24,6 +24,7 @@ public class BallControl : MonoBehaviour
         rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
         hudManager = FindObjectOfType<HUDManager>();
+        stageTimeManager = FindObjectOfType<StageTimeManager>();
 
         checkpointManager = CheckpointManager.Instance;
         if (checkpointManager == null)
@@ -151,6 +152,10 @@ public class BallControl : MonoBehaviour
         {
             if (hudManager != null)
             {
+                Debug.Log("player won");
+                // upload the stage time to firestore
+                stageTimeManager.GameEnd();
+
                 hudManager.ShowWinMessage();
                 Time.timeScale = 0;
                 rb.velocity = Vector3.zero;
