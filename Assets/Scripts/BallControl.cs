@@ -104,7 +104,6 @@ public class BallControl : MonoBehaviour
             currentPlatform = platform;
             currentPlatform.SetActive(true);
             
-            // Change the color of the child GameObject with "Platform" tag to a subtle light green
             Transform platformChild = currentPlatform.transform.Find("Platform");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
@@ -140,7 +139,7 @@ public class BallControl : MonoBehaviour
 
             if (ballRenderer != null)
             {
-                ballRenderer.material.color = new Color(0.25f, 0.41f, 0.88f);  // Blue
+                ballRenderer.material.color = new Color(0.7f, 1f, 0.7f); // Slightly more green
             }
 
             // ChangeColor(currentBridge.gameObject, Color.magenta);  /
