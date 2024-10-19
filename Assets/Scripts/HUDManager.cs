@@ -23,19 +23,21 @@ public class HUDManager : MonoBehaviour
     private void UpdatePlayer1HUD()
     {
         string controls = ballControl.onBridge ? "[ WASD ]  Move" : "[ Space ]  Jump";
-        Color ballColor = ballControl.GetComponent<Renderer>().material.color;
-        string colorHex = ColorUtility.ToHtmlStringRGB(ballColor);
-        player1HUD.text = $"<color=#{colorHex}>Player 1\n<size=60%>{controls}</size></color>";
+
+        string colorTag = !ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
+
+        string fontSize = ballControl.onBridge ? "130%" : "80%";
+        player1HUD.text = $"{colorTag}<size={fontSize}>Player 1</size>\n<size=70%>{controls}</size></color>";
     }
 
     private void UpdatePlayer2HUD()
     {
-        string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt" : "[ J ]  Stop Shrinking";
+        string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt" : "- DISABLED -";
         
-        string colorTag = ballControl.onBridge ? "<color=#FF00FF>" : "<color=#66CC66>";
-        // string colorTag = ballControl.onBridge ? "<color=white>" : "<color=#66CC66>";
+        string colorTag = ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
         
-        player2HUD.text = $"{colorTag}Player 2\n<size=60%>{controls}</size></color>";
+        string fontSize = !ballControl.onBridge ? "130%" : "80%";
+        player2HUD.text = $"{colorTag}<size={fontSize}>Player 2</size>\n<size=70%>{controls}</size></color>";
     }
 
     public void ShowWinMessage()
