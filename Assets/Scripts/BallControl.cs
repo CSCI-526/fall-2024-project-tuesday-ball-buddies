@@ -131,6 +131,8 @@ public class BallControl : MonoBehaviour
         BridgeControl bridge = collision.gameObject.GetComponentInParent<BridgeControl>();
         if (bridge != null)
         {
+
+            currentPlatform.SetActive(false);
             onBridge = true;
             canJump = false;
             transform.SetParent(null);

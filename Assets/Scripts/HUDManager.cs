@@ -26,7 +26,7 @@ public class HUDManager : MonoBehaviour
 
         string colorTag = !ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
 
-        string fontSize = ballControl.onBridge ? "130%" : "80%";
+        string fontSize = ballControl.onBridge ? "100%" : "100%";
         player1HUD.text = $"{colorTag}<size={fontSize}>Player 1</size>\n<size=70%>{controls}</size></color>";
     }
 
@@ -36,7 +36,7 @@ public class HUDManager : MonoBehaviour
         
         string colorTag = ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
         
-        string fontSize = !ballControl.onBridge ? "130%" : "80%";
+        string fontSize = !ballControl.onBridge ? "100%" : "100%";
         player2HUD.text = $"{colorTag}<size={fontSize}>Player 2</size>\n<size=70%>{controls}</size></color>";
     }
 
