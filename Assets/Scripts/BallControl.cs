@@ -18,6 +18,7 @@ public class BallControl : MonoBehaviour
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
     private StageTimeManager stageTimeManager;
+    private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
 
     void Start()
     {
@@ -297,8 +298,8 @@ public class BallControl : MonoBehaviour
         else
         {
             // If no checkpoint, reset to the starting position (you can set this as the original spawn position)
-            transform.position = new Vector3(-23, 12, 42);  // Adjust this to your ball's starting position
-            print("!");
+            transform.position = initialPosition;  
+            
         }
     }
 
