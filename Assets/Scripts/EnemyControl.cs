@@ -23,6 +23,8 @@ public class EnemyControl : MonoBehaviour
     private float colorChangeSpeed = 1f;
     private float lerpTime = 0f;
 
+    private DamageEffect[] damageEffects;  
+
     void Start()
     {
         if (waypoints.Count == 0)
@@ -49,6 +51,13 @@ public class EnemyControl : MonoBehaviour
         {
             Debug.LogWarning("No Renderer found in child objects! Color change will be skipped.");
         }
+
+        damageEffects = FindObjectsOfType<DamageEffect>();  // Change this line
+        if (damageEffects == null || damageEffects.Length == 0)
+        {
+            Debug.LogError("No DamageEffect instances found in the scene!");
+        }
+
     }
 
     void Update()
@@ -155,6 +164,16 @@ public class EnemyControl : MonoBehaviour
         BallControl ball = other.GetComponent<BallControl>();
         if (ball != null)
         {
+            // Trigger all damage effect pulses
+            foreach (var effect in damageEffects)  // Change this line
+            {
+                if (effect != null)
+                {
+                    effect.TriggerFlash();  // Ensure each DamageEffect triggers
+                }
+            }
+
+            // Restart from checkpoint or restart the game
             if (checkpointManager != null && checkpointManager.HasCheckpoint())
             {
                 Debug.Log("Restarting from checkpoint");
