@@ -12,6 +12,7 @@ TagManager:
   - Checkpoint
   - Enemy
   - Ball
+  - Hidden
   layers:
   - Default
   - TransparentFX

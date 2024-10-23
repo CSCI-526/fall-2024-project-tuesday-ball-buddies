@@ -191,10 +191,10 @@ public class BallControl : MonoBehaviour
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy") && !renderer.gameObject.CompareTag("Star"))
-            {
+            if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy") && !renderer.gameObject.CompareTag("Star") && !renderer.gameObject.CompareTag("Hidden"))
                 renderer.material.color = color;
-            }
+            if (renderer.gameObject.CompareTag("Hidden"))
+                GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ChangeOriginalMat(renderer.gameObject, color);
         }
     }
 
