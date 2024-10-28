@@ -177,6 +177,13 @@ public class BallControl : MonoBehaviour
             }
         }
         
+        // PowerUp
+        PowerUp powerUp = collision.gameObject.GetComponent<PowerUp>();
+        if (powerUp != null)
+        {
+            powerUp.ActivatePowerUp(this);
+            Destroy(powerUp.gameObject); // Remove the power-up after activation
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -317,5 +324,10 @@ public class BallControl : MonoBehaviour
         {
             Debug.LogError("CheckpointManager is null");
         }
+    }
+
+    public void SetJumpForce(float newJumpForce)
+    {
+        jumpForce = newJumpForce;
     }
 }

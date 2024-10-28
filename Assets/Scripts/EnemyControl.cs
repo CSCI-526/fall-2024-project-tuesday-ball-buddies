@@ -162,28 +162,19 @@ public class EnemyControl : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         BallControl ball = other.GetComponent<BallControl>();
-        if (ball != null)
+        if (ball != null && !gameObject.CompareTag("PowerUp"))
         {
             // Trigger all damage effect pulses
-            foreach (var effect in damageEffects)  // Change this line
+            foreach (var effect in damageEffects)
             {
                 if (effect != null)
                 {
-                    effect.TriggerFlash();  // Ensure each DamageEffect triggers
+                    effect.TriggerFlash();
                 }
             }
-
-            // Restart from checkpoint or restart the game
-            if (checkpointManager != null && checkpointManager.HasCheckpoint())
-            {
-                Debug.Log("Restarting from checkpoint");
-                ball.RestartFromCheckpoint();
-            }
-            else
-            {
-                Debug.Log("Restarting game");
-                ball.RestartGame();
-            }
+            
+            // Make the ball respawn
+            ball.RestartGame();
         }
     }
 }
