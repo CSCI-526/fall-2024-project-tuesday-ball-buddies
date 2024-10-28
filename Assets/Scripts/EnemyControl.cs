@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyControl : MonoBehaviour
 {
@@ -44,8 +45,10 @@ public class EnemyControl : MonoBehaviour
             Debug.LogError("CheckpointManager not found in the scene!");
         }
 
-        // Get all Renderer components from child objects
-        childRenderers = GetComponentsInChildren<Renderer>();
+        // Get all Renderer components from child objects, excluding PowerUps
+        childRenderers = GetComponentsInChildren<Renderer>()
+            .Where(r => !r.gameObject.CompareTag("PowerUp"))
+            .ToArray();
 
         if (childRenderers.Length == 0)
         {

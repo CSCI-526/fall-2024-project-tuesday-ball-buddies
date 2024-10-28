@@ -4,18 +4,57 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    public enum PowerUpType { Smaller, Bigger, HigherJump }
+    public enum PowerUpType { None, Smaller, Bigger, HigherJump }
     public PowerUpType powerUpType;
 
     void Start()
     {
-        // Ensure proper setup
+        // Get components once
+        Renderer renderer = GetComponent<Renderer>();
+        Collider collider = GetComponent<Collider>();
+
+        if (powerUpType == PowerUpType.None)
+        {
+            // Disable the renderer and collider for "None" type
+            if (renderer != null)
+            {
+                renderer.enabled = false;
+            }
+
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            return;  // Skip the rest of the setup for "None" type
+        }
+
+        // Regular power-up setup
         gameObject.tag = "PowerUp";
         
-        Collider collider = GetComponent<Collider>();
         if (collider != null)
         {
             collider.isTrigger = true;
+        }
+
+        // Create and set a new material that won't be shared
+        if (renderer != null)
+        {
+            Material powerUpMaterial = new Material(Shader.Find("Standard"));
+            
+            switch (powerUpType)
+            {
+                case PowerUpType.Smaller:
+                    powerUpMaterial.color = Color.blue;
+                    break;
+                case PowerUpType.Bigger:
+                    powerUpMaterial.color = Color.green;
+                    break;
+                case PowerUpType.HigherJump:
+                    powerUpMaterial.color = Color.yellow;
+                    break;
+            }
+            
+            renderer.material = powerUpMaterial;
         }
     }
 
@@ -25,7 +64,6 @@ public class PowerUp : MonoBehaviour
         if (ball != null)
         {
             ActivatePowerUp(ball);
-            // Destroy the parent enemy object instead of just the power-up
             Destroy(transform.parent.gameObject);
         }
     }
