@@ -19,6 +19,7 @@ public class BallControl : MonoBehaviour
     private CheckpointManager checkpointManager;
     private StageTimeManager stageTimeManager;
     private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
+    private Timer timer;
 
     void Start()
     {
@@ -33,6 +34,8 @@ public class BallControl : MonoBehaviour
         {
             Debug.LogError("CheckpointManager not found in the scene!");
         }
+
+        timer = FindObjectOfType<Timer>();
     }
 
     void Update()
@@ -92,6 +95,12 @@ public class BallControl : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         collisionCount++;
+
+        //TIMER: start time on level 1
+        if (collision.gameObject.name == "Level1")
+        {
+            timer.StartTimer();
+        }
 
         //PLATFORM
         PlatformControl platform = collision.gameObject.GetComponent<PlatformControl>();
