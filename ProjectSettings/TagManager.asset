@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - Ball
   - Hidden
+  - PowerUp
   layers:
   - Default
   - TransparentFX

@@ -12953,7 +12953,7 @@ MonoBehaviour:
   player: {fileID: 147727840}
   hudCanvas: {fileID: 157378924}
   hudManager: {fileID: 157378921}
-  hiddenMaterial: {fileID: 2100000, guid: be838deaa28ab4702b5f726ae4db50e4, type: 2}
+  hiddenMaterial: {fileID: 0}
 --- !u!81 &1576224670
 AudioListener:
   m_ObjectHideFlags: 0
