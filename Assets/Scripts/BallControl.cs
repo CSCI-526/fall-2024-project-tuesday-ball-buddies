@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class BallControl : MonoBehaviour
 {
@@ -54,6 +55,18 @@ public class BallControl : MonoBehaviour
         }
         if (transform.position.y < fallThreshold || Input.GetKeyDown(KeyCode.R))
         {
+            if (transform.position.y < fallThreshold)
+            {
+                Debug.Log("Fell off the map");
+                StartCoroutine(UploadDeathCause("falling"));
+                
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                Debug.Log("Player reset");
+                StartCoroutine(UploadDeathCause("player reset"));
+            }
+            
             Debug.Log("Respawn");
             if (checkpointManager == null)
             {
@@ -276,6 +289,7 @@ public class BallControl : MonoBehaviour
 
     public void RestartGame()
     {
+        
         // Reset ball's velocity and angular velocity
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -338,5 +352,32 @@ public class BallControl : MonoBehaviour
     public void SetJumpForce(float newJumpForce)
     {
         jumpForce = newJumpForce;
+    }
+    
+    IEnumerator UploadDeathCause(string cause)
+    {
+        Debug.Log("Uploading death cause: " + cause);
+        UploadDeathData uploadDeathData = new UploadDeathData
+        {
+            type = "death_cause",
+            data = cause
+        };
+        
+        
+        
+        string causeData = JsonUtility.ToJson(uploadDeathData);
+        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", causeData, "application/json"))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                Debug.Log("Data upload complete!" + cause);
+            }
+        }
     }
 }

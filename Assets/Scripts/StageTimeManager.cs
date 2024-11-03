@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[System.Serializable]
-public class SerializableList<T>
-{
-    public List<T> list;
-}
 
 public class StageTimeManager : MonoBehaviour
 {
@@ -35,7 +30,13 @@ public class StageTimeManager : MonoBehaviour
 
     IEnumerator Upload()
     {
-        string timeData = JsonUtility.ToJson(timeList);
+        UploadTimeSpentData<string> uploadTimeSpentData = new UploadTimeSpentData<string>
+        {
+            type = "time_spent",
+            data = timeList
+        };
+        
+        string timeData = JsonUtility.ToJson(uploadTimeSpentData);
         using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", timeData, "application/json"))
         {
             yield return www.SendWebRequest();
