@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class BallControl : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class BallControl : MonoBehaviour
     private Renderer ballRenderer; 
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
-
+    private StageTimeManager stageTimeManager;
     private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
     private Timer timer;
 
@@ -59,6 +60,18 @@ public class BallControl : MonoBehaviour
         }
         if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !hudManager.gameWon))
         {
+            if (transform.position.y < fallThreshold)
+            {
+                Debug.Log("Fell off the map");
+                StartCoroutine(UploadDeathCause("falling"));
+                
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                Debug.Log("Player reset");
+                StartCoroutine(UploadDeathCause("player reset"));
+            }
+            
             // if (gameEndManager.GetIfGameEnded())
             //     return;
 
@@ -363,5 +376,32 @@ public class BallControl : MonoBehaviour
     public void SetJumpForce(float newJumpForce)
     {
         jumpForce = newJumpForce;
+    }
+    
+    IEnumerator UploadDeathCause(string cause)
+    {
+        Debug.Log("Uploading death cause: " + cause);
+        UploadDeathData uploadDeathData = new UploadDeathData
+        {
+            type = "death_cause",
+            data = cause
+        };
+        
+        
+        
+        string causeData = JsonUtility.ToJson(uploadDeathData);
+        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", causeData, "application/json"))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                Debug.Log("Data upload complete!" + cause);
+            }
+        }
     }
 }
