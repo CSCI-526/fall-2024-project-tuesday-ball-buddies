@@ -6,14 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using TMPro;
-using System.Text.Json;
 
 public class GameEndManager : MonoBehaviour
 {
     private StageTimeManager stageTimeManager;
     private FirestoreApiManager firestoreApiManager;
     private BallControl ballControl;
-
+    private HUDManager hudManager; 
     public GameObject endPanel;
     public TMP_Text star;
     public TMP_Text time;
@@ -37,6 +36,7 @@ public class GameEndManager : MonoBehaviour
         stageTimeManager = FindObjectOfType<StageTimeManager>();
         firestoreApiManager = FindObjectOfType<FirestoreApiManager>();
         ballControl = FindObjectOfType<BallControl>();
+        hudManager = FindObjectOfType<HUDManager>();
     }
 
     public bool GetIfGameEnded(){
@@ -47,7 +47,16 @@ public class GameEndManager : MonoBehaviour
     {
         string playerName = inputField.text;
 
-        string jsonData = $"{{ \"player\": \"{playerName}\", \"star\": \"{starCount}\", \"time\": \"{timeSpent}\" }}";
+        // Populate the data
+        PlayerData data = new PlayerData
+        {
+            player = playerName,
+            star = starCount,
+            time = timeSpent
+        };
+
+        // Convert to JSON
+        string jsonData = JsonUtility.ToJson(data);
 
         firestoreApiManager.UploadAllWrap(jsonData);
 
@@ -59,6 +68,8 @@ public class GameEndManager : MonoBehaviour
     {
         Time.timeScale = 1; 
         SceneManager.LoadScene("Beta-Bridge");
+        hudManager.setGameWon(false);
+        Debug.Log("hudManager.gameWon" + hudManager.getGameWon());
     }
 
     public void OnRestart()
@@ -85,12 +96,18 @@ public class GameEndManager : MonoBehaviour
         star.text = $"Star: {starCount}";
         time.text = $"Time: {timeSpent}";
 
-        // Show the end game panel
         if (endPanel != null)
             endPanel.SetActive(true);
 
-        string jsonParam = $"{{ \"star_count\": \"{starCount}\", \"stage_level\": \"1\" }}";
-        firestoreApiManager.GetLeaderboardWrap(jsonParam);
+        // Create leaderboard data
+        LeaderboardData leaderboardData = new LeaderboardData
+        {
+            star_count = starCount,
+            stage_level = "1"
+        };
 
+        // Convert to JSON
+        string jsonParam = JsonUtility.ToJson(leaderboardData);
+        firestoreApiManager.GetLeaderboardWrap(jsonParam);
     }
 }

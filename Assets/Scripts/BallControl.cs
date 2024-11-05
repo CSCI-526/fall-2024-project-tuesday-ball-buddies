@@ -57,7 +57,7 @@ public class BallControl : MonoBehaviour
                 canJump = false;  
             }
         }
-        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !hudManager.gameWon))
+        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !hudManager.getGameWon()))
         {
             if (transform.position.y < fallThreshold)
             {
@@ -95,6 +95,9 @@ public class BallControl : MonoBehaviour
                 Debug.Log("Restarting game");
                 RestartGame();
             }
+        } else if (Input.GetKeyDown(KeyCode.R) && hudManager.getGameWon())
+        {
+            Debug.Log("Already won, NOT restarting game");
         }
     }
 
@@ -211,7 +214,7 @@ public class BallControl : MonoBehaviour
             {
                 Debug.Log("player won");
                 // upload the stage time to firestore
-                hudManager.ShowWinMessage();
+                hudManager.setGameWon(true);
 
                 Time.timeScale = 0;
                 rb.velocity = Vector3.zero;

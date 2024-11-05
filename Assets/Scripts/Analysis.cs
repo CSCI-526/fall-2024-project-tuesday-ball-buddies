@@ -22,3 +22,20 @@ public class UploadDeathData
     public string type;
     public string data;
 }
+
+
+[System.Serializable]
+public class PlayerData
+{
+    public string player;
+    public int star;
+    public string time;
+}
+
+
+[System.Serializable]
+public class LeaderboardData
+{
+    public int star_count;
+    public string stage_level;
+}
