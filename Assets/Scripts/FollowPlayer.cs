@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class FollowPlayer : MonoBehaviour
     public HUDManager hudManager;
 
     public Material hiddenMaterial;
+    public float transparencyFadeSpeed = 0.05f;
 
     private List<GameObject> hiddenObjs = new List<GameObject>();
     private List<bool> hiddenObjsTest = new List<bool>();
@@ -35,17 +37,27 @@ public class FollowPlayer : MonoBehaviour
                 break;
             int index = hiddenObjs.IndexOf(hit.collider.gameObject);
             if (index != -1)
+            {
                 hiddenObjsTest[index] = true;
+                Renderer renderer = hit.collider.transform.GetComponent<Renderer>();
+                Color rgba = renderer.gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
+                rgba.a = Mathf.Max(rgba.a - transparencyFadeSpeed, 0.0f);
+                renderer.material.SetColor("_Color", rgba);
+            }
             else
             {
                 Renderer renderer = hit.collider.transform.GetComponent<Renderer>();
                 if (renderer != null && hiddenMaterial != null && renderer.gameObject.tag == "Untagged")
                 {
+                    Color rgba = renderer.gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
+
                     hiddenObjs.Add(hit.collider.gameObject);
                     hiddenObjsTest.Add(true);
                     if (!originalMats.ContainsKey(hit.collider.gameObject))
                         originalMats[hit.collider.gameObject] = renderer.material;
-                    renderer.material = hiddenMaterial;
+                    Material mat = Instantiate(hiddenMaterial);
+                    mat.SetColor("_Color", rgba);
+                    renderer.material = mat;
                     renderer.gameObject.tag = "Hidden";
                 }
             }
@@ -57,11 +69,21 @@ public class FollowPlayer : MonoBehaviour
                 Renderer renderer = hiddenObjs[i].GetComponent<Renderer>();
                 if (renderer != null && originalMats.ContainsKey(hiddenObjs[i]))
                 {
-                    renderer.material = originalMats[hiddenObjs[i]];
-                    renderer.gameObject.tag = "Untagged";
-                    originalMats.Remove(hiddenObjs[i]);
-                    hiddenObjs.RemoveAt(i);
-                    hiddenObjsTest.RemoveAt(i);
+                    Material mat = renderer.material;
+                    Color rgba = renderer.gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
+                    if (rgba.a >= 1.0f)
+                    {
+                        renderer.material = originalMats[hiddenObjs[i]];
+                        renderer.gameObject.tag = "Untagged";
+                        originalMats.Remove(hiddenObjs[i]);
+                        hiddenObjs.RemoveAt(i);
+                        hiddenObjsTest.RemoveAt(i);
+                    }
+                    else
+                    {
+                        rgba.a = Mathf.Min(rgba.a + transparencyFadeSpeed, 1.0f);
+                        renderer.material.SetColor("_Color", rgba);
+                    }
                 }
             }
         }
