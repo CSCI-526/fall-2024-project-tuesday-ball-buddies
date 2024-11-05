@@ -17,9 +17,12 @@ public class BallControl : MonoBehaviour
     private Renderer ballRenderer; 
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
-    private StageTimeManager stageTimeManager;
-    private Vector3 initialPosition = new Vector3(-22, 40, 40); 
+
+    private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
     private Timer timer;
+
+    private GameEndManager gameEndManager;
+    private StageTimeManager stageTimeManager;
 
     void Start()
     {
@@ -27,7 +30,9 @@ public class BallControl : MonoBehaviour
         rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
         hudManager = FindObjectOfType<HUDManager>();
-        stageTimeManager = FindObjectOfType<StageTimeManager>();
+        gameEndManager = FindAnyObjectByType<GameEndManager>();
+        stageTimeManager = FindAnyObjectByType<StageTimeManager>();
+
 
         checkpointManager = CheckpointManager.Instance;
         if (checkpointManager == null)
@@ -54,6 +59,9 @@ public class BallControl : MonoBehaviour
         }
         if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !hudManager.gameWon))
         {
+            // if (gameEndManager.GetIfGameEnded())
+            //     return;
+
             Debug.Log("Respawn");
             if (checkpointManager == null)
             {
@@ -76,6 +84,22 @@ public class BallControl : MonoBehaviour
                 RestartGame();
             }
         }
+    }
+
+    public void HandleRestart()
+    {
+        Debug.Log("Restarting game");
+
+        if (checkpointManager == null)
+        {
+            Debug.LogError("CheckpointManager is null");
+        }
+        else
+        {
+            Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
+        }
+
+        RestartGame();
     }
 
     void ApplyJump()
@@ -179,10 +203,11 @@ public class BallControl : MonoBehaviour
 
                 Time.timeScale = 0;
                 rb.velocity = Vector3.zero;
-                stageTimeManager.GameEnd();
 
-                
-                
+                stageTimeManager.AddTimestamp();
+                gameEndManager.HandleGameEnd();
+
+
             }
         }
         

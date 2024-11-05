@@ -17,8 +17,7 @@ public class HUDManager : MonoBehaviour
     {
         if (!gameWon)
         {
-            UpdatePlayerHUD();
-            // UpdatePlayer1HUD();
+            UpdatePlayer1HUD();
             // UpdatePlayer2HUD();
         }
     }
@@ -72,9 +71,7 @@ public class HUDManager : MonoBehaviour
     public void ShowWinMessage()
     {
         gameWon = true;
-        // player1HUD.text = "<color=#FFD700>You Won!</color>";
+        player1HUD.text = "<color=#FFD700>You Won!</color>";
         // player2HUD.text = "<color=#FFD700>You Won!</color>";
-        playerHUDPanel.SetActive(true); // Show panel for win message
-        playerHUD.text = "<color=#FFD700>You Won!</color>";
     }
 }

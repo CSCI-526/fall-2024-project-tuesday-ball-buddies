@@ -21,33 +21,18 @@ public class StageTimeManager : MonoBehaviour
         timer = FindObjectOfType<Timer>();
     }
 
-    public void EnterCheckpoint()
+    public void AddTimestamp()
     {
         timeList.list.Add(timer.getTime());
     }
 
-    public void GameEnd()
+    public void ResetTimestamp()
     {
-        timeList.list.Add(timer.getTime());
-
-        StartCoroutine(Upload());
+        timeList = new SerializableList<string>();
+    }
+    public List<string> GetCheckpointTime()
+    {
+        return timeList.list;
     }
 
-    IEnumerator Upload()
-    {
-        string timeData = JsonUtility.ToJson(timeList);
-        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", timeData, "application/json"))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                Debug.Log("Data upload complete!");
-            }
-        }
-    }
 }

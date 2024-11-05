@@ -103,11 +103,11 @@ public class EnemyControl : MonoBehaviour
         // Debug.Log("moveSpeed * Time.fixedDeltaTime" + moveSpeed * Time.fixedDeltaTime);
         if (res)
         {
-            Debug.Log("reached");
+            //Debug.Log("reached");
         }
         else
         {
-            Debug.Log("Not reached");
+            //Debug.Log("Not reached");
         }
 
         return res;

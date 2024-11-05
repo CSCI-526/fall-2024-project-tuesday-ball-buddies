@@ -29,7 +29,7 @@ public class CheckpointPlane : MonoBehaviour
             checkpointEntered = true;
 
             // Record the time
-            stageTimeManager.EnterCheckpoint();
+            stageTimeManager.AddTimestamp();
 
             // Change the color of the checkpoint to green
             ChangeCheckpointColor(Color.green);
