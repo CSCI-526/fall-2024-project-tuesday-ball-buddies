@@ -9,6 +9,7 @@ public class HUDManager : MonoBehaviour
     public TMP_Text player2HUD;
     public TMP_Text playerHUD;
     public BallControl ballControl;
+    public GameObject playerHUDPanel;
     
     private bool gameWon = false;
 
@@ -44,7 +45,20 @@ public class HUDManager : MonoBehaviour
     
     private void UpdatePlayerHUD()
     {
-        string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt\n[ Space ]  Jump" : "[ WASD ]  Move";
+        if (!ballControl.onBridge)
+        {
+            playerHUDPanel.SetActive(true); // Show panel background
+            playerHUD.text = "<color=#66CC66>" +
+                          "<size=100%>Player Control</size>\n" +
+                          "<size=70%>[ Arrows ]  Tilt\n[ Space ]  Jump</size>" +
+                          "</color>";
+        } else {
+            playerHUDPanel.SetActive(false); // Hide panel background
+            playerHUD.text = "";
+        }
+
+
+        /*string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt\n[ Space ]  Jump" : "[ WASD ]  Move";
         
         string colorTag = ballControl.onBridge ? "<color=#FFA07A>" : "<color=#66CC66>";
         
@@ -52,7 +66,7 @@ public class HUDManager : MonoBehaviour
         playerHUD.text = $"{colorTag}" +
                           $"<size={fontSize}>Player Control</size>\n" +
                           $"<size=70%>{controls}</size>" +
-                          $"</color>";
+                          $"</color>";*/
     }
 
     public void ShowWinMessage()
@@ -60,6 +74,7 @@ public class HUDManager : MonoBehaviour
         gameWon = true;
         // player1HUD.text = "<color=#FFD700>You Won!</color>";
         // player2HUD.text = "<color=#FFD700>You Won!</color>";
+        playerHUDPanel.SetActive(true); // Show panel for win message
         playerHUD.text = "<color=#FFD700>You Won!</color>";
     }
 }

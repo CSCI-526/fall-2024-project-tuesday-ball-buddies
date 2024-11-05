@@ -42,7 +42,7 @@ public class BallControl : MonoBehaviour
     {
         if (onBridge)
         {
-            HandleMovement();
+            //HandleMovement();
         } 
         else 
         {
@@ -141,7 +141,7 @@ public class BallControl : MonoBehaviour
         if (bridge != null)
         {
 
-            currentPlatform.SetActive(false);
+            //currentPlatform.SetActive(false);
             onBridge = true;
             canJump = false;
             transform.SetParent(null);
@@ -149,11 +149,11 @@ public class BallControl : MonoBehaviour
             if (currentBridge != null && currentBridge != bridge)
             {
                 ChangeColor(currentBridge.gameObject, Color.white);  
-                currentBridge.SetActive(false);
+                //currentBridge.SetActive(false);
             }
 
             currentBridge = bridge;
-            currentBridge.SetActive(true);
+            //currentBridge.SetActive(true);
 
             if (ballRenderer != null)
             {
