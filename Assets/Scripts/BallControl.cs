@@ -18,7 +18,6 @@ public class BallControl : MonoBehaviour
     private Renderer ballRenderer; 
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
-    private StageTimeManager stageTimeManager;
     private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
     private Timer timer;
 
