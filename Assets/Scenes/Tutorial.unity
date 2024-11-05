@@ -3408,7 +3408,7 @@ Light:
   m_CookieSize: 5
   m_Shadows:
     m_Type: 1
-    m_Resolution: 0
+    m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.75
     m_Bias: 0.05
@@ -7157,7 +7157,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 904385678}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1990903847}
+        m_TargetAssemblyTypeName: GameEndManager, Assembly-CSharp
+        m_MethodName: OnRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &904385678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11951,6 +11963,7 @@ MonoBehaviour:
   hudCanvas: {fileID: 157378924}
   hudManager: {fileID: 157378921}
   hiddenMaterial: {fileID: 2100000, guid: be838deaa28ab4702b5f726ae4db50e4, type: 2}
+  transparencyFadeSpeed: 0.05
 --- !u!81 &1576224670
 AudioListener:
   m_ObjectHideFlags: 0
