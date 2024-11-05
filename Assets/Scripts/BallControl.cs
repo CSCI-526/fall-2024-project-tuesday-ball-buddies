@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class BallControl : MonoBehaviour
 {
@@ -225,7 +227,8 @@ public class BallControl : MonoBehaviour
                 gameEndManager.HandleGameEnd();
 
                 // Call the UploadStarData method
-                starAnalysis.UploadStarData();
+                if (SceneManager.GetActiveScene().name != "Tutorial")
+                    starAnalysis.UploadStarData();
             }
         }
         
