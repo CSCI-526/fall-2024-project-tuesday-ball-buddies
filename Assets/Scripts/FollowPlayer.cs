@@ -89,8 +89,15 @@ public class FollowPlayer : MonoBehaviour
         }
     }
 
-    public void ChangeOriginalMat(GameObject obj, Color color)
+    public void ChangeMat(GameObject obj, Color color)
     {
         originalMats[obj].color = color;
+        Renderer renderer = obj.GetComponent<Renderer>();
+        Material mat = renderer.material;
+        Color rgba = renderer.gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
+        rgba.r = color.r;
+        rgba.g = color.g;
+        rgba.b = color.b;
+        renderer.material.SetColor("_Color", rgba);
     }
 }

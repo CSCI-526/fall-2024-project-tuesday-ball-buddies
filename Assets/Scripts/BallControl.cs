@@ -255,7 +255,7 @@ public class BallControl : MonoBehaviour
             if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy") && !renderer.gameObject.CompareTag("Star") && !renderer.gameObject.CompareTag("Hidden"))
                 renderer.material.color = color;
             if (renderer.gameObject.CompareTag("Hidden"))
-                GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ChangeOriginalMat(renderer.gameObject, color);
+                GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ChangeMat(renderer.gameObject, color);
         }
     }
 
