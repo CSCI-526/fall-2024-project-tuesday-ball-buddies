@@ -58,7 +58,7 @@ public class GameEndManager : MonoBehaviour
     public void OnNext()
     {
         Time.timeScale = 1; 
-        SceneManager.LoadScene("Beta-Leaderboard");
+        SceneManager.LoadScene("Beta-Bridge");
     }
 
     public void OnRestart()

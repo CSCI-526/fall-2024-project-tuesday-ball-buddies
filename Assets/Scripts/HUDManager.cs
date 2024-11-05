@@ -5,11 +5,11 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
-    public TMP_Text player1HUD;
-    public TMP_Text player2HUD;
-    public TMP_Text playerHUD;
+    // public TMP_Text player1HUD;
+    // public TMP_Text player2HUD;
+    // public TMP_Text playerHUD;
     public BallControl ballControl;
-    public GameObject playerHUDPanel;
+    // public GameObject playerHUDPanel;
     
     public bool gameWon = false;
 
@@ -17,7 +17,7 @@ public class HUDManager : MonoBehaviour
     {
         if (!gameWon)
         {
-            UpdatePlayer1HUD();
+            // UpdatePlayer1HUD();
             // UpdatePlayer2HUD();
         }
     }
@@ -44,17 +44,17 @@ public class HUDManager : MonoBehaviour
     
     private void UpdatePlayerHUD()
     {
-        if (!ballControl.onBridge)
-        {
-            playerHUDPanel.SetActive(true); // Show panel background
-            playerHUD.text = "<color=#66CC66>" +
-                          "<size=100%>Player Control</size>\n" +
-                          "<size=70%>[ Arrows ]  Tilt\n[ Space ]  Jump</size>" +
-                          "</color>";
-        } else {
-            playerHUDPanel.SetActive(false); // Hide panel background
-            playerHUD.text = "";
-        }
+        // if (!ballControl.onBridge)
+        // {
+        //     playerHUDPanel.SetActive(true); // Show panel background
+        //     playerHUD.text = "<color=#66CC66>" +
+        //                   "<size=100%>Player Control</size>\n" +
+        //                   "<size=70%>[ Arrows ]  Tilt\n[ Space ]  Jump</size>" +
+        //                   "</color>";
+        // } else {
+        //     playerHUDPanel.SetActive(false); // Hide panel background
+        //     playerHUD.text = "";
+        // }
 
 
         /*string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt\n[ Space ]  Jump" : "[ WASD ]  Move";
@@ -71,7 +71,7 @@ public class HUDManager : MonoBehaviour
     public void ShowWinMessage()
     {
         gameWon = true;
-        player1HUD.text = "<color=#FFD700>You Won!</color>";
+        // player1HUD.text = "<color=#FFD700>You Won!</color>";
         // player2HUD.text = "<color=#FFD700>You Won!</color>";
     }
 }

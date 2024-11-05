@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Alpha-New.unity
     guid: cd357f1a8e1a2412382623467518b768
+  - enabled: 1
+    path: Assets/Scenes/Beta-Bridge.unity
+    guid: 805dfeb8f899d4b728085f12ed53815c
   m_configObjects: {}
