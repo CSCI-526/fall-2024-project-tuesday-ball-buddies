@@ -867,6 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onBridge: 0
+  starAnalysis: {fileID: 0}
 --- !u!54 &147727842
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5165,12 +5166,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 599275617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391a4718d7c3f4eee859501759ed9816, type: 3}
+  m_Script: {fileID: 11500000, guid: d8fd0d63b07264f809d4e46a6dcd0bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 0
-  levelToggles: []
-  toggleIndex: 0
 --- !u!1 &606672387
 GameObject:
   m_ObjectHideFlags: 0
@@ -15396,6 +15394,7 @@ MonoBehaviour:
   - {fileID: 554018789}
   - {fileID: 976129540}
   - {fileID: 2048232233}
+  starAnalysis: {fileID: 0}
 --- !u!4 &2051607565
 Transform:
   m_ObjectHideFlags: 0
