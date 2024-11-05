@@ -23,10 +23,12 @@ public class PlatformControl : MonoBehaviour
     {
         if (isActive)
         {
-            float rotationX = Input.GetKey(KeyCode.UpArrow) ? sensitivity * Time.deltaTime :
-                              Input.GetKey(KeyCode.DownArrow) ? -sensitivity * Time.deltaTime : 0f;
-            float rotationZ = Input.GetKey(KeyCode.LeftArrow) ? sensitivity * Time.deltaTime :
-                              Input.GetKey(KeyCode.RightArrow) ? -sensitivity * Time.deltaTime : 0f;
+            float rotationX = Input.GetAxis("Vertical") * sensitivity * Time.deltaTime;
+            float rotationZ = -Input.GetAxis("Horizontal") * sensitivity * Time.deltaTime;
+            // float rotationX = Input.GetKey(KeyCode.Horizontal) ? sensitivity * Time.deltaTime :
+            //                   Input.GetKey(KeyCode.Vertical) ? -sensitivity * Time.deltaTime : 0f;
+            // float rotationZ = Input.GetKey(KeyCode.Horizontal) ? sensitivity * Time.deltaTime :
+            //                   Input.GetKey(KeyCode.Vertical) ? -sensitivity * Time.deltaTime : 0f;
 
             currentRotation.x += rotationX;
             currentRotation.z += rotationZ;
