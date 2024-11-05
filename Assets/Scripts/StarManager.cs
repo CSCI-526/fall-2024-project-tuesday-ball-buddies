@@ -10,6 +10,9 @@ public class StarManager : MonoBehaviour
     public Toggle[] level2Toggles;
     public Toggle[] level3Toggles;
 
+    // Reference to StarAnalysis
+    public StarAnalysis starAnalysis;
+
     void Start()
     {
         // Find all objects with StarControl in the scene
@@ -35,5 +38,11 @@ public class StarManager : MonoBehaviour
                 Debug.LogError("Invalid level index for star: " + star.name);
             }
         }
+    }
+
+    // Call this method when a star is collected
+    public void RecordStar(int levelIndex)
+    {
+        starAnalysis.RecordStar(levelIndex);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StarControl : MonoBehaviour
 {
     public static int starCount = 0;
+    public StarAnalysis starAnalysis; // Reference to StarAnalysis
 
     // Index of the level this star belongs to
     public int levelIndex;  // 0 for level 1, 1 for level 2, 2 for level 3
@@ -22,6 +23,9 @@ public class StarControl : MonoBehaviour
         {
             // Increment the star count
             starCount++;
+
+            // Record the star collection in StarAnalysis
+            starAnalysis.RecordStar(levelIndex + 1); // levelIndex is 0-based, so add 1
 
             // Update the corresponding toggle color to yellow
             ChangeToggleColor(toggleIndex, Color.yellow);

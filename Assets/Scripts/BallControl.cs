@@ -24,6 +24,8 @@ public class BallControl : MonoBehaviour
     private GameEndManager gameEndManager;
     private StageTimeManager stageTimeManager;
 
+    public StarAnalysis starAnalysis; // Reference to StarAnalysis
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -212,8 +214,8 @@ public class BallControl : MonoBehaviour
         {
             if (hudManager != null)
             {
-                Debug.Log("player won");
-                // upload the stage time to firestore
+                Debug.Log("Player won");
+                // Upload the stage time to Firestore
                 hudManager.setGameWon(true);
 
                 Time.timeScale = 0;
@@ -222,7 +224,8 @@ public class BallControl : MonoBehaviour
                 stageTimeManager.AddTimestamp();
                 gameEndManager.HandleGameEnd();
 
-
+                // Call the UploadStarData method
+                starAnalysis.UploadStarData();
             }
         }
         
