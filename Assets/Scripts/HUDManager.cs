@@ -16,7 +16,7 @@ public class HUDManager : MonoBehaviour
         if (!gameWon)
         {
             UpdatePlayer1HUD();
-            UpdatePlayer2HUD();
+            // UpdatePlayer2HUD();
         }
     }
 
@@ -44,6 +44,6 @@ public class HUDManager : MonoBehaviour
     {
         gameWon = true;
         player1HUD.text = "<color=#FFD700>You Won!</color>";
-        player2HUD.text = "<color=#FFD700>You Won!</color>";
+        // player2HUD.text = "<color=#FFD700>You Won!</color>";
     }
 }
