@@ -9,7 +9,7 @@ public class BallControl : MonoBehaviour
 {
     private float jumpForce = 4000f;  
     private float moveForce = 40000f;  
-    private float fallThreshold = -50f;  
+    private float fallThreshold = -75f;  
     public bool onBridge = false;  
     private bool canJump = true;
     private int collisionCount = 0;
