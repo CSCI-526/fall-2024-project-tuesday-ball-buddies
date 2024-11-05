@@ -28,7 +28,7 @@ public class GameEndManager : MonoBehaviour
     // replay button
 
     private string timeSpent;
-    private int starCount;
+    private int starCount; 
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +67,7 @@ public class GameEndManager : MonoBehaviour
     public void OnNext()
     {
         Time.timeScale = 1; 
+        StarControl.starCount = 0; //clear starCount back to 0
         SceneManager.LoadScene("Beta-Bridge");
         hudManager.setGameWon(false);
         Debug.Log("hudManager.gameWon" + hudManager.getGameWon());
