@@ -25,10 +25,13 @@ public class StarControl : MonoBehaviour
             starCount++;
 
             // Record the star collection in StarAnalysis
-            starAnalysis.RecordStar(levelIndex + 1); // levelIndex is 0-based, so add 1
+            if (levelIndex != -1)
+            {
+                starAnalysis.RecordStar(levelIndex + 1); // levelIndex is 0-based, so add 1
 
-            // Update the corresponding toggle color to yellow
-            ChangeToggleColor(toggleIndex, Color.yellow);
+                // Update the corresponding toggle color to yellow
+                ChangeToggleColor(toggleIndex, Color.yellow);
+            }
 
             // Destroy the star object to make it disappear
             Destroy(gameObject);
@@ -45,7 +48,7 @@ public class StarControl : MonoBehaviour
             cb.normalColor = color;  // Change the normal color to yellow
             levelToggles[index].colors = cb;
         }
-        else
+        else if (index != -1)
         {
             Debug.LogWarning("Toggle index out of range or level toggles not assigned!");
         }

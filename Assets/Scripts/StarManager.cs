@@ -33,7 +33,7 @@ public class StarManager : MonoBehaviour
             {
                 star.levelToggles = level3Toggles;
             }
-            else
+            else if (star.levelIndex != -1)
             {
                 Debug.LogError("Invalid level index for star: " + star.name);
             }
