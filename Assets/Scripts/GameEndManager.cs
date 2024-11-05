@@ -69,6 +69,7 @@ public class GameEndManager : MonoBehaviour
         isGameEnded = false;
         stageTimeManager.ResetTimestamp();
 
+        SceneManager.LoadScene("Beta-Bridge");
         ballControl.HandleRestart();
     }
 
