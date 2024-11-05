@@ -18,7 +18,7 @@ public class BallControl : MonoBehaviour
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
     private StageTimeManager stageTimeManager;
-    private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
+    private Vector3 initialPosition = new Vector3(-22, 40, 40); 
     private Timer timer;
 
     void Start()
@@ -49,10 +49,10 @@ public class BallControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canJump)
             {
                 ApplyJump();
-                canJump = false;  // Prevent double jump
+                canJump = false;  
             }
         }
-        if (transform.position.y < fallThreshold || Input.GetKeyDown(KeyCode.R))
+        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !hudManager.gameWon))
         {
             Debug.Log("Respawn");
             if (checkpointManager == null)
@@ -191,7 +191,7 @@ public class BallControl : MonoBehaviour
         if (powerUp != null)
         {
             powerUp.ActivatePowerUp(this);
-            Destroy(powerUp.gameObject); // Remove the power-up after activation
+            Destroy(powerUp.gameObject); 
         }
     }
 

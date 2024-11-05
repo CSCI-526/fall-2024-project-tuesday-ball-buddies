@@ -10,7 +10,7 @@ public class HUDManager : MonoBehaviour
     public TMP_Text playerHUD;
     public BallControl ballControl;
     
-    private bool gameWon = false;
+    public bool gameWon = false;
 
     private void Update()
     {
@@ -22,25 +22,25 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer1HUD()
-    {
-        string controls = ballControl.onBridge ? "[ WASD ]  Move" : "[ Space ]  Jump";
+    // private void UpdatePlayer1HUD()
+    // {
+    //     string controls = ballControl.onBridge ? "[ WASD ]  Move" : "[ Space ]  Jump";
 
-        string colorTag = !ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
+    //     string colorTag = !ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
 
-        string fontSize = ballControl.onBridge ? "100%" : "100%";
-        player1HUD.text = $"{colorTag}<size={fontSize}>Player 1</size>\n<size=70%>{controls}</size></color>";
-    }
+    //     string fontSize = ballControl.onBridge ? "100%" : "100%";
+    //     player1HUD.text = $"{colorTag}<size={fontSize}>Player 1</size>\n<size=70%>{controls}</size></color>";
+    // }
 
-    private void UpdatePlayer2HUD()
-    {
-        string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt" : "- DISABLED -";
+    // private void UpdatePlayer2HUD()
+    // {
+    //     string controls = !ballControl.onBridge ? "[ Arrows ]  Tilt" : "- DISABLED -";
         
-        string colorTag = ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
+    //     string colorTag = ballControl.onBridge ? "<color=#FFFFFF>" : "<color=#66CC66>";
         
-        string fontSize = !ballControl.onBridge ? "100%" : "100%";
-        player2HUD.text = $"{colorTag}<size={fontSize}>Player 2</size>\n<size=70%>{controls}</size></color>";
-    }
+    //     string fontSize = !ballControl.onBridge ? "100%" : "100%";
+    //     player2HUD.text = $"{colorTag}<size={fontSize}>Player 2</size>\n<size=70%>{controls}</size></color>";
+    // }
     
     private void UpdatePlayerHUD()
     {
