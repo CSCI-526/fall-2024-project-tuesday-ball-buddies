@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class StarControl : MonoBehaviour
 {
+    [Header("Floating Settings")]
+    public float floatStrength = 0.5f;
+    public float floatSpeed = 1f;
+    public float rotationSpeed = 30f;
+    private Vector3 localStartPos;
+
+    [Header("Score & Statistics")]
     public static int starCount = 0;
     public StarAnalysis starAnalysis; // Reference to StarAnalysis
 
@@ -16,6 +23,11 @@ public class StarControl : MonoBehaviour
 
     // Index of this star's corresponding toggle in the array
     public int toggleIndex;
+
+    void Start()
+    {
+        localStartPos = transform.localPosition;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -52,5 +64,14 @@ public class StarControl : MonoBehaviour
         {
             Debug.LogWarning("Toggle index out of range or level toggles not assigned!");
         }
+    }
+
+    void Update()
+    {
+        float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatStrength;
+        Vector3 worldTargetPos = transform.parent.TransformPoint(localStartPos) + Vector3.up * yOffset;
+        transform.position = worldTargetPos;
+
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
     }
 }
