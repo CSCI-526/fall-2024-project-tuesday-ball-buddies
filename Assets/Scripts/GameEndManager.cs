@@ -69,7 +69,7 @@ public class GameEndManager : MonoBehaviour
         isGameEnded = false;
         stageTimeManager.ResetTimestamp();
 
-        // ballControl.HandleRestart();
+        ballControl.HandleRestart();
     }
 
     public void HandleGameEnd()
