@@ -183,7 +183,7 @@ public class BallControl : MonoBehaviour
         if (bridge != null)
         {
 
-            //currentPlatform.SetActive(false);
+            currentPlatform.SetActive(false);
             onBridge = true;
             canJump = false;
             transform.SetParent(null);
