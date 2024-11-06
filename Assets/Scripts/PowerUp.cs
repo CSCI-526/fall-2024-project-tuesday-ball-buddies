@@ -73,10 +73,14 @@ public class PowerUp : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.Smaller:
-                ball.transform.localScale *= 0.5f;
+                ball.transform.localScale *= 0.75f;
+                ball.GetComponent<Rigidbody>().mass *= 2.5f;
+                ball.SetJumpForce(ball.jumpForce * 2.5f);
                 break;
             case PowerUpType.Bigger:
                 ball.transform.localScale *= 1.5f;
+                ball.GetComponent<Rigidbody>().mass *= 0.75f;
+                ball.SetJumpForce(ball.jumpForce * 0.75f);
                 break;
             case PowerUpType.HigherJump:
                 ball.SetJumpForce(8000f);
