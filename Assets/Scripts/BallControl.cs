@@ -154,7 +154,7 @@ public class BallControl : MonoBehaviour
             
             if (currentPlatform != null)
             {
-                ChangeColor(currentPlatform.gameObject, Color.white);
+                // ChangeColor(currentPlatform.gameObject, Color.white);
                 currentPlatform.SetActive(false);
             }
 
@@ -164,7 +164,7 @@ public class BallControl : MonoBehaviour
             Transform platformChild = currentPlatform.transform.Find("Platform");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
-                ChangeColor(platformChild.gameObject, new Color(0.6f, 1f, 0.6f)); // Slightly more green
+                // ChangeColor(platformChild.gameObject, new Color(0.6f, 1f, 0.6f)); // Slightly more green
             }
 
             if (ballRenderer != null)

@@ -7,7 +7,7 @@ public class StarControl : MonoBehaviour
 {
     [Header("Floating Settings")]
     public float floatStrength = 0.5f;
-    public float floatSpeed = 1f;
+    private float floatSpeed = 5f;
     public float rotationSpeed = 30f;
     private Vector3 localStartPos;
 
