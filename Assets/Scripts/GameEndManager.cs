@@ -21,22 +21,19 @@ public class GameEndManager : MonoBehaviour
     public TMP_Text buttonText;
 
     private bool isGameEnded = false;
-    // stop the game
-    // display won
-    // leader board
-
-    // replay button
 
     private string timeSpent;
     private int starCount; 
 
-    // Start is called before the first frame update
+    private Scene currentScene;
     void Start()
     {
         stageTimeManager = FindObjectOfType<StageTimeManager>();
         firestoreApiManager = FindObjectOfType<FirestoreApiManager>();
         ballControl = FindObjectOfType<BallControl>();
         hudManager = FindObjectOfType<HUDManager>();
+        currentScene =  SceneManager.GetActiveScene();
+        
     }
 
     public bool GetIfGameEnded(){
@@ -58,11 +55,25 @@ public class GameEndManager : MonoBehaviour
         // Convert to JSON
         string jsonData = JsonUtility.ToJson(data);
 
-        firestoreApiManager.UploadAllWrap(jsonData);
+        firestoreApiManager.UploadRecordWrap(currentScene.name, SessionManager.sessionID, jsonData);
 
         submitButton.interactable = false;
         buttonText.text = "Submitted";
     }
+    
+    /* 
+        !TODO: 
+            1. make the OnNext function accept argument as next currentS            
+            2. decide the if gameplay_id and scene is the arguments of request (as an identifier in firestore)
+            3. decide the design of firestore
+            4. modify cloud functions to comply with new design
+            5. make sure the logic when game ended
+                -> submit analytic info (stage_time, death_cause, etc)
+                -> get leaderboard data
+                -> open the panel 
+                -> submit player info
+
+    */
 
     public void OnNext()
     {
@@ -70,6 +81,7 @@ public class GameEndManager : MonoBehaviour
         StarControl.starCount = 0; //clear starCount back to 0
         SceneManager.LoadScene("Beta-Bridge");
         hudManager.setGameWon(false);
+        stageTimeManager.ResetTimestamp();
         Debug.Log("hudManager.gameWon" + hudManager.getGameWon());
     }
 
@@ -79,10 +91,11 @@ public class GameEndManager : MonoBehaviour
         submitButton.interactable = true;
         buttonText.text = "Submit Record";
         isGameEnded = false;
+        
+        StarControl.starCount = 0; //clear starCount back to 0
+
         stageTimeManager.ResetTimestamp();
-
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(currentScene.name);
         ballControl.HandleRestart();
 
         Time.timeScale = 1;
@@ -92,9 +105,9 @@ public class GameEndManager : MonoBehaviour
     {
         isGameEnded = true;
 
-        List<string> timeList = stageTimeManager.GetCheckpointTime();
+        SerializableList<string> timeList = stageTimeManager.GetCheckpointList();
 
-        timeSpent = timeList.Last();
+        timeSpent = timeList.list.Last();
         starCount = StarControl.starCount;
 
         star.text = $"Star: {starCount}";
@@ -103,15 +116,15 @@ public class GameEndManager : MonoBehaviour
         if (endPanel != null)
             endPanel.SetActive(true);
 
-        // Create leaderboard data
-        LeaderboardData leaderboardData = new LeaderboardData
-        {
-            star_count = starCount,
-            stage_level = "1"
-        };
+        /* Create leaderboard data */
+        /* !TODO: make sure later on the stage_level is the name of current scene */
 
-        // Convert to JSON
-        string jsonParam = JsonUtility.ToJson(leaderboardData);
-        firestoreApiManager.GetLeaderboardWrap(jsonParam);
+        /* we don't have to record the data of tutorial */
+        if (currentScene.name == "tutorial")
+            return;
+
+        firestoreApiManager.GetLeaderboardWrap(currentScene.name, SessionManager.sessionID);
+        string timeListStr = JsonUtility.ToJson(timeList);
+        firestoreApiManager.UploadCheckpointWrap(currentScene.name, SessionManager.sessionID, timeListStr);
     }
 }

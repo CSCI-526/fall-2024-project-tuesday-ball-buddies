@@ -31,11 +31,3 @@ public class PlayerData
     public int star;
     public string time;
 }
-
-
-[System.Serializable]
-public class LeaderboardData
-{
-    public int star_count;
-    public string stage_level;
-}

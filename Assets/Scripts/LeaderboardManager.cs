@@ -12,7 +12,7 @@ public class LeaderboardManager : MonoBehaviour
     {
         public string player;
         public string rank;
-        public string star;
+        public int star;
         public string time;
     }
 
@@ -34,7 +34,7 @@ public class LeaderboardManager : MonoBehaviour
             GameObject entry = Instantiate(leaderboardEntryPrefab, leaderboardContainer);
             entry.transform.Find("Rank").GetComponent<TMP_Text>().text = playerRecord.rank;
             entry.transform.Find("Player").GetComponent<TMP_Text>().text = playerRecord.player;
-            entry.transform.Find("Star").GetComponent<TMP_Text>().text = playerRecord.star;
+            entry.transform.Find("Star").GetComponent<TMP_Text>().text = $"{playerRecord.star}";
             entry.transform.Find("Time").GetComponent<TMP_Text>().text = playerRecord.time;
         }
     }

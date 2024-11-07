@@ -15,14 +15,14 @@ public class FirestoreApiManager : MonoBehaviour
     }
 
 
-    public void GetLeaderboardWrap(string parameter)
+    public void GetLeaderboardWrap(string sceneName, string sessionID)
     {
-        StartCoroutine(GetLeaderboard(parameter));
+        StartCoroutine(GetLeaderboard(sceneName, sessionID));
     }
-    IEnumerator GetLeaderboard(string parameter)
+    IEnumerator GetLeaderboard(string sceneName, string sessionID)
     {
-        // string timeData = JsonUtility.ToJson(parameter);
-        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/get_leaderboard", parameter, "application/json"))
+        string arguments = $"scene_name={sceneName}&session_id={sessionID}";
+        using (UnityWebRequest www = UnityWebRequest.Get($"https://us-central1-ball-buddy-439019.cloudfunctions.net/get_leaderboard?{arguments}"))
         {
             yield return www.SendWebRequest();
 
@@ -43,14 +43,14 @@ public class FirestoreApiManager : MonoBehaviour
         }
     }
 
-    public void UploadAllWrap(string jsonData)
+    public void UploadRecordWrap(string sceneName, string sessionID, string jsonData)
     {
-        StartCoroutine(UploadAll(jsonData));
+        StartCoroutine(UploadRecord(sceneName, sessionID, jsonData));
     }
-    IEnumerator UploadAll(string jsonData)
+    IEnumerator UploadRecord(string sceneName, string sessionID, string jsonData)
     {
-        // string timeData = JsonUtility.ToJson(jsonData);
-        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", jsonData, "application/json"))
+        string arguments = $"scene_name={sceneName}&session_id={sessionID}";
+        using (UnityWebRequest www = UnityWebRequest.Post($"https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager?{arguments}", jsonData, "application/json"))
         {
             yield return www.SendWebRequest();
 
@@ -65,14 +65,14 @@ public class FirestoreApiManager : MonoBehaviour
         }
     }
 
-    public void UploadCheckpointWrap(string timeList)
+    public void UploadCheckpointWrap(string sceneName, string sessionID, string timeList)
     {
-        StartCoroutine(UploadCheckpoint(timeList));
+        StartCoroutine(UploadCheckpoint(sceneName, sessionID, timeList));
     }
-    IEnumerator UploadCheckpoint(string timeList)
+    IEnumerator UploadCheckpoint(string sceneName, string sessionID, string timeList)
     {
-        // string timeData = JsonUtility.ToJson(timeList);
-        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", timeList, "application/json"))
+        string arguments = $"scene_name={sceneName}&session_id={sessionID}";
+        using (UnityWebRequest www = UnityWebRequest.Post($"https://us-central1-ball-buddy-439019.cloudfunctions.net/upload_time?{arguments}", timeList, "application/json"))
         {
             yield return www.SendWebRequest();
 
