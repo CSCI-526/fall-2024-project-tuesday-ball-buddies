@@ -95,7 +95,7 @@ public class FirestoreApiManager : MonoBehaviour
     IEnumerator UploadCollectedStar(string collectedStarList)
     {
         // Create the request
-        using (UnityWebRequest www = UnityWebRequest.Post("https://upload-collectedstar-814677926917.us-central1.run.app/upload_collectedstar", "", "application/json"))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://upload-collectedstar-814677926917.us-central1.run.app/upload_collectedstar", collectedStarList, "application/json"))
         {
             // Set the content type
             www.SetRequestHeader("Content-Type", "application/json");

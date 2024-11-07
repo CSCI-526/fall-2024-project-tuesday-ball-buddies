@@ -96,7 +96,6 @@ public class StarAnalysis : MonoBehaviour
         // Join list elements into a comma-separated string
         string starListString = string.Join(", ", starData.collectedStarList);
         Debug.Log($"Submit collected star: {starListString}");
-
         string starListJson = JsonUtility.ToJson(starData);
         firestoreApiManager.UploadCollectedStarWrap(starListJson);
 
