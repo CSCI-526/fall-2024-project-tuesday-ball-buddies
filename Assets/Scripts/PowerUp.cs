@@ -79,8 +79,8 @@ public class PowerUp : MonoBehaviour
                 break;
             case PowerUpType.Bigger:
                 ball.transform.localScale *= 1.75f;
-                ball.GetComponent<Rigidbody>().mass *= 0.75f;
-                ball.SetJumpForce(ball.jumpForce * 0.75f);
+                ball.GetComponent<Rigidbody>().mass *= 0.5f;
+                ball.SetJumpForce(ball.jumpForce * 0.5f);
                 break;
             case PowerUpType.HigherJump:
                 ball.SetJumpForce(8000f);
