@@ -26,7 +26,11 @@ public class BallControl : MonoBehaviour
     private StageTimeManager stageTimeManager;
 
     public StarAnalysis starAnalysis; // Reference to StarAnalysis
-
+    public DeathAnalysis deathAnalysis;
+    public Vector3 lastKnownPosition = new Vector3(0, 0, 0); // Used to store the last known position of the ball
+    public string lastKnownLevel = ""; 
+    public string userID = "test"; // Change this to the user's ID
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +39,11 @@ public class BallControl : MonoBehaviour
         hudManager = FindObjectOfType<HUDManager>();
         gameEndManager = FindAnyObjectByType<GameEndManager>();
         stageTimeManager = FindAnyObjectByType<StageTimeManager>();
+        if (deathAnalysis == null)
+        {
+            GameObject deathAnalysisObject = new GameObject("DeathAnalysis");
+            deathAnalysis = deathAnalysisObject.AddComponent<DeathAnalysis>();
+        }
 
 
         checkpointManager = CheckpointManager.Instance;
@@ -65,13 +74,7 @@ public class BallControl : MonoBehaviour
             if (transform.position.y < fallThreshold)
             {
                 Debug.Log("Fell off the map");
-                StartCoroutine(UploadDeathCause("falling"));
-                
-            }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                Debug.Log("Player reset");
-                StartCoroutine(UploadDeathCause("player reset"));
+                deathAnalysis.uploadDeathCause(userID, "", lastKnownLevel, "falling", lastKnownPosition);
             }
             
             // if (gameEndManager.GetIfGameEnded())
@@ -137,7 +140,7 @@ public class BallControl : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         collisionCount++;
-
+        lastKnownLevel = collision.gameObject.name;
         //TIMER: start time on level 1
         if (collision.gameObject.name == "Level1")
         {
@@ -245,6 +248,10 @@ public class BallControl : MonoBehaviour
         collisionCount--;
         if (collisionCount == 0)
             transform.SetParent(null);
+        
+        lastKnownPosition = transform.localPosition;
+        Debug.Log("Last known position: " + lastKnownPosition);
+        Debug.Log("Last known level: " + lastKnownLevel);
     }
 
     void ChangeColor(GameObject obj, Color color)
@@ -366,6 +373,10 @@ public class BallControl : MonoBehaviour
         }
     }
 
+    public void collideWithEnemies(string enemyName)
+    {
+        deathAnalysis.uploadDeathCause(userID, enemyName, lastKnownLevel, "killed_by_enemies", lastKnownPosition);
+    }
 
     public void SetCheckpoint()
     {
@@ -385,30 +396,5 @@ public class BallControl : MonoBehaviour
         jumpForce = newJumpForce;
     }
     
-    IEnumerator UploadDeathCause(string cause)
-    {
-        Debug.Log("Uploading death cause: " + cause);
-        UploadDeathData uploadDeathData = new UploadDeathData
-        {
-            type = "death_cause",
-            data = cause
-        };
-        
-        
-        
-        string causeData = JsonUtility.ToJson(uploadDeathData);
-        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", causeData, "application/json"))
-        {
-            yield return www.SendWebRequest();
 
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                Debug.Log("Data upload complete!" + cause);
-            }
-        }
-    }
 }

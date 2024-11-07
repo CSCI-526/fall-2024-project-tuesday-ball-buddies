@@ -177,37 +177,11 @@ public class EnemyControl : MonoBehaviour
                     effect.TriggerFlash();
                 }
             }
-            
-            StartCoroutine(UploadDeathCause("hit enemy"));
-            
+			ball.collideWithEnemies(gameObject.name);
             // Make the ball respawn
             ball.RestartGame();
         }
     }
     
-    IEnumerator UploadDeathCause(string cause)
-    {
-        Debug.Log("Uploading death cause: " + cause);
-        UploadDeathData uploadDeathData = new UploadDeathData
-        {
-            type = "death_cause",
-            data = cause
-        };
-        
-        string causeData = JsonUtility.ToJson(uploadDeathData);
-        using (UnityWebRequest www = UnityWebRequest.Post("https://us-central1-ball-buddy-439019.cloudfunctions.net/firestore_manager", causeData, "application/json"))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                Debug.Log("Data upload complete!" + cause);
-            }
-        }
-    }
     
 }
