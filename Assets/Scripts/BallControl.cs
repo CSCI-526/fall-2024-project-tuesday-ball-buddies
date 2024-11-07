@@ -25,7 +25,7 @@ public class BallControl : MonoBehaviour
     private GameEndManager gameEndManager;
     private StageTimeManager stageTimeManager;
 
-    public StarAnalysis starAnalysis; // Reference to StarAnalysis
+    private StarAnalysis starAnalysis; // Reference to StarAnalysis
 
     void Start()
     {
@@ -35,7 +35,7 @@ public class BallControl : MonoBehaviour
         hudManager = FindObjectOfType<HUDManager>();
         gameEndManager = FindAnyObjectByType<GameEndManager>();
         stageTimeManager = FindAnyObjectByType<StageTimeManager>();
-
+        starAnalysis = FindObjectOfType<StarAnalysis>();
 
         checkpointManager = CheckpointManager.Instance;
         if (checkpointManager == null)
@@ -227,7 +227,7 @@ public class BallControl : MonoBehaviour
 
                 // Call the UploadStarData method
                 if (SceneManager.GetActiveScene().name != "Tutorial")
-                    starAnalysis.UploadStarData();
+                    starAnalysis.SubmitCollectedStar();
             }
         }
         
