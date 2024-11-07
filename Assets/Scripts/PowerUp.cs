@@ -50,7 +50,7 @@ public class PowerUp : MonoBehaviour
                     powerUpMaterial.color = Color.green;
                     break;
                 case PowerUpType.HigherJump:
-                    powerUpMaterial.color = Color.yellow;
+                    powerUpMaterial.color = Color.magenta;
                     break;
             }
             
@@ -83,7 +83,7 @@ public class PowerUp : MonoBehaviour
                 ball.SetJumpForce(ball.jumpForce * 0.5f);
                 break;
             case PowerUpType.HigherJump:
-                ball.SetJumpForce(8000f);
+                ball.SetJumpForce(7000f);
                 break;
         }
     }
