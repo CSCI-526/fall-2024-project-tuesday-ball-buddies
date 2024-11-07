@@ -86,4 +86,31 @@ public class FirestoreApiManager : MonoBehaviour
             }
         }
     }
+
+    public void UploadCollectedStarWrap(string collectedStarList)
+    {
+        StartCoroutine(UploadCollectedStar(collectedStarList));
+    }
+
+    IEnumerator UploadCollectedStar(string collectedStarList)
+    {
+        // Create the request
+        using (UnityWebRequest www = UnityWebRequest.Post("https://upload-collectedstar-814677926917.us-central1.run.app/upload_collectedstar", "", "application/json"))
+        {
+            // Set the content type
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                //Debug.Log("Star data upload complete!");
+                string responseText = www.downloadHandler.text;
+                Debug.Log($"Server response: {responseText}");
+            }
+        }
+    }
 }

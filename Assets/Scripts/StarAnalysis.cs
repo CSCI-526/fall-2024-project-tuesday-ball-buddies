@@ -6,29 +6,61 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class StarCollectionData
 {
-    public int stage1;
-    public int stage2;
-    public int stage3;
+    public List<int> collectedStarList;
+    //public int stage1;
+    //public int stage2;
+    //public int stage3;
 }
 
 public class StarAnalysis : MonoBehaviour
 {
+    private List<int> collectedStarList = new List<int>();
+    private FirestoreApiManager firestoreApiManager;
     private StarCollectionData starData;
 
     private void Start()
     {
-        // Initialize star data
+        firestoreApiManager = FindObjectOfType<FirestoreApiManager>();
+        starData = new StarCollectionData
+        {
+            collectedStarList = collectedStarList
+        };
+
+        /*// Initialize star data
         starData = new StarCollectionData
         {
             stage1 = 0,
             stage2 = 0,
             stage3 = 0
-        };
+        };*/
     }
 
     // Call this method when a star is collected
-    public void RecordStar(int stageIndex)
+    public void RecordStar(int stageIndex, int toggleIndex)
     {
+        Debug.Log($"star is collected on level {stageIndex}, index: {toggleIndex}");
+        var starIndex = (stageIndex-1) * 3 + toggleIndex; // that way every star has it own index: 0 - 8
+        if(starIndex >= 0 && starIndex <= 8)
+        {
+            //string starListString = string.Join(", ", starData.collectedStarList);
+            //Debug.Log($"current collected star: {starListString}");
+
+            // Check if starIndex is already collected
+            if (!starData.collectedStarList.Contains(starIndex))
+            {
+                // Add starIndex to the collected list
+                starData.collectedStarList.Add(starIndex);
+                //starListString = string.Join(", ", starData.collectedStarList);
+                //Debug.Log($"After collected star: {starListString}");
+            }
+            else
+            {
+                Debug.LogWarning($"Star index {starIndex} has already been collected.");
+            }
+        } else {
+            Debug.LogError($"Collected star out of index: {starIndex}");
+        }
+        /*
         // Log the current state of starData before modification
         Debug.Log($"Current Star Data: Stage 1: {starData.stage1}, Stage 2: {starData.stage2}, Stage 3: {starData.stage3}");
 
@@ -55,11 +87,23 @@ public class StarAnalysis : MonoBehaviour
         }
 
         // Log the updated state of starData after modification
-        Debug.Log($"Updated Star Data: Stage 1: {starData.stage1}, Stage 2: {starData.stage2}, Stage 3: {starData.stage3}");
+        Debug.Log($"Updated Star Data: Stage 1: {starData.stage1}, Stage 2: {starData.stage2}, Stage 3: {starData.stage3}");*/
     }
 
     // Call this method when the game is finished
-    public void UploadStarData()
+    public void SubmitCollectedStar()
+    {
+        // Join list elements into a comma-separated string
+        string starListString = string.Join(", ", starData.collectedStarList);
+        Debug.Log($"Submit collected star: {starListString}");
+
+        string starListJson = JsonUtility.ToJson(starData);
+        firestoreApiManager.UploadCollectedStarWrap(starListJson);
+
+    }
+    
+    // Call this method when the game is finished
+    /*public void UploadStarData()
     {
         StartCoroutine(UploadData());
     }
@@ -91,5 +135,6 @@ public class StarAnalysis : MonoBehaviour
                 Debug.Log("Star data upload complete!");
             }
         }
-    }
+    }*/
+    
 }

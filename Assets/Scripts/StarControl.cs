@@ -39,7 +39,7 @@ public class StarControl : MonoBehaviour
             // Record the star collection in StarAnalysis
             if (levelIndex != -1)
             {
-                starAnalysis.RecordStar(levelIndex + 1); // levelIndex is 0-based, so add 1
+                starAnalysis.RecordStar(levelIndex + 1, toggleIndex); // levelIndex is 0-based, so add 1
 
                 // Update the corresponding toggle color to yellow
                 ChangeToggleColor(toggleIndex, Color.yellow);
