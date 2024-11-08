@@ -44,7 +44,7 @@ public class Elevator : MonoBehaviour
     IEnumerator PauseAndChangeLevel()
     {
         isMoving = false;
-        yield return new WaitForSeconds(2f);  // Pause for 2 seconds
+        yield return new WaitForSeconds(1f); 
 
         // Toggle target position between starting position and level 2 waypoint
         if (Mathf.Approximately(currentTargetPosition, startingPosition))
