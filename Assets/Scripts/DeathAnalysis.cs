@@ -11,6 +11,7 @@ public class DeathAnalysis : MonoBehaviour
 {
     public void uploadDeathCause(string userID, string enemyname, string lastKnownLevel,  string cause, Vector3 lastKnownPosition)
     {
+        userID = SessionManager.sessionID;
         StartCoroutine(UploadCause(userID, enemyname, lastKnownLevel, cause, lastKnownPosition));
     }
     
