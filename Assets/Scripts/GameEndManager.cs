@@ -79,7 +79,7 @@ public class GameEndManager : MonoBehaviour
     {
         Time.timeScale = 1; 
         StarControl.starCount = 0; //clear starCount back to 0
-        SceneManager.LoadScene("Beta-Bridge");
+        SceneManager.LoadScene("World1");
         hudManager.setGameWon(false);
         stageTimeManager.ResetTimestamp();
         Debug.Log("hudManager.gameWon" + hudManager.getGameWon());
@@ -93,7 +93,7 @@ public class GameEndManager : MonoBehaviour
         isGameEnded = false;
 
         //track player (only world 1 & 2) to see if he plays better
-        if (currentScene.name != "tutorial")
+        if (currentScene.name != "Tutorial")
         {
             TrackPlayerPerformance();
         }
@@ -126,7 +126,7 @@ public class GameEndManager : MonoBehaviour
         /* !TODO: make sure later on the stage_level is the name of current scene */
 
         /* we don't have to record the data of tutorial */
-        if (currentScene.name == "tutorial")
+        if (currentScene.name == "Tutorial")
             return;
 
         firestoreApiManager.GetLeaderboardWrap(currentScene.name, SessionManager.sessionID);
@@ -134,7 +134,7 @@ public class GameEndManager : MonoBehaviour
         firestoreApiManager.UploadCheckpointWrap(currentScene.name, SessionManager.sessionID, timeListStr);
 
         //check if this player performance is tracked
-        if (currentScene.name != "tutorial")
+        if (currentScene.name != "Tutorial")
         {
             firestoreApiManager.IsPlayerPerformanceTrackedWrap(currentScene.name, SessionManager.sessionID, (isTracked) =>
             {
