@@ -50,7 +50,7 @@ public class PowerUp : MonoBehaviour
                     powerUpMaterial.color = Color.green;
                     break;
                 case PowerUpType.HigherJump:
-                    powerUpMaterial.color = Color.yellow;
+                    powerUpMaterial.color = Color.magenta;
                     break;
             }
             
@@ -73,13 +73,17 @@ public class PowerUp : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.Smaller:
-                ball.transform.localScale *= 0.5f;
+                ball.transform.localScale *= 0.75f;
+                ball.GetComponent<Rigidbody>().mass *= 2.5f;
+                ball.SetJumpForce(ball.jumpForce * 2.5f);
                 break;
             case PowerUpType.Bigger:
-                ball.transform.localScale *= 1.5f;
+                ball.transform.localScale *= 1.75f;
+                ball.GetComponent<Rigidbody>().mass *= 0.5f;
+                ball.SetJumpForce(ball.jumpForce * 0.5f);
                 break;
             case PowerUpType.HigherJump:
-                ball.SetJumpForce(8000f);
+                ball.SetJumpForce(7000f);
                 break;
         }
     }
