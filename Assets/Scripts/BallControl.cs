@@ -50,7 +50,9 @@ public class BallControl : MonoBehaviour
     {
         if (onBridge)
         {
-            //HandleMovement();
+            rb.drag = 0;
+            rb.angularDrag = 0;
+            Debug.Log("onBridge - Friction removed");
         } 
         else 
         {
