@@ -91,6 +91,12 @@ public class GameEndManager : MonoBehaviour
         submitButton.interactable = true;
         buttonText.text = "Submit Record";
         isGameEnded = false;
+
+        //track player (only world 1 & 2) to see if he plays better
+        if (currentScene.name != "tutorial")
+        {
+            TrackPlayerPerformance();
+        }
         
         StarControl.starCount = 0; //clear starCount back to 0
 
@@ -126,5 +132,57 @@ public class GameEndManager : MonoBehaviour
         firestoreApiManager.GetLeaderboardWrap(currentScene.name, SessionManager.sessionID);
         string timeListStr = JsonUtility.ToJson(timeList);
         firestoreApiManager.UploadCheckpointWrap(currentScene.name, SessionManager.sessionID, timeListStr);
+
+        //check if this player performance is tracked
+        if (currentScene.name != "tutorial")
+        {
+            firestoreApiManager.IsPlayerPerformanceTrackedWrap(currentScene.name, SessionManager.sessionID, (isTracked) =>
+            {
+                if (isTracked)
+                {
+                    Debug.Log("Player is tracked.");
+                    TrackPlayerPerformance();
+                }
+                else
+                {
+                    Debug.Log("Player is not tracked.");
+                }
+            });
+        }
+    }
+
+    private void TrackPlayerPerformance()
+    {
+        long timeSpentInMilli = ConvertToMilliseconds(timeSpent);
+        Debug.Log($"Tracked Player {SessionManager.sessionID} uses {timeSpentInMilli} milliseconds");
+
+        //upload performance
+        PerformanceData data = new PerformanceData
+        {
+            timeSpentInMilli = timeSpentInMilli,
+            collectedStar = StarControl.starCount
+        };
+
+        // Convert to JSON
+        string jsonData = JsonUtility.ToJson(data);
+        firestoreApiManager.UploadTimeWithReplayWrap(currentScene.name, SessionManager.sessionID, jsonData);
+    }
+
+    private long ConvertToMilliseconds(string time)
+    {
+        TimeSpan timeSpan;
+        
+        // Parse the time string into a TimeSpan object
+        if (TimeSpan.TryParseExact(time, @"mm\:ss\:fff", null, out timeSpan))
+        {
+            long milliseconds = (long)timeSpan.TotalMilliseconds;
+            Debug.Log($"ConvertToMilliseconds: {time} is converted to {milliseconds} milliseconds");
+            return (long)(timeSpan.TotalMilliseconds);
+        }
+        else
+        {
+            Debug.LogError($"Invalid time format. {time} Expected format: mm:ss:fff");
+            return -1;
+        }
     }
 }
