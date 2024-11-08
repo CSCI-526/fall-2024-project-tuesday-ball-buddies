@@ -64,9 +64,8 @@ public class BallControl : MonoBehaviour
         if (collisionCount > 0)
         {
             lastKnownPosition = transform.localPosition;
-            Debug.Log("Last known position: " + lastKnownPosition);
-            Debug.Log("Last known level: " + lastKnownLevel);
-            Debug.Log("Last known parent: " + lastKnownParentName);
+            // Debug.Log("Last known position: " + lastKnownPosition);
+            // Debug.Log("Last known level: " + lastKnownLevel);
         }
 
         if (onBridge)
