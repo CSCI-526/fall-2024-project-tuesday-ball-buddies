@@ -61,6 +61,14 @@ public class BallControl : MonoBehaviour
 
     void Update()
     {
+        if (collisionCount > 0)
+        {
+            lastKnownPosition = transform.localPosition;
+            Debug.Log("Last known position: " + lastKnownPosition);
+            Debug.Log("Last known level: " + lastKnownLevel);
+            Debug.Log("Last known parent: " + lastKnownParentName);
+        }
+
         if (onBridge)
         {
             //HandleMovement();
@@ -253,9 +261,6 @@ public class BallControl : MonoBehaviour
         if (collisionCount == 0)
             transform.SetParent(null);
         
-        lastKnownPosition = transform.localPosition;
-        Debug.Log("Last known position: " + lastKnownPosition);
-        Debug.Log("Last known level: " + lastKnownLevel);
     }
 
     void ChangeColor(GameObject obj, Color color)
