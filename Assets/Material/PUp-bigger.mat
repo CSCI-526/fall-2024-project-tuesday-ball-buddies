@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: PUp-bigger
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 2c963ca8524f842038bbf796eac68eca, type: 2}
+  m_Parent: {fileID: 2100000, guid: ce0c51d6c7d084bf6b9d4b4ada987e26, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
