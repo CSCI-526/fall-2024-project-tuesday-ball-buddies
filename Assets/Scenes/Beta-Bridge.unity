@@ -1185,7 +1185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onBridge: 0
-  starAnalysis: {fileID: 146518666}
 --- !u!54 &147727842
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4755,7 +4754,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00:00:00
+  m_text: 00:00:000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 472032315f64542a89dd5bc761b0307a, type: 2}
   m_sharedMaterial: {fileID: 5103644040287233176, guid: 472032315f64542a89dd5bc761b0307a, type: 2}
@@ -15659,7 +15658,6 @@ MonoBehaviour:
   - {fileID: 809702615}
   - {fileID: 1647075680}
   - {fileID: 101920090}
-  starAnalysis: {fileID: 0}
 --- !u!4 &2051607565
 Transform:
   m_ObjectHideFlags: 0

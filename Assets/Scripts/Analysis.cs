@@ -31,3 +31,16 @@ public class PlayerData
     public int star;
     public string time;
 }
+
+[System.Serializable]
+public class PerformanceData
+{
+    public long timeSpentInMilli;
+    public int collectedStar;
+}
+
+[System.Serializable]
+public class TrackingResponse
+{
+    public bool tracked;
+}

@@ -113,4 +113,71 @@ public class FirestoreApiManager : MonoBehaviour
             }
         }
     }
+
+    public void UploadTimeWithReplayWrap(string sceneName, string sessionID, string performance)
+    {
+        StartCoroutine(UploadTimeWithReplay(sceneName, sessionID, performance));
+    }
+
+    IEnumerator UploadTimeWithReplay(string sceneName, string sessionID, string performance)
+    {
+        string arguments = $"scene_name={sceneName}&session_id={sessionID}";
+        // Create the request
+        using (UnityWebRequest www = UnityWebRequest.Post($"https://track-replay-performance-814677926917.us-central1.run.app/track_performance?{arguments}", performance, "application/json"))
+        {
+            // Set the content type
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                string responseText = www.downloadHandler.text;
+                Debug.Log($"Server response: {responseText}");
+            }
+        }
+    }
+
+    public void IsPlayerPerformanceTrackedWrap(string sceneName, string sessionID, Action<bool> callback)
+    {
+        StartCoroutine(IsPlayerPerformanceTracked(sceneName, sessionID, callback));
+    }
+
+    IEnumerator IsPlayerPerformanceTracked(string sceneName, string sessionID,  Action<bool> callback)
+    {
+        string arguments = $"scene_name={sceneName}&session_id={sessionID}";
+        // Create the request
+        using (UnityWebRequest www = UnityWebRequest.Post($"https://is-player-tracked-814677926917.us-central1.run.app/is_player_tracked?{arguments}","", "application/json"))
+        {
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+                callback(false); // Return false if request fails
+            }
+            else
+            {
+                // Parse the server response
+                string responseText = www.downloadHandler.text;
+                Debug.Log($"Server response: {responseText}");
+                
+                try
+                {
+                    // Deserialize JSON response
+                    TrackingResponse response = JsonUtility.FromJson<TrackingResponse>(responseText);
+                    callback(response.tracked); // Return true if tracked, false otherwise
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Failed to parse server response: " + e.Message);
+                    callback(false); // Return false if parsing fails
+                }
+            }
+        }
+    }
 }
