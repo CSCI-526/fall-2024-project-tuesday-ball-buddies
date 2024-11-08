@@ -87,15 +87,16 @@ public class FirestoreApiManager : MonoBehaviour
         }
     }
 
-    public void UploadCollectedStarWrap(string collectedStarList)
+    public void UploadCollectedStarWrap(string sceneName, string collectedStarList)
     {
-        StartCoroutine(UploadCollectedStar(collectedStarList));
+        StartCoroutine(UploadCollectedStar(sceneName, collectedStarList));
     }
 
-    IEnumerator UploadCollectedStar(string collectedStarList)
+    IEnumerator UploadCollectedStar(string sceneName, string collectedStarList)
     {
+        string argument = $"scene_name={sceneName}";
         // Create the request
-        using (UnityWebRequest www = UnityWebRequest.Post("https://upload-collectedstar-814677926917.us-central1.run.app/upload_collectedstar", collectedStarList, "application/json"))
+        using (UnityWebRequest www = UnityWebRequest.Post($"https://upload-collectedstar-814677926917.us-central1.run.app/upload_collectedstar?{argument}", collectedStarList, "application/json"))
         {
             // Set the content type
             www.SetRequestHeader("Content-Type", "application/json");

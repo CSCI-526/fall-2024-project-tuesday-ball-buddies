@@ -50,3 +50,9 @@ public class TrackingResponse
 {
     public bool tracked;
 }
+
+[System.Serializable]
+public class StarCollectionData
+{
+    public List<int> collectedStarList;
+}

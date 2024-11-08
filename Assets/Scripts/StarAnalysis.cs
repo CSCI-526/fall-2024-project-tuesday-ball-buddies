@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-
-[System.Serializable]
-public class StarCollectionData
-{
-    public List<int> collectedStarList;
-    //public int stage1;
-    //public int stage2;
-    //public int stage3;
-}
+using UnityEngine.SceneManagement;
 
 public class StarAnalysis : MonoBehaviour
 {
     private List<int> collectedStarList = new List<int>();
     private FirestoreApiManager firestoreApiManager;
     private StarCollectionData starData;
+    private Scene currentScene;
 
     private void Start()
     {
         firestoreApiManager = FindObjectOfType<FirestoreApiManager>();
+        currentScene =  SceneManager.GetActiveScene();
         starData = new StarCollectionData
         {
             collectedStarList = collectedStarList
@@ -42,20 +36,16 @@ public class StarAnalysis : MonoBehaviour
         var starIndex = (stageIndex-1) * 3 + toggleIndex; // that way every star has it own index: 0 - 8
         if(starIndex >= 0 && starIndex <= 8)
         {
-            //string starListString = string.Join(", ", starData.collectedStarList);
-            //Debug.Log($"current collected star: {starListString}");
 
             // Check if starIndex is already collected
             if (!starData.collectedStarList.Contains(starIndex))
             {
                 // Add starIndex to the collected list
                 starData.collectedStarList.Add(starIndex);
-                //starListString = string.Join(", ", starData.collectedStarList);
-                //Debug.Log($"After collected star: {starListString}");
             }
             else
             {
-                Debug.LogWarning($"Star index {starIndex} has already been collected.");
+                Debug.LogError($"Star index {starIndex} has already been collected.");
             }
         } else {
             Debug.LogError($"Collected star out of index: {starIndex}");
@@ -97,7 +87,7 @@ public class StarAnalysis : MonoBehaviour
         string starListString = string.Join(", ", starData.collectedStarList);
         Debug.Log($"Submit collected star: {starListString}");
         string starListJson = JsonUtility.ToJson(starData);
-        firestoreApiManager.UploadCollectedStarWrap(starListJson);
+        firestoreApiManager.UploadCollectedStarWrap(currentScene.name, starListJson);
 
     }
     
