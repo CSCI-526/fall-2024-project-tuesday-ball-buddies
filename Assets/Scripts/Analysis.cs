@@ -19,8 +19,14 @@ public class UploadTimeSpentData<T>
 [System.Serializable]
 public class UploadDeathData
 {
-    public string type;
-    public string data;
+    public string enemyname;
+    public string scenename;
+    public string userID;
+    public string level;
+    public string reason;
+    public string x;
+    public string y;
+    public string z;
 }
 
 
