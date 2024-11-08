@@ -24,7 +24,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenWorld1()
     {
-        SceneManager.LoadScene("Beta-Bridge");
+        SceneManager.LoadScene("World1");
     }
 
     public void OpenWorld2()
