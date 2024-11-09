@@ -11,6 +11,8 @@ public class SessionManager : MonoBehaviour
         if (string.IsNullOrEmpty(sessionID))
         {
             sessionID = System.Guid.NewGuid().ToString();
+            string currentTime = System.DateTime.Now.ToString("yyyyMMdd-HHmmss");
+            sessionID = currentTime + sessionID ;
             Debug.Log("Generated New Session ID: " + sessionID);
         }
         else
