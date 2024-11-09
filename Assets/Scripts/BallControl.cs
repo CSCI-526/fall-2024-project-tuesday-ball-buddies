@@ -153,7 +153,7 @@ public class BallControl : MonoBehaviour
         collisionCount++;
         lastKnownLevel = collision.gameObject.name;
         //TIMER: start time on level 1
-        if (collision.gameObject.name == "Level1")
+        if (collision.gameObject.name == "Level1" || collision.gameObject.name == "Level1-1") 
         {
             timer.StartTimer();
         }
