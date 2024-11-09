@@ -18,9 +18,7 @@ public class StageTimeManager : MonoBehaviour
 
     public void AddTimestamp()
     {
-        Debug.Log(timer.getTime());
         timeList.list.Add(timer.getTime());
-        Debug.Log(timeList.list[0]);
     }
 
     public void ResetTimestamp()

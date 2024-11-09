@@ -61,25 +61,29 @@ public class GameEndManager : MonoBehaviour
         buttonText.text = "Submitted";
     }
     
-    /* 
-        !TODO: 
-            1. make the OnNext function accept argument as next currentS            
-            2. decide the if gameplay_id and scene is the arguments of request (as an identifier in firestore)
-            3. decide the design of firestore
-            4. modify cloud functions to comply with new design
-            5. make sure the logic when game ended
-                -> submit analytic info (stage_time, death_cause, etc)
-                -> get leaderboard data
-                -> open the panel 
-                -> submit player info
+    public void LoadNextScene()
+    {
+        // Get the index of the current scene
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-    */
+        // Calculate the index of the next scene
+        int nextSceneIndex = currentSceneIndex + 1;
 
+        // Check if the next scene index is within the valid range
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.LogWarning("No more scenes to load.");
+        }
+    }
     public void OnNext()
     {
         Time.timeScale = 1; 
         StarControl.starCount = 0; //clear starCount back to 0
-        SceneManager.LoadScene("World1");
+        LoadNextScene();
         hudManager.setGameWon(false);
         stageTimeManager.ResetTimestamp();
         Debug.Log("hudManager.gameWon" + hudManager.getGameWon());
