@@ -70,21 +70,34 @@ public class PowerUp : MonoBehaviour
 
     public void ActivatePowerUp(BallControl ball)
     {
+        Renderer ballRenderer = ball.GetComponent<Renderer>();
         switch (powerUpType)
         {
             case PowerUpType.Smaller:
                 ball.transform.localScale *= 0.75f;
-                ball.GetComponent<Rigidbody>().mass *= 2.5f;
-                ball.SetJumpForce(ball.jumpForce * 2.5f);
+                ball.GetComponent<Rigidbody>().mass *= 4f;
+                ball.SetJumpForce(ball.jumpForce * 4f);
+                if (ballRenderer != null)
+                {
+                    ballRenderer.material.color = Color.blue;
+                }
                 break;
             case PowerUpType.Bigger:
                 ball.transform.localScale *= 1.75f;
                 ball.GetComponent<Rigidbody>().mass *= 0.5f;
                 ball.SetJumpForce(ball.jumpForce * 0.5f);
+                if (ballRenderer != null)
+                {
+                    ballRenderer.material.color = Color.green;
+                }
                 break;
             case PowerUpType.HigherJump:
                 ball.SetJumpForce(7000f);
                 break;
+                if (ballRenderer != null)
+                {
+                    ballRenderer.material.color = Color.magenta;
+                }
         }
     }
 }

@@ -8,7 +8,7 @@ public class BallControl : MonoBehaviour
 {
     public float jumpForce = 4000f;  
     private float moveForce = 40000f;  
-    private float fallThreshold = -75f;  
+    private float fallThreshold = -200f;  
     public bool onBridge = false;  
     private bool canJump = true;
     private int collisionCount = 0;
@@ -168,7 +168,7 @@ public class BallControl : MonoBehaviour
             
             if (currentPlatform != null)
             {
-                // ChangeColor(currentPlatform.gameObject, Color.white);
+                ChangeColor(currentPlatform.gameObject, Color.white);
                 currentPlatform.SetActive(false);
             }
 
@@ -178,17 +178,7 @@ public class BallControl : MonoBehaviour
             Transform platformChild = currentPlatform.transform.Find("Platform");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
-                // ChangeColor(platformChild.gameObject, new Color(0.6f, 1f, 0.6f)); // Slightly more green
-            }
-
-            if (ballRenderer != null)
-            {
-                ballRenderer.material.color = Color.white;
-            }
-            
-            if (currentBridge != null)
-            {
-                ChangeColor(currentBridge.gameObject, Color.white);
+                ChangeColor(platformChild.gameObject, new Color(0.7f, 1f, 0.7f, 0.25f)); // Green tint
             }
         }
 
@@ -196,6 +186,19 @@ public class BallControl : MonoBehaviour
         BridgeControl bridge = collision.gameObject.GetComponentInParent<BridgeControl>();
         if (bridge != null)
         {
+            // Reset ball size and jump force to original values
+            transform.localScale = Vector3.one * 1.5f;
+            rb.mass = 100f;
+            jumpForce = 4000f;
+
+            if (ballRenderer != null)
+            {
+                ballRenderer.material.color = Color.white;
+            }
+            if (currentPlatform != null)
+            {
+                ChangeColor(currentPlatform.gameObject, Color.white);  // White
+            }
 
             currentPlatform.SetActive(false);
             onBridge = true;
@@ -205,23 +208,10 @@ public class BallControl : MonoBehaviour
             if (currentBridge != null && currentBridge != bridge)
             {
                 ChangeColor(currentBridge.gameObject, Color.white);  
-                //currentBridge.SetActive(false);
             }
 
             currentBridge = bridge;
-            //currentBridge.SetActive(true);
 
-            if (ballRenderer != null)
-            {
-                ballRenderer.material.color = new Color(0.7f, 1f, 0.7f); // Slightly more green
-            }
-
-            // ChangeColor(currentBridge.gameObject, Color.magenta);  /
-
-            if (currentPlatform != null)
-            {
-                ChangeColor(currentPlatform.gameObject, Color.white);  // White
-            }
         }
         
         //GOAL
@@ -267,8 +257,16 @@ public class BallControl : MonoBehaviour
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            if (!renderer.gameObject.CompareTag("Goal") && !renderer.gameObject.CompareTag("Checkpoint") && !renderer.gameObject.CompareTag("Enemy") && !renderer.gameObject.CompareTag("Star") && !renderer.gameObject.CompareTag("Hidden"))
+            if (!renderer.gameObject.CompareTag("Goal") && 
+                !renderer.gameObject.CompareTag("Checkpoint") && 
+                !renderer.gameObject.CompareTag("Enemy") && 
+                !renderer.gameObject.CompareTag("Star") && 
+                !renderer.gameObject.CompareTag("Hidden") &&
+                !renderer.gameObject.CompareTag("Ball") &&
+                !renderer.gameObject.CompareTag("PowerUp"))  // Added PowerUp check
+            {
                 renderer.material.color = color;
+            }
             if (renderer.gameObject.CompareTag("Hidden"))
                 GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ChangeMat(renderer.gameObject, color);
         }

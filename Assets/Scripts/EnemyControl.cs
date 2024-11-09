@@ -9,8 +9,8 @@ using UnityEngine.Networking;
 public class EnemyControl : MonoBehaviour
 {
     public List<GameObject> waypoints;
-    public float moveSpeed = 5f;
-    public float turnSpeed = 90f;
+    private float moveSpeed = 700f;
+    private float turnSpeed = 700f;
 
     private CheckpointManager checkpointManager;
     private int curWaypointId = 0;
