@@ -93,11 +93,11 @@ public class PowerUp : MonoBehaviour
                 break;
             case PowerUpType.HigherJump:
                 ball.SetJumpForce(7000f);
-                break;
                 if (ballRenderer != null)
                 {
                     ballRenderer.material.color = Color.magenta;
                 }
+                break;
         }
     }
 }
