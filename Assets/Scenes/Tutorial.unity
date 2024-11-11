@@ -1062,6 +1062,7 @@ GameObject:
   - component: {fileID: 147727843}
   - component: {fileID: 147727842}
   - component: {fileID: 147727841}
+  - component: {fileID: 147727847}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -1195,6 +1196,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &147727847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147727840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899ae5869cbb3419393a30f858715846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redMarkerPrefab: {fileID: 7605259317248427784, guid: 9364025f53a064784a63e28f8a0eb846, type: 3}
+  blueMarkerPrefab: {fileID: 2595353230201153002, guid: f54b0c9d97d534c39b624e974325f17b, type: 3}
+  jsonUrl: https://get-death-cause-814677926917.us-central1.run.app
 --- !u!1 &157378920
 GameObject:
   m_ObjectHideFlags: 0
