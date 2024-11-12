@@ -31,6 +31,8 @@ public class BallControl : MonoBehaviour
     public string lastKnownLevel = ""; 
     public string userID = "test"; // Change this to the user's ID
     
+    public GameObject directionIndicator; // Assign DirectionArrow in inspector
+    private float indicatorOffset = 0.1f; // Reduced to 0.05 to be very close to ball surface
 
     void Start()
     {
@@ -57,6 +59,11 @@ public class BallControl : MonoBehaviour
         }
 
         timer = FindObjectOfType<Timer>();
+
+        if (directionIndicator == null)
+        {
+            Debug.LogWarning("Direction Indicator not assigned! Please assign it in the Inspector.");
+        }
     }
 
     void Update()
@@ -118,6 +125,40 @@ public class BallControl : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        if (directionIndicator != null && rb != null)
+        {
+            Vector3 velocity = rb.velocity;
+            velocity.y = 0; // Ignore vertical movement
+
+            if (velocity.magnitude > 0.1f) // Only show/rotate when moving
+            {
+                directionIndicator.SetActive(true);
+                
+                // Calculate angle from velocity
+                float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+                
+                // Position the indicator around the ball based on the angle
+                float ballRadius = transform.localScale.x / 2f;
+                Vector3 indicatorPosition = transform.position + new Vector3(
+                    Mathf.Sin(angle * Mathf.Deg2Rad) * (indicatorOffset),
+                    0,
+                    Mathf.Cos(angle * Mathf.Deg2Rad) * (indicatorOffset)
+                );
+                
+                directionIndicator.transform.position = indicatorPosition;
+
+                // Rotate to face outward from the ball
+                directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
+            }
+            else
+            {
+                directionIndicator.SetActive(false);
+            }
+        }
+    }
+
     public void HandleRestart()
     {
         Debug.Log("Restarting game");
@@ -136,7 +177,23 @@ public class BallControl : MonoBehaviour
 
     void ApplyJump()
     {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        Vector3 velocity = rb.velocity;
+        velocity.y = 0; // Ignore vertical movement
+        
+        // Get normalized horizontal direction
+        Vector3 horizontalDirection = velocity.normalized;
+        
+        // If we're moving, combine vertical jump with horizontal direction
+        if (velocity.magnitude > 0.1f)
+        {
+            Vector3 jumpDirection = (Vector3.up + horizontalDirection * 0.025f).normalized; // Adjust 0.5f to control horizontal influence
+            rb.AddForce(jumpDirection * jumpForce, ForceMode.Impulse);
+        }
+        else
+        {
+            // Regular vertical jump if not moving
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
     
     void HandleMovement()
