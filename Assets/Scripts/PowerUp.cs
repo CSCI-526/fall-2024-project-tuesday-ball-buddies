@@ -7,6 +7,9 @@ public class PowerUp : MonoBehaviour
     public enum PowerUpType { None, Smaller, Bigger, HigherJump }
     public PowerUpType powerUpType;
 
+    [Header("Button Press Effect")]
+    public float bounceForce = 2000f; // Adjustable in inspector
+
     void Start()
     {
         // Get components once
@@ -15,17 +18,9 @@ public class PowerUp : MonoBehaviour
 
         if (powerUpType == PowerUpType.None)
         {
-            // Disable the renderer and collider for "None" type
-            if (renderer != null)
-            {
-                renderer.enabled = false;
-            }
-
-            if (collider != null)
-            {
-                collider.enabled = false;
-            }
-            return;  // Skip the rest of the setup for "None" type
+            if (renderer != null) renderer.enabled = false;
+            if (collider != null) collider.enabled = false;
+            return;
         }
 
         // Regular power-up setup
@@ -36,7 +31,6 @@ public class PowerUp : MonoBehaviour
             collider.isTrigger = true;
         }
 
-        // Create and set a new material that won't be shared
         if (renderer != null)
         {
             Material powerUpMaterial = new Material(Shader.Find("Standard"));
@@ -63,8 +57,28 @@ public class PowerUp : MonoBehaviour
         BallControl ball = other.GetComponent<BallControl>();
         if (ball != null)
         {
+            // Scale down the Y axis to make it look pressed
+            Vector3 newScale = transform.localScale;
+            newScale.y *= 0.25f;
+            transform.localScale = newScale;
+            
+            // Add upward and backward bounce force to the ball
+            Rigidbody ballRb = ball.GetComponent<Rigidbody>();
+            if (ballRb != null)
+            {
+                Vector3 bounceDirection = (Vector3.back).normalized;
+                ballRb.AddForce(bounceDirection * bounceForce, ForceMode.Impulse);
+            }
+            
+            // Activate the power-up effect
             ActivatePowerUp(ball);
-            Destroy(transform.parent.gameObject);
+            
+            // Disable the collider
+            Collider collider = GetComponent<Collider>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
         }
     }
 

@@ -31,4 +31,14 @@ public class Timer : MonoBehaviour
     {
         return timerText.text;
     }
+
+    public void PauseTimer()
+    {
+        isTimerRunning = false;
+    }
+
+    public void ResumeTimer()
+    {
+        isTimerRunning = true;
+    }
 }

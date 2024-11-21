@@ -320,7 +320,8 @@ public class BallControl : MonoBehaviour
                 !renderer.gameObject.CompareTag("Star") && 
                 !renderer.gameObject.CompareTag("Hidden") &&
                 !renderer.gameObject.CompareTag("Ball") &&
-                !renderer.gameObject.CompareTag("PowerUp"))  // Added PowerUp check
+                !renderer.gameObject.CompareTag("PowerUp") &&
+                !renderer.gameObject.CompareTag("Button"))
             {
                 renderer.material.color = color;
             }

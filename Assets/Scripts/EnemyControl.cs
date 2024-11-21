@@ -11,6 +11,7 @@ public class EnemyControl : MonoBehaviour
     public List<GameObject> waypoints;
     private float moveSpeed = 700f;
     private float turnSpeed = 700f;
+    private PauseManager pauseManager;
 
     private CheckpointManager checkpointManager;
     private int curWaypointId = 0;
@@ -30,6 +31,7 @@ public class EnemyControl : MonoBehaviour
 
     void Start()
     {
+        pauseManager = FindObjectOfType<PauseManager>();
         if (waypoints.Count == 0)
         {
             this.enabled = false;
@@ -67,6 +69,9 @@ public class EnemyControl : MonoBehaviour
 
     void Update()
     {
+        if (pauseManager != null && pauseManager.IsPaused())
+            return;
+
         frameCounter++;
 
         if (frameCounter >= updateInterval)
