@@ -35,7 +35,7 @@ public class EnemyControl : MonoBehaviour
         if (waypoints.Count == 0)
         {
             this.enabled = false;
-            Debug.LogError("No waypoints assigned to the enemy!");
+            Debug.LogWarning("No waypoints assigned to the enemy!");
         }
         else
         {
