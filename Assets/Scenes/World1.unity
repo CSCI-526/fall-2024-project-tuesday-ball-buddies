@@ -3277,7 +3277,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -3468,7 +3468,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -9685,6 +9685,7 @@ Transform:
   - {fileID: 2132000929}
   - {fileID: 1209995612}
   - {fileID: 1237786381}
+  - {fileID: 2138134126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1181515433
@@ -14013,7 +14014,7 @@ GameObject:
   - component: {fileID: 1707501208}
   - component: {fileID: 1707501207}
   - component: {fileID: 1707501206}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Goal
   m_TagString: Goal
   m_Icon: {fileID: 0}
@@ -14050,7 +14051,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -15359,7 +15360,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -18241,17 +18242,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138134125}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.157303, y: -64.832596, z: 166.16351}
-  m_LocalScale: {x: 0.6216, y: 1.2432, z: 0.6216}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -67.9215, y: 5.1845827, z: 77.976204}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1707501205}
   - {fileID: 275876042}
   - {fileID: 273685995}
   - {fileID: 1858799368}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1147451062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &2140288991
 GameObject:
   m_ObjectHideFlags: 0
@@ -18349,7 +18350,6 @@ SceneRoots:
   - {fileID: 1392752153}
   - {fileID: 2115395272}
   - {fileID: 1147451062}
-  - {fileID: 2138134126}
   - {fileID: 1360381342}
   - {fileID: 2051607565}
   - {fileID: 202458732}

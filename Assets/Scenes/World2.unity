@@ -18527,7 +18527,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -19718,7 +19718,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -22802,7 +22802,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -25457,6 +25457,7 @@ Transform:
   - {fileID: 2002854768}
   - {fileID: 593560799}
   - {fileID: 380334722}
+  - {fileID: 2019547025}
   m_Father: {fileID: 1280731283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1814618068
@@ -26659,7 +26660,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -29438,15 +29439,15 @@ Transform:
   m_GameObject: {fileID: 2019547024}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
-  m_LocalPosition: {x: -107.24, y: -137.45, z: 212.03}
-  m_LocalScale: {x: 0.6216, y: 1.2432, z: 0.6216}
+  m_LocalPosition: {x: -10.698202, y: -6.949798, z: -1.7213566}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1342555086}
   - {fileID: 1449160135}
   - {fileID: 1909600599}
   - {fileID: 1612602224}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1814618067}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &2025783150
 GameObject:
@@ -30911,7 +30912,6 @@ SceneRoots:
   - {fileID: 85783228}
   - {fileID: 583969643}
   - {fileID: 1280731283}
-  - {fileID: 2019547025}
   - {fileID: 1556596232}
   - {fileID: 327073005}
   - {fileID: 1986670575}

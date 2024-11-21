@@ -271,8 +271,19 @@ public class BallControl : MonoBehaviour
 
         }
         
+        // PowerUp
+        PowerUp powerUp = collision.gameObject.GetComponent<PowerUp>();
+        if (powerUp != null)
+        {
+            powerUp.ActivatePowerUp(this);
+            Destroy(powerUp.gameObject); 
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
         //GOAL
-        if (collision.gameObject.CompareTag("Goal"))
+        if (collider.CompareTag("Goal"))
         {
             if (hudManager != null)
             {
@@ -291,15 +302,8 @@ public class BallControl : MonoBehaviour
                     starAnalysis.SubmitCollectedStar();
             }
         }
-        
-        // PowerUp
-        PowerUp powerUp = collision.gameObject.GetComponent<PowerUp>();
-        if (powerUp != null)
-        {
-            powerUp.ActivatePowerUp(this);
-            Destroy(powerUp.gameObject); 
-        }
     }
+
 
     void OnCollisionExit(Collision collision)
     {
