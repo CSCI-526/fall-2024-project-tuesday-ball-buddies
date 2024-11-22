@@ -8,8 +8,11 @@ using System;
 public class FirestoreApiManager : MonoBehaviour
 {
     private LeaderboardManager leaderboardManager;
-    private CurrentPlayerRankManager currentPlayerRankManager;
-
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
 
     public void GetLeaderboardWrap(string sceneName, string sessionID)
@@ -29,44 +32,13 @@ public class FirestoreApiManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("successfully retrieved leaderboard");
                 leaderboardManager = FindObjectOfType<LeaderboardManager>();
 
                 string json = www.downloadHandler.text;
                 if (leaderboardManager != null)
                     leaderboardManager.PopulateBoard(json);
                 else
-                    Debug.LogError("leaderboard is null");
-            }
-        }
-    }
-
-    public void GetRankWrap(string sceneName, string sessionID)
-    {
-        StartCoroutine(GetRank(sceneName, sessionID));
-    }
-    IEnumerator GetRank(string sceneName, string sessionID)
-    {
-        string arguments = $"scene_name={sceneName}&session_id={sessionID}";
-        using (UnityWebRequest www = UnityWebRequest.Get($"https://us-central1-ball-buddy-439019.cloudfunctions.net/get_record_rank?{arguments}"))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                Debug.Log("successfully retrieved rank");
-                currentPlayerRankManager = FindObjectOfType<CurrentPlayerRankManager>();
-
-                string json = www.downloadHandler.text;
-                Debug.Log(json);
-                if (currentPlayerRankManager != null)
-                    currentPlayerRankManager.PopulateRecord(json);
-                else
-                    Debug.LogError("Player rank panel is null");
+                    Debug.Log("leaderboard is null");
             }
         }
     }
@@ -89,8 +61,6 @@ public class FirestoreApiManager : MonoBehaviour
             else
             {
                 Debug.Log("Data upload complete!");
-                GetLeaderboardWrap(sceneName, sessionID);
-                GetRankWrap(sceneName, sessionID);
             }
         }
     }

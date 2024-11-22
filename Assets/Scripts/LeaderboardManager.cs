@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
 using System;
-using UnityEngine.UI;
 
 public class LeaderboardManager : MonoBehaviour
 {
@@ -23,20 +22,9 @@ public class LeaderboardManager : MonoBehaviour
     // Start is called before the first frame update
     public void PopulateBoard(string json)
     {
-        leaderboardContainer.Find("StatusText").gameObject.SetActive(false);
-        leaderboardContainer.GetComponent<GridLayoutGroup>().childAlignment = TextAnchor.UpperCenter;
-
         string pattern = @"\{[^}]*\}";
         // Find all matches
         MatchCollection matches = Regex.Matches(json, pattern);
-
-        ClearGrid();
-
-        GameObject headerRow = Instantiate(leaderboardEntryPrefab, leaderboardContainer);
-        headerRow.transform.Find("Rank").GetComponent<TMP_Text>().text = "Rank";
-        headerRow.transform.Find("Player").GetComponent<TMP_Text>().text = "Player";
-        headerRow.transform.Find("Star").GetComponent<TMP_Text>().text = "Star";
-        headerRow.transform.Find("Time").GetComponent<TMP_Text>().text = "Time";
 
         // Process each match
         foreach (Match match in matches)
@@ -51,17 +39,6 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
-    public void ClearGrid()
-    {
-        // Loop through all child objects of the GridLayoutGroup.
-        foreach (Transform child in leaderboardContainer.gameObject.transform)
-        {
-            if (child.gameObject.name == "StatusText")
-                continue;
-
-            Destroy(child.gameObject); // Destroy each child GameObject.
-        }
-    }
     // Update is called once per frame
     void Update()
     {
