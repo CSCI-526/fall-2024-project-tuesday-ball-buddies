@@ -1022,7 +1022,7 @@ Transform:
   m_GameObject: {fileID: 147727840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 59.16, y: -50.07, z: 40.98}
+  m_LocalPosition: {x: -70.6, y: 76.1, z: 41.6}
   m_LocalScale: {x: 1.5539999, y: 1.5539999, z: 1.5539999}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1148,7 +1148,6 @@ RectTransform:
   - {fileID: 1916395130}
   - {fileID: 1000194255}
   - {fileID: 42927808}
-  - {fileID: 800101305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2291,7 +2290,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 246860361}
-  m_Father: {fileID: 800101305}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11698,7 +11697,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1955354974}
-  m_Father: {fileID: 800101305}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12555,7 +12554,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 800101305}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12885,7 +12884,7 @@ RectTransform:
   m_LocalScale: {x: 1.3232344, y: 1.3232344, z: 1.3232344}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 800101305}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -15310,11 +15309,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPanel: {fileID: 1000194254}
+  leaderboardPanel: {fileID: 0}
+  currentPlayerRankPanel: {fileID: 0}
   star: {fileID: 1943222030}
   time: {fileID: 1098187349}
   inputField: {fileID: 705093491}
   submitButton: {fileID: 767644250}
-  buttonText: {fileID: 1875507013}
+  submitButtonText: {fileID: 0}
 --- !u!4 &1990903848
 Transform:
   m_ObjectHideFlags: 0
@@ -16043,7 +16044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e7529fe526e4982b42b38f05b3b5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 800101304}
+  pausePanel: {fileID: 0}
 --- !u!4 &2074107046
 Transform:
   m_ObjectHideFlags: 0
@@ -16383,7 +16384,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 800101305}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -16546,3 +16547,8 @@ SceneRoots:
   - {fileID: 2037501178}
   - {fileID: 65644133}
   - {fileID: 2074107046}
+  - {fileID: 221274404}
+  - {fileID: 1602894120}
+  - {fileID: 1733708821}
+  - {fileID: 1776357541}
+  - {fileID: 2133977717}
