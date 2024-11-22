@@ -14,11 +14,13 @@ public class GameEndManager : MonoBehaviour
     private BallControl ballControl;
     private HUDManager hudManager; 
     public GameObject endPanel;
+    public GameObject leaderboardPanel;
+    public GameObject currentPlayerRankPanel;
     public TMP_Text star;
     public TMP_Text time;
     public TMP_InputField inputField;
     public Button submitButton;
-    public TMP_Text buttonText;
+    public TMP_Text submitButtonText;
 
     private bool isGameEnded = false;
 
@@ -58,7 +60,12 @@ public class GameEndManager : MonoBehaviour
         firestoreApiManager.UploadRecordWrap(currentScene.name, SessionManager.sessionID, jsonData);
 
         submitButton.interactable = false;
-        buttonText.text = "Submitted";
+        submitButtonText.text = "Submitted";
+
+        leaderboardPanel.GetComponent<LeaderboardManager>().ClearGrid();
+        leaderboardPanel.GetComponent<GridLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
+        leaderboardPanel.transform.Find("StatusText").gameObject.SetActive(true);
+        currentPlayerRankPanel.SetActive(true);
     }
     
     public void LoadNextScene()
@@ -93,7 +100,7 @@ public class GameEndManager : MonoBehaviour
     {
         endPanel.SetActive(false);
         submitButton.interactable = true;
-        buttonText.text = "Submit Record";
+        submitButtonText.text = "Submit Record";
         isGameEnded = false;
 
         //track player (only world 1 & 2) to see if he plays better
