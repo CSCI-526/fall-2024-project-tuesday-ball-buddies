@@ -129,6 +129,7 @@ public class BallControl : MonoBehaviour
     {
         if (directionIndicator != null && rb != null)
         {
+            Debug.Log("Velocity is set");
             Vector3 velocity = rb.velocity;
             velocity.y = 0; // Ignore vertical movement
 
