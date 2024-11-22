@@ -23,6 +23,8 @@ public class LeaderboardManager : MonoBehaviour
     // Start is called before the first frame update
     public void PopulateBoard(string json)
     {
+        // hello
+        
         leaderboardContainer.Find("StatusText").gameObject.SetActive(false);
         leaderboardContainer.GetComponent<GridLayoutGroup>().childAlignment = TextAnchor.UpperCenter;
 
