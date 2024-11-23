@@ -31,8 +31,11 @@ public class BallControl : MonoBehaviour
     public string lastKnownLevel = ""; 
     public string userID = "test"; // Change this to the user's ID
     
-    public GameObject directionIndicator; // Assign DirectionArrow in inspector
+    public GameObject directionIndicator_1; // Assign DirectionArrow in inspector
+    public GameObject directionIndicator_2; // Assign DirectionArrow in inspector
+    public GameObject directionIndicator_3; // Assign DirectionArrow in inspector
     private float indicatorOffset = 0.1f; // Reduced to 0.05 to be very close to ball surface
+    private float indicatorOffsetStep = 0.5f; // Reduced to 0.05 to be very close to ball surface
 
     void Start()
     {
@@ -60,7 +63,7 @@ public class BallControl : MonoBehaviour
 
         timer = FindObjectOfType<Timer>();
 
-        if (directionIndicator == null)
+        if (directionIndicator_1 == null)
         {
             Debug.LogWarning("Direction Indicator not assigned! Please assign it in the Inspector.");
         }
@@ -124,11 +127,18 @@ public class BallControl : MonoBehaviour
             Debug.Log("Already won, NOT restarting game");
         }
     }
+<<<<<<< Updated upstream
 
     void LateUpdate()
+=======
+void LateUpdate()
+{
+    if (directionIndicator_1 != null && rb != null)
+>>>>>>> Stashed changes
     {
         if (directionIndicator != null && rb != null)
         {
+<<<<<<< Updated upstream
             Vector3 velocity = rb.velocity;
             velocity.y = 0; // Ignore vertical movement
 
@@ -158,6 +168,119 @@ public class BallControl : MonoBehaviour
             }
         }
     }
+=======
+            ArrowDisplay(directionIndicator_1, velocity, 0);
+        }
+        else
+        {
+            directionIndicator_1.SetActive(false);
+        }
+
+        if (velocity.magnitude > 4.0f)
+        {
+            ArrowDisplay(directionIndicator_2, velocity, 1);
+        }
+        else
+        {
+            directionIndicator_2.SetActive(false);
+        }
+
+        if (velocity.magnitude > 8.0f)
+        {
+            ArrowDisplay(directionIndicator_3, velocity, 2);
+        }
+        else
+        {
+            directionIndicator_3.SetActive(false);
+        }
+        
+    }
+}
+
+    void ArrowDisplay(GameObject arrow, Vector3 velocity, float distance){
+        arrow.SetActive(true);
+
+        // Calculate angle from velocity
+        float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+
+        // Position the indicator around the ball based on the angle
+        Vector3 indicatorPosition = transform.position + new Vector3(
+            Mathf.Sin(angle * Mathf.Deg2Rad) * (indicatorOffset + distance * indicatorOffsetStep),
+            0,
+            Mathf.Cos(angle * Mathf.Deg2Rad) * (indicatorOffset + distance * indicatorOffsetStep)
+        );
+
+        arrow.transform.position = indicatorPosition;
+
+        // Rotate to face outward from the ball
+        arrow.transform.rotation = Quaternion.Euler(0, angle, 0);
+
+        // Determine color based on velocity magnitude
+        float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
+        float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
+        Debug.Log("Velocity magnitude: " + velocity.magnitude);
+
+        Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
+
+        
+        Renderer[] childRenderers = arrow.GetComponentsInChildren<Renderer>();
+        foreach (Renderer childRenderer in childRenderers)
+        {
+            childRenderer.material.color = arrowColor; 
+        }
+    }
+// void LateUpdate()
+// {
+//     if (directionIndicator_1 != null && rb != null)
+//     {
+//         Vector3 velocity = rb.velocity;
+//         velocity.y = 0; // Ignore vertical movement
+
+//         if (velocity.magnitude > 0.1f) // Only show/rotate when moving
+//         {
+//             directionIndicator.SetActive(true);
+
+//             // Calculate angle from velocity
+//             float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+
+//             // Position the indicator around the ball based on the angle
+//             Vector3 indicatorPosition = transform.position + new Vector3(
+//                 Mathf.Sin(angle * Mathf.Deg2Rad) * indicatorOffset,
+//                 0,
+//                 Mathf.Cos(angle * Mathf.Deg2Rad) * indicatorOffset
+//             );
+
+//             directionIndicator.transform.position = indicatorPosition;
+
+//             // Rotate to face outward from the ball
+//             directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
+
+//             // Determine color based on velocity magnitude
+//             float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
+//             float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
+//             Debug.Log("Velocity magnitude: " + velocity.magnitude);
+
+//             Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
+
+           
+//             Renderer[] childRenderers = directionIndicator.GetComponentsInChildren<Renderer>();
+//             foreach (Renderer childRenderer in childRenderers)
+//             {
+//                 childRenderer.material.color = arrowColor; 
+//             }
+//         }
+//         else
+//         {
+//             directionIndicator.SetActive(false);
+//         }
+//     }
+// }
+
+
+
+
+    
+>>>>>>> Stashed changes
 
     public void HandleRestart()
     {
