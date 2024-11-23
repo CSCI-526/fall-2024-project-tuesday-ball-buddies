@@ -155,14 +155,13 @@ void LateUpdate()
             float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
             Debug.Log("Velocity magnitude: " + velocity.magnitude);
 
-            // Interpolate color between green (low speed) and red (high speed)
             Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
 
-            // Apply the color to all child renderers
+           
             Renderer[] childRenderers = directionIndicator.GetComponentsInChildren<Renderer>();
             foreach (Renderer childRenderer in childRenderers)
             {
-                childRenderer.material.color = arrowColor; // Update color for each child object
+                childRenderer.material.color = arrowColor; 
             }
         }
         else
