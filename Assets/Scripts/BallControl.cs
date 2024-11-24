@@ -228,12 +228,8 @@ void LateUpdate()
             childRenderer.material.color = arrowColor; 
             previousColor = arrowColor;
         }
-        else
-        {
-            directionIndicator.SetActive(false);
-        }
     }
-}
+
 
 
 
