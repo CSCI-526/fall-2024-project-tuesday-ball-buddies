@@ -15,6 +15,7 @@ TagManager:
   - Hidden
   - PowerUp
   - Button
+  - Arrow
   layers:
   - Default
   - TransparentFX
