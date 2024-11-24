@@ -188,36 +188,37 @@ void LateUpdate()
         arrow.transform.rotation = Quaternion.Euler(0, angle, 0);
 
         /* ----------- 1. Determine color based on velocity magnitude ----------- */
-        // float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
-        // float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
-        // Debug.Log("Velocity magnitude: " + velocity.magnitude);
+        float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
+        float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
+        Debug.Log("Velocity magnitude: " + velocity.magnitude);
+        Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);;
 
         /* ----------- 2. Determine color based on acceraltion ----------- */
-        float maxAcceleration = 0.08f;
-        float bufferZone = 0.005f;
-        float changeInSpeed = (velocity.magnitude - previousSpeed) / Time.deltaTime;
-        float sensitivity = 10f;
+        // float maxAcceleration = 0.08f;
+        // float bufferZone = 0.005f;
+        // float changeInSpeed = (velocity.magnitude - previousSpeed) / Time.deltaTime;
+        // float sensitivity = 10f;
 
-        Color arrowColor = previousColor;
+        // Color arrowColor = previousColor;
         
-        if (changeInSpeed > 0.005f)
-        {
-            float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, 0f, 1f);
-            Color targetColor = Color.Lerp(Color.white, Color.red, speedFraction);
-            arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
-        }
-        else if (changeInSpeed < -0.005f)
-        {
-            float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, -1.0f, 0f);
-            Color targetColor = Color.Lerp(Color.white, Color.green, -speedFraction);
-            arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
-        }
+        // if (changeInSpeed > 0.005f)
+        // {
+        //     float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, 0f, 1f);
+        //     Color targetColor = Color.Lerp(Color.white, Color.red, speedFraction);
+        //     arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
+        // }
+        // else if (changeInSpeed < -0.005f)
+        // {
+        //     float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, -1.0f, 0f);
+        //     Color targetColor = Color.Lerp(Color.white, Color.green, -speedFraction);
+        //     arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
+        // }
 
         Renderer[] childRenderers = arrow.GetComponentsInChildren<Renderer>();
         foreach (Renderer childRenderer in childRenderers)
         {
             childRenderer.material.color = arrowColor; 
-            previousColor = arrowColor;
+            // previousColor = arrowColor;
         }
     }
 
