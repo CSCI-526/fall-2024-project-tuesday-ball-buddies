@@ -36,6 +36,8 @@ public class BallControl : MonoBehaviour
     public GameObject directionIndicator_3; // Assign DirectionArrow in inspector
     private float indicatorOffset = 0.1f; // Reduced to 0.05 to be very close to ball surface
     private float indicatorOffsetStep = 0.5f; // Reduced to 0.05 to be very close to ball surface
+    private float previousSpeed = 0.0f;
+    private Color previousColor = Color.white;
 
     void Start()
     {
@@ -127,48 +129,17 @@ public class BallControl : MonoBehaviour
             Debug.Log("Already won, NOT restarting game");
         }
     }
-<<<<<<< Updated upstream
-
-    void LateUpdate()
-=======
 void LateUpdate()
 {
     if (directionIndicator_1 != null && rb != null)
->>>>>>> Stashed changes
     {
-        if (directionIndicator != null && rb != null)
+        Vector3 velocity = rb.velocity;
+        velocity.y = 0; // Ignore vertical movement
+        
+        Debug.Log($"current velocity: {velocity.magnitude}");
+
+        if (velocity.magnitude > 0.05f)
         {
-<<<<<<< Updated upstream
-            Vector3 velocity = rb.velocity;
-            velocity.y = 0; // Ignore vertical movement
-
-            if (velocity.magnitude > 0.1f) // Only show/rotate when moving
-            {
-                directionIndicator.SetActive(true);
-                
-                // Calculate angle from velocity
-                float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-                
-                // Position the indicator around the ball based on the angle
-                float ballRadius = transform.localScale.x / 2f;
-                Vector3 indicatorPosition = transform.position + new Vector3(
-                    Mathf.Sin(angle * Mathf.Deg2Rad) * (indicatorOffset),
-                    0,
-                    Mathf.Cos(angle * Mathf.Deg2Rad) * (indicatorOffset)
-                );
-                
-                directionIndicator.transform.position = indicatorPosition;
-
-                // Rotate to face outward from the ball
-                directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
-            }
-            else
-            {
-                directionIndicator.SetActive(false);
-            }
-        }
-    }
-=======
             ArrowDisplay(directionIndicator_1, velocity, 0);
         }
         else
@@ -194,6 +165,7 @@ void LateUpdate()
             directionIndicator_3.SetActive(false);
         }
         
+        previousSpeed = velocity.magnitude;
     }
 }
 
@@ -215,18 +187,46 @@ void LateUpdate()
         // Rotate to face outward from the ball
         arrow.transform.rotation = Quaternion.Euler(0, angle, 0);
 
-        // Determine color based on velocity magnitude
-        float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
-        float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
-        Debug.Log("Velocity magnitude: " + velocity.magnitude);
+        // 1. Determine color based on velocity magnitude
+        // float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
+        // float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
+        // Debug.Log("Velocity magnitude: " + velocity.magnitude);
 
-        Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
+        // 2. Determine color based on acceraltion
+        float maxAcceleration = 0.08f;
+        float bufferZone = 0.005f;
+        float changeInSpeed = (velocity.magnitude - previousSpeed) / Time.deltaTime;
+        float sensitivity = 10f;
 
+        Color arrowColor = previousColor;
         
+        // if (Mathf.Abs(changeInSpeed) <= bufferZone ){
+        //     // arrowColor = Color.white;
+        //     return;
+        // }
+        if (changeInSpeed > 0.005f)
+        {
+            float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, 0f, 1f);
+            // arrowColor = Color.Lerp(Color.white, Color.red, speedFraction);
+            Color targetColor = Color.Lerp(Color.white, Color.red, speedFraction);
+            arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
+        }
+        else if (changeInSpeed < -0.005f)
+        {
+            // float speedFraction = Mathf.Clamp(changeInSpeed / maxAcceleration, -1.0f, 0f);
+            // arrowColor = Color.Lerp(Color.green, Color.white, -speedFraction);
+            float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, -1.0f, 0f);
+            Color targetColor = Color.Lerp(Color.white, Color.green, -speedFraction);
+            arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
+        }
+        
+        // Debug.Log($"prev: {previousColor}, new: {arrowColor}");
+
         Renderer[] childRenderers = arrow.GetComponentsInChildren<Renderer>();
         foreach (Renderer childRenderer in childRenderers)
         {
             childRenderer.material.color = arrowColor; 
+            previousColor = arrowColor;
         }
     }
 // void LateUpdate()
@@ -280,7 +280,6 @@ void LateUpdate()
 
 
     
->>>>>>> Stashed changes
 
     public void HandleRestart()
     {
