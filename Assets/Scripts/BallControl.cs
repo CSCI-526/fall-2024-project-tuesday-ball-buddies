@@ -187,12 +187,12 @@ void LateUpdate()
         // Rotate to face outward from the ball
         arrow.transform.rotation = Quaternion.Euler(0, angle, 0);
 
-        // 1. Determine color based on velocity magnitude
+        /* ----------- 1. Determine color based on velocity magnitude ----------- */
         // float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
         // float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
         // Debug.Log("Velocity magnitude: " + velocity.magnitude);
 
-        // 2. Determine color based on acceraltion
+        /* ----------- 2. Determine color based on acceraltion ----------- */
         float maxAcceleration = 0.08f;
         float bufferZone = 0.005f;
         float changeInSpeed = (velocity.magnitude - previousSpeed) / Time.deltaTime;
@@ -200,27 +200,18 @@ void LateUpdate()
 
         Color arrowColor = previousColor;
         
-        // if (Mathf.Abs(changeInSpeed) <= bufferZone ){
-        //     // arrowColor = Color.white;
-        //     return;
-        // }
         if (changeInSpeed > 0.005f)
         {
             float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, 0f, 1f);
-            // arrowColor = Color.Lerp(Color.white, Color.red, speedFraction);
             Color targetColor = Color.Lerp(Color.white, Color.red, speedFraction);
             arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
         }
         else if (changeInSpeed < -0.005f)
         {
-            // float speedFraction = Mathf.Clamp(changeInSpeed / maxAcceleration, -1.0f, 0f);
-            // arrowColor = Color.Lerp(Color.green, Color.white, -speedFraction);
             float speedFraction = Mathf.Clamp(changeInSpeed / sensitivity, -1.0f, 0f);
             Color targetColor = Color.Lerp(Color.white, Color.green, -speedFraction);
             arrowColor = Color.Lerp(previousColor, targetColor, Time.deltaTime / 0.5f);
         }
-        
-        // Debug.Log($"prev: {previousColor}, new: {arrowColor}");
 
         Renderer[] childRenderers = arrow.GetComponentsInChildren<Renderer>();
         foreach (Renderer childRenderer in childRenderers)
@@ -229,12 +220,6 @@ void LateUpdate()
             previousColor = arrowColor;
         }
     }
-
-
-
-
-
-    
 
     public void HandleRestart()
     {
