@@ -124,40 +124,57 @@ public class BallControl : MonoBehaviour
             Debug.Log("Already won, NOT restarting game");
         }
     }
-
-    void LateUpdate()
+void LateUpdate()
+{
+    if (directionIndicator != null && rb != null)
     {
-        if (directionIndicator != null && rb != null)
+        Vector3 velocity = rb.velocity;
+        velocity.y = 0; // Ignore vertical movement
+
+        if (velocity.magnitude > 0.1f) // Only show/rotate when moving
         {
-            Vector3 velocity = rb.velocity;
-            velocity.y = 0; // Ignore vertical movement
+            directionIndicator.SetActive(true);
 
-            if (velocity.magnitude > 0.1f) // Only show/rotate when moving
-            {
-                directionIndicator.SetActive(true);
-                
-                // Calculate angle from velocity
-                float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-                
-                // Position the indicator around the ball based on the angle
-                float ballRadius = transform.localScale.x / 2f;
-                Vector3 indicatorPosition = transform.position + new Vector3(
-                    Mathf.Sin(angle * Mathf.Deg2Rad) * (indicatorOffset),
-                    0,
-                    Mathf.Cos(angle * Mathf.Deg2Rad) * (indicatorOffset)
-                );
-                
-                directionIndicator.transform.position = indicatorPosition;
+            // Calculate angle from velocity
+            float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
 
-                // Rotate to face outward from the ball
-                directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
-            }
-            else
+            // Position the indicator around the ball based on the angle
+            Vector3 indicatorPosition = transform.position + new Vector3(
+                Mathf.Sin(angle * Mathf.Deg2Rad) * indicatorOffset,
+                0,
+                Mathf.Cos(angle * Mathf.Deg2Rad) * indicatorOffset
+            );
+
+            directionIndicator.transform.position = indicatorPosition;
+
+            // Rotate to face outward from the ball
+            directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
+
+            // Determine color based on velocity magnitude
+            float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
+            float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
+            Debug.Log("Velocity magnitude: " + velocity.magnitude);
+
+            Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
+
+           
+            Renderer[] childRenderers = directionIndicator.GetComponentsInChildren<Renderer>();
+            foreach (Renderer childRenderer in childRenderers)
             {
-                directionIndicator.SetActive(false);
+                childRenderer.material.color = arrowColor; 
             }
         }
+        else
+        {
+            directionIndicator.SetActive(false);
+        }
     }
+}
+
+
+
+
+    
 
     public void HandleRestart()
     {
@@ -325,6 +342,7 @@ public class BallControl : MonoBehaviour
                 !renderer.gameObject.CompareTag("Hidden") &&
                 !renderer.gameObject.CompareTag("Ball") &&
                 !renderer.gameObject.CompareTag("PowerUp") &&
+                !renderer.gameObject.CompareTag("Arrow") &&
                 !renderer.gameObject.CompareTag("Button"))
             {
                 renderer.material.color = color;
