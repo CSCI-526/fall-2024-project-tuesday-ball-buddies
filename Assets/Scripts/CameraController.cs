@@ -3,38 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
-    public GameObject player;
+    // For adjusting camera pos to player (ball)
+    private BallControl ball;
     private Vector3 offset = new Vector3(0, 25, -20);
-    public Canvas hudCanvas;
-    public HUDManager hudManager;
 
-    public Material hiddenMaterial;
+    private Material hiddenMaterial;
     public float transparencyFadeSpeed = 0.05f;
 
     private List<GameObject> hiddenObjs = new List<GameObject>();
     private List<bool> hiddenObjsTest = new List<bool>();
     private Dictionary<GameObject, Material> originalMats = new Dictionary<GameObject, Material>();
 
-    void LateUpdate() {
-        transform.position = player.transform.position + offset;
+    private void Start()
+    {
+        ball = GameObject.Find("Ball").GetComponent<BallControl>();
+        transform.LookAt(ball.transform.position);
 
-        /*if (hudCanvas != null)
-        {
-            hudCanvas.transform.position = transform.position + transform.forward * 10;
-            hudCanvas.transform.rotation = transform.rotation;
-        }*/
+        hiddenMaterial = Resources.Load<Material>("Materials/Transparent");
+    }
+
+    private void Update()
+    {
+        transform.position = ball.transform.position + offset;
 
         for (int i = 0; i < hiddenObjsTest.Count; i++)
             hiddenObjsTest[i] = false;
 
-        Vector3 direction = player.transform.position - transform.position;
+        Vector3 direction = ball.transform.position - transform.position;
         RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, direction.magnitude);
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.transform == player.transform)
-                break;
+            if (hit.collider.transform == ball.transform)
+                continue;
             int index = hiddenObjs.IndexOf(hit.collider.gameObject);
             if (index != -1)
             {
@@ -47,7 +49,7 @@ public class FollowPlayer : MonoBehaviour
             else
             {
                 Renderer renderer = hit.collider.transform.GetComponent<Renderer>();
-                if (renderer != null && hiddenMaterial != null && renderer.gameObject.tag == "Untagged")
+                if (renderer != null && renderer.gameObject.tag == "Untagged")
                 {
                     Color rgba = renderer.gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
 
@@ -62,6 +64,7 @@ public class FollowPlayer : MonoBehaviour
                 }
             }
         }
+        
         for (int i = hiddenObjs.Count - 1; i >= 0; i--)
         {
             if (!hiddenObjsTest[i])

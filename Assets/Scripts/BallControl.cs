@@ -19,7 +19,7 @@ public class BallControl : MonoBehaviour
     private Renderer ballRenderer; 
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
-    private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
+    private Vector3 initialPosition;
     private Timer timer;
 
     private GameEndManager gameEndManager;
@@ -36,6 +36,7 @@ public class BallControl : MonoBehaviour
 
     void Start()
     {
+        initialPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
@@ -124,57 +125,53 @@ public class BallControl : MonoBehaviour
             Debug.Log("Already won, NOT restarting game");
         }
     }
-void LateUpdate()
-{
-    if (directionIndicator != null && rb != null)
+
+    void LateUpdate()
     {
-        Vector3 velocity = rb.velocity;
-        velocity.y = 0; // Ignore vertical movement
-
-        if (velocity.magnitude > 0.1f) // Only show/rotate when moving
+        if (directionIndicator != null && rb != null)
         {
-            directionIndicator.SetActive(true);
+            Vector3 velocity = rb.velocity;
+            velocity.y = 0; // Ignore vertical movement
 
-            // Calculate angle from velocity
-            float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+            if (velocity.magnitude > 0.1f) // Only show/rotate when moving
+            {
+                directionIndicator.SetActive(true);
 
-            // Position the indicator around the ball based on the angle
-            Vector3 indicatorPosition = transform.position + new Vector3(
-                Mathf.Sin(angle * Mathf.Deg2Rad) * indicatorOffset,
-                0,
-                Mathf.Cos(angle * Mathf.Deg2Rad) * indicatorOffset
-            );
+                // Calculate angle from velocity
+                float angle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
 
-            directionIndicator.transform.position = indicatorPosition;
+                // Position the indicator around the ball based on the angle
+                Vector3 indicatorPosition = transform.position + new Vector3(
+                    Mathf.Sin(angle * Mathf.Deg2Rad) * indicatorOffset,
+                    0,
+                    Mathf.Cos(angle * Mathf.Deg2Rad) * indicatorOffset
+                );
 
-            // Rotate to face outward from the ball
-            directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
+                directionIndicator.transform.position = indicatorPosition;
 
-            // Determine color based on velocity magnitude
-            float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
-            float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
-            Debug.Log("Velocity magnitude: " + velocity.magnitude);
+                // Rotate to face outward from the ball
+                directionIndicator.transform.rotation = Quaternion.Euler(0, angle, 0);
 
-            Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
+                // Determine color based on velocity magnitude
+                float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
+                float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
+                //Debug.Log("Velocity magnitude: " + velocity.magnitude);
+
+                Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);
 
            
-            Renderer[] childRenderers = directionIndicator.GetComponentsInChildren<Renderer>();
-            foreach (Renderer childRenderer in childRenderers)
+                Renderer[] childRenderers = directionIndicator.GetComponentsInChildren<Renderer>();
+                foreach (Renderer childRenderer in childRenderers)
+                {
+                    childRenderer.material.color = arrowColor; 
+                }
+            }
+            else
             {
-                childRenderer.material.color = arrowColor; 
+                directionIndicator.SetActive(false);
             }
         }
-        else
-        {
-            directionIndicator.SetActive(false);
-        }
     }
-}
-
-
-
-
-    
 
     public void HandleRestart()
     {
@@ -252,7 +249,7 @@ void LateUpdate()
             Transform platformChild = currentPlatform.transform.Find("Platform");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
-                ChangeColor(platformChild.gameObject, new Color(0.7f, 1f, 0.7f, 0.25f)); // Green tint
+                ChangeColor(platformChild.gameObject, new Color(0.7f, 1.0f, 0.7f, 1.0f)); // Green tint
             }
         }
 
@@ -348,7 +345,7 @@ void LateUpdate()
                 renderer.material.color = color;
             }
             if (renderer.gameObject.CompareTag("Hidden"))
-                GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ChangeMat(renderer.gameObject, color);
+                GameObject.Find("Main Camera").GetComponent<CameraController>().ChangeMat(renderer.gameObject, color);
         }
     }
 
