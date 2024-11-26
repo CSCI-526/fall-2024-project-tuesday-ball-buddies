@@ -51,13 +51,7 @@ public class BallControl : MonoBehaviour
             deathAnalysis = deathAnalysisObject.AddComponent<DeathAnalysis>();
         }
 
-       
-
         checkpointManager = CheckpointManager.Instance;
-        if (checkpointManager == null)
-        {
-            Debug.LogError("CheckpointManager not found in the scene!");
-        }
 
         timer = FindObjectOfType<Timer>();
 
@@ -99,31 +93,19 @@ public class BallControl : MonoBehaviour
             // if (gameEndManager.GetIfGameEnded())
             //     return;
 
-            Debug.Log("Respawn");
-            if (checkpointManager == null)
+            if (checkpointManager.HasCheckpoint())
             {
-                Debug.LogError("CheckpointManager is null");
-            }
-            else
-            {
-                Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
-            }
-
-
-            if (checkpointManager != null && checkpointManager.HasCheckpoint())
-            {
-                Debug.Log("Restarting from checkpoint");
+                Debug.Log("Respawn from checkpoint");
                 RestartFromCheckpoint();
             }
             else
             {
-                Debug.Log("Restarting game");
+                Debug.Log("Respawn game");
                 RestartGame();
             }
-        } else if (Input.GetKeyDown(KeyCode.R) && hudManager.getGameWon())
-        {
-            Debug.Log("Already won, NOT restarting game");
         }
+        else if (Input.GetKeyDown(KeyCode.R) && hudManager.getGameWon())
+            Debug.Log("Already won, NOT restarting game");
     }
 
     void LateUpdate()
@@ -176,16 +158,7 @@ public class BallControl : MonoBehaviour
     public void HandleRestart()
     {
         Debug.Log("Restarting game");
-
-        if (checkpointManager == null)
-        {
-            Debug.LogError("CheckpointManager is null");
-        }
-        else
-        {
-            Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
-        }
-
+        Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
         RestartGame();
     }
 
