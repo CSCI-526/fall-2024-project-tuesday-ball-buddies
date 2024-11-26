@@ -9,8 +9,8 @@ using UnityEngine.Networking;
 public class EnemyControl : MonoBehaviour
 {
     public List<GameObject> waypoints;
-    private float moveSpeed = 700f;
-    private float turnSpeed = 700f;
+    public float moveSpeed = 350f;
+    private float turnSpeed = 350f;
     private PauseManager pauseManager;
 
     private CheckpointManager checkpointManager;
@@ -19,7 +19,8 @@ public class EnemyControl : MonoBehaviour
     private Vector3 targetDir, targetEulerAngle;
     private float targetAngle;
     private int frameCounter = 0;
-    private int updateInterval = 5;
+    private int updateInterval = 2;
+
 
     private Renderer[] childRenderers;
     private Color colorStart = Color.red;
