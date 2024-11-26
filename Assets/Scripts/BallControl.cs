@@ -303,9 +303,7 @@ void LateUpdate()
             {
                 ChangeColor(currentBridge.gameObject, Color.white);  
             }
-
             currentBridge = bridge;
-
         }
         
         // PowerUp
