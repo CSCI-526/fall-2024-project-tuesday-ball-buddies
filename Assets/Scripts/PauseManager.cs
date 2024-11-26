@@ -7,10 +7,12 @@ public class PauseManager : MonoBehaviour
     private Timer timer;
     private bool isPaused = false;
     private StageTimeManager stageTimeManager;
+    private GameEndManager gameEndManager;
 
     void Start()
     {
         stageTimeManager = FindObjectOfType<StageTimeManager>();
+        gameEndManager = FindObjectOfType<GameEndManager>();
 
         timer = FindObjectOfType<Timer>();
         if (pausePanel != null)
@@ -21,6 +23,9 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
+            if (gameEndManager.GetIfGameEnded())
+                return ;
+
             if (isPaused)
                 ResumeGame();
             else

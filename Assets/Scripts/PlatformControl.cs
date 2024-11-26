@@ -23,6 +23,8 @@ public class PlatformControl : MonoBehaviour
     {
         if (isActive)
         {
+            CalculateCenterPoint();
+
             float rotationX = Input.GetAxis("Vertical") * sensitivity * Time.deltaTime;
             float rotationZ = -Input.GetAxis("Horizontal") * sensitivity * Time.deltaTime;
             // float rotationX = Input.GetKey(KeyCode.Horizontal) ? sensitivity * Time.deltaTime :
