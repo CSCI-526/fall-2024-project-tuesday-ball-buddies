@@ -6,9 +6,12 @@ public class PauseManager : MonoBehaviour
     public GameObject pausePanel;
     private Timer timer;
     private bool isPaused = false;
+    private StageTimeManager stageTimeManager;
 
     void Start()
     {
+        stageTimeManager = FindObjectOfType<StageTimeManager>();
+
         timer = FindObjectOfType<Timer>();
         if (pausePanel != null)
             pausePanel.SetActive(false);
@@ -48,6 +51,8 @@ public class PauseManager : MonoBehaviour
     public void RestartLevel()
     {
         Time.timeScale = 1;
+        StarControl.starCount = 0; //clear starCount back to 0
+        stageTimeManager.ResetTimestamp();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
