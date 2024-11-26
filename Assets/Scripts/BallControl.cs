@@ -19,7 +19,7 @@ public class BallControl : MonoBehaviour
     private Renderer ballRenderer; 
     private HUDManager hudManager; 
     private CheckpointManager checkpointManager;
-    private Vector3 initialPosition = new Vector3(-22, 40, 40); // Adjust this to your ball's starting position
+    private Vector3 initialPosition;
     private Timer timer;
 
     private GameEndManager gameEndManager;
@@ -41,6 +41,7 @@ public class BallControl : MonoBehaviour
 
     void Start()
     {
+        initialPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
@@ -55,13 +56,7 @@ public class BallControl : MonoBehaviour
             deathAnalysis = deathAnalysisObject.AddComponent<DeathAnalysis>();
         }
 
-       
-
         checkpointManager = CheckpointManager.Instance;
-        if (checkpointManager == null)
-        {
-            Debug.LogError("CheckpointManager not found in the scene!");
-        }
 
         timer = FindObjectOfType<Timer>();
 
@@ -103,31 +98,19 @@ public class BallControl : MonoBehaviour
             // if (gameEndManager.GetIfGameEnded())
             //     return;
 
-            Debug.Log("Respawn");
-            if (checkpointManager == null)
+            if (checkpointManager.HasCheckpoint())
             {
-                Debug.LogError("CheckpointManager is null");
-            }
-            else
-            {
-                Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
-            }
-
-
-            if (checkpointManager != null && checkpointManager.HasCheckpoint())
-            {
-                Debug.Log("Restarting from checkpoint");
+                Debug.Log("Respawn from checkpoint");
                 RestartFromCheckpoint();
             }
             else
             {
-                Debug.Log("Restarting game");
+                Debug.Log("Respawn game");
                 RestartGame();
             }
-        } else if (Input.GetKeyDown(KeyCode.R) && hudManager.getGameWon())
-        {
-            Debug.Log("Already won, NOT restarting game");
         }
+        else if (Input.GetKeyDown(KeyCode.R) && hudManager.getGameWon())
+            Debug.Log("Already won, NOT restarting game");
     }
 void LateUpdate()
 {
@@ -225,16 +208,7 @@ void LateUpdate()
     public void HandleRestart()
     {
         Debug.Log("Restarting game");
-
-        if (checkpointManager == null)
-        {
-            Debug.LogError("CheckpointManager is null");
-        }
-        else
-        {
-            Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
-        }
-
+        Debug.Log($"HasCheckpoint: {checkpointManager.HasCheckpoint()}, LastCheckpoint: {checkpointManager.GetLastCheckpoint()}");
         RestartGame();
     }
 
@@ -298,7 +272,7 @@ void LateUpdate()
             Transform platformChild = currentPlatform.transform.Find("Platform");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
-                ChangeColor(platformChild.gameObject, new Color(0.7f, 1f, 0.7f, 0.25f)); // Green tint
+                ChangeColor(platformChild.gameObject, new Color(0.7f, 1.0f, 0.7f, 1.0f)); // Green tint
             }
         }
 
@@ -394,7 +368,7 @@ void LateUpdate()
                 renderer.material.color = color;
             }
             if (renderer.gameObject.CompareTag("Hidden"))
-                GameObject.Find("Main Camera").GetComponent<FollowPlayer>().ChangeMat(renderer.gameObject, color);
+                GameObject.Find("Main Camera").GetComponent<CameraController>().ChangeMat(renderer.gameObject, color);
         }
     }
 
