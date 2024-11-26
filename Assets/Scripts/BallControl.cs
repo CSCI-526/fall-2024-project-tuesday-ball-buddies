@@ -281,7 +281,7 @@ void LateUpdate()
         if (bridge != null)
         {
             // Reset ball size and jump force to original values
-            transform.localScale = Vector3.one * 1.5f;
+            transform.localScale = Vector3.one * 1.554f;
             rb.mass = 100f;
             jumpForce = 4000f;
 
