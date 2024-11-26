@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2394416441564187151}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.889, y: 3.5772, z: 0.0584}
+  m_LocalPosition: {x: 0, y: 3.26, z: 0}
   m_LocalScale: {x: 3.0133674, y: 1.6074095, z: 3.0133674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 0
+  bounceForce: 2000
 --- !u!1 &7273014809443467769
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 8242501129674309413}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.889, y: 0.926, z: 0.0584}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 3.3884711, y: 2.462402, z: 3.3884711}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -340,7 +341,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -359,5 +360,3 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
-  moveSpeed: 500
-  turnSpeed: 500
