@@ -40,8 +40,7 @@ public class EnemyControl : MonoBehaviour
         }
         else
         {
-            Debug.Log(waypoints);
-            Debug.Log(waypoints.Count);
+            Debug.Log(string.Format("Enemy \"{0}\" - Waypoint Count: {1}", gameObject.name, waypoints.Count));
         }
 
         checkpointManager = CheckpointManager.Instance;
