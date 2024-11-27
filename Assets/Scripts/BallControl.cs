@@ -281,6 +281,7 @@ void LateUpdate()
         if (bridge != null)
         {
             // Reset ball size and jump force to original values
+            transform.SetParent(null);   
             transform.localScale = Vector3.one * 1.554f;
             rb.mass = 100f;
             jumpForce = 4000f;
@@ -297,7 +298,6 @@ void LateUpdate()
             currentPlatform.SetActive(false);
             onBridge = true;
             canJump = false;
-            transform.SetParent(null);
 
             if (currentBridge != null && currentBridge != bridge)
             {
