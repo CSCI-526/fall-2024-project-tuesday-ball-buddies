@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     float elapsedTime;
-    private bool isTimerRunning = false;
+    private bool isTimerStarted = false, isTimerRunning = false;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +24,7 @@ public class Timer : MonoBehaviour
 
     public void StartTimer()
     {
+        isTimerStarted = true;
         isTimerRunning = true;
     }
 
@@ -34,6 +35,7 @@ public class Timer : MonoBehaviour
 
     public void ToggleTimer(bool isPaused)
     {
-        isTimerRunning = !isPaused;
+        if (isTimerStarted)
+            isTimerRunning = !isPaused;
     }
 }

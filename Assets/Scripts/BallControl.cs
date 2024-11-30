@@ -21,6 +21,7 @@ public class BallControl : MonoBehaviour
     private Vector3 initialPosition;
     private Timer timer;
 
+    private PauseManager pauseManager;
     private GameEndManager gameEndManager;
     private StageTimeManager stageTimeManager;
 
@@ -44,6 +45,7 @@ public class BallControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
+        pauseManager = FindAnyObjectByType<PauseManager>();
         gameEndManager = FindAnyObjectByType<GameEndManager>();
         stageTimeManager = FindAnyObjectByType<StageTimeManager>();
         starAnalysis = FindObjectOfType<StarAnalysis>();
@@ -85,16 +87,14 @@ public class BallControl : MonoBehaviour
                 canJump = false;  
             }
         }
-        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !gameEndManager.IsGameEnded()))
+
+        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !pauseManager.IsPaused() && !gameEndManager.IsGameEnded()))
         {
             if (transform.position.y < fallThreshold)
             {
                 Debug.Log("Fell off the map");
                 deathAnalysis.uploadDeathCause(userID, "", lastKnownLevel, "falling", lastKnownPosition);
             }
-            
-            // if (gameEndManager.GetIfGameEnded())
-            //     return;
 
             if (checkpointManager.HasCheckpoint())
             {
@@ -107,8 +107,6 @@ public class BallControl : MonoBehaviour
                 RestartGame();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R) && gameEndManager.IsGameEnded())
-            Debug.Log("Already won, NOT restarting game");
     }
 void LateUpdate()
 {
@@ -297,10 +295,10 @@ void LateUpdate()
             onBridge = true;
             canJump = false;
 
-            if (currentBridge != null && currentBridge != bridge)
+            /*if (currentBridge != null && currentBridge != bridge)
             {
                 ChangeColor(currentBridge.gameObject, Color.white);  
-            }
+            }*/
             currentBridge = bridge;
         }
         
@@ -416,10 +414,10 @@ void LateUpdate()
             ChangeColor(currentPlatform.gameObject, Color.white);
         }
 
-        if (currentBridge != null)
+        /*if (currentBridge != null)
         {
             ChangeColor(currentBridge.gameObject, Color.white);
-        }
+        }*/
     }
 
     public void RestartGame()

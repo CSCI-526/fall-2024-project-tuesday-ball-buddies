@@ -6,6 +6,7 @@ using System;
 using Unity.VisualScripting;
 using System.Globalization;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -39,6 +40,9 @@ public class CanvasManager : MonoBehaviour
         level1Toggles = new List<Toggle>();
         level2Toggles = new List<Toggle>();
         level3Toggles = new List<Toggle>();
+
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+            return;
 
         GameObject scoreboardPanel = mainUI.transform.Find("Panel-Scoreboard").gameObject;
         Toggle[] toggles = scoreboardPanel.GetComponentsInChildren<Toggle>();
