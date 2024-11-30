@@ -11,9 +11,9 @@ using UnityEngine.SceneManagement;
 public class CanvasManager : MonoBehaviour
 {
     public GameObject mainUI, pausePanel, endPanel;
-    private GameObject buttonPause, buttonPlay, buttonReplay, buttonReturn;
+    private GameObject buttonPause, buttonPlay, buttonRestart, buttonReturn, buttonSubmit, buttonReplay, buttonNext;
     private PauseManager pauseManager;
-    private StarManager starManager;
+    private GameEndManager endManager;
 
     private void Start()
     {
@@ -27,12 +27,23 @@ public class CanvasManager : MonoBehaviour
         pauseManager = FindObjectOfType<PauseManager>();
         buttonPause = mainUI.transform.Find("Button-Pause").gameObject;
         buttonPlay = mainUI.transform.Find("Button-Play").gameObject;
-        buttonReplay = pausePanel.transform.Find("Panel (1)/Button-Replay").gameObject;
+        buttonRestart = pausePanel.transform.Find("Panel (1)/Button-Replay").gameObject;
         buttonReturn = pausePanel.transform.Find("Panel (1)/Button-Return").gameObject;
         buttonPause.GetComponent<Button>().onClick.AddListener(() => pauseManager.TogglePause());
         buttonPlay.GetComponent<Button>().onClick.AddListener(() => pauseManager.TogglePause());
-        buttonReplay.GetComponent<Button>().onClick.AddListener(() => pauseManager.RestartLevel());
+        buttonRestart.GetComponent<Button>().onClick.AddListener(() => pauseManager.RestartLevel());
         buttonReturn.GetComponent<Button>().onClick.AddListener(() => pauseManager.ReturnToMainMenu());
+
+        endManager = FindObjectOfType<GameEndManager>();
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            buttonSubmit = endPanel.transform.Find("Panel/PlayerRecord/Panel/Button").gameObject;
+            buttonSubmit.GetComponent<Button>().onClick.AddListener(() => endManager.OnSubmit());
+        }
+        buttonReplay = endPanel.transform.Find("Panel/Replay").gameObject;
+        buttonNext = endPanel.transform.Find("Panel/Next").gameObject;
+        buttonReplay.GetComponent<Button>().onClick.AddListener(() => endManager.OnRestart());
+        buttonNext.GetComponent<Button>().onClick.AddListener(() => endManager.OnNext());
     }
 
     public void ScoreboardPanelGetToggles(out List<Toggle> level1Toggles, out List<Toggle> level2Toggles, out List<Toggle> level3Toggles)

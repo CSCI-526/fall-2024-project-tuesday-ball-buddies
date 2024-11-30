@@ -13,7 +13,7 @@ public class StarControl : MonoBehaviour
 
     [Header("Score & Statistics")]
     public static int starCount = 0;
-    public StarAnalysis starAnalysis; // Reference to StarAnalysis
+    private StarAnalysis starAnalysis; // Reference to StarAnalysis
 
     // Index of the level this star belongs to
     public int levelIndex;  // 0 for level 1, 1 for level 2, 2 for level 3
@@ -27,6 +27,7 @@ public class StarControl : MonoBehaviour
     void Start()
     {
         localStartPos = transform.localPosition;
+        starAnalysis = FindAnyObjectByType<StarAnalysis>();
     }
 
     private void OnTriggerEnter(Collider other)
