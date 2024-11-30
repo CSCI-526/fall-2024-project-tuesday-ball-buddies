@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class IntroAnimCallback : MonoBehaviour
 {
+    private IntroManager introManager;
+    private static int panelExitCount;
+
+    private void Start()
+    {
+        introManager = FindObjectOfType<IntroManager>();
+        panelExitCount = 0;
+    }
+
     void OnCameraAnimExit()
     {
-        GameObject.Find("IntroManager").GetComponent<IntroManager>().StartFirstPanelAnim();
+        introManager.StartFirstPanelAnim();
     }
 
     void OnPanelAnimHalf()
     {
-        GameObject.Find("IntroManager").GetComponent<IntroManager>().StartNextPanelAnim(gameObject);
+        introManager.StartNextPanelAnim(gameObject);
+    }
+
+    void OnPanelAnimExit()
+    {
+        panelExitCount++;
+        if (panelExitCount == 3)
+            introManager.StartInstructionAnim();
     }
 }

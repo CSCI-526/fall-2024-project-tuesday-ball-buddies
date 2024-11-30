@@ -23,16 +23,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -800
+        value: -1000
         inSlope: Infinity
-        outSlope: 3061.1345
+        outSlope: 3443.2776
         tangentMode: 1
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.07672895
+        outWeight: 0.047666386
       - serializedVersion: 3
         time: 1
-        value: 0
+        value: -50
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -92,16 +92,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -800
+        value: -1000
         inSlope: Infinity
-        outSlope: 3061.1345
+        outSlope: 3443.2776
         tangentMode: 1
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.07672895
+        outWeight: 0.047666386
       - serializedVersion: 3
         time: 1
-        value: 0
+        value: -50
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -122,6 +122,13 @@ AnimationClip:
   m_Events:
   - time: 0.33333334
     functionName: OnPanelAnimHalf
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
+    functionName: OnPanelAnimExit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
