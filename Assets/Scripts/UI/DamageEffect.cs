@@ -1,17 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class DamageEffect : MonoBehaviour
 {
     public float flashDuration = 0.5f;  // Total duration of the flash effect
-    public Image effectImage;
+    private List<Image> effectImages = new List<Image>();
 
     void Start()
     {
-        if (effectImage == null)
+        foreach (Transform child in transform)
         {
-            effectImage = GetComponent<Image>();
+            Image img = child.GetComponent<Image>();
+            if (img != null)
+            {
+                effectImages.Add(img);
+            }
         }
         SetTransparent();  // Ensure it starts transparent
     }
@@ -48,11 +54,11 @@ public class DamageEffect : MonoBehaviour
 
     private void SetAlpha(float alpha)
     {
-        if (effectImage != null)
+        foreach (Image img in effectImages)
         {
-            var color = effectImage.color;
+            var color = img.color;
             color.a = alpha;
-            effectImage.color = color;
+            img.color = color;
         }
     }
 

@@ -19,7 +19,7 @@ public class StarControl : MonoBehaviour
     public int levelIndex;  // 0 for level 1, 1 for level 2, 2 for level 3
 
     // Array to store the toggles for this star's level
-    public Toggle[] levelToggles;
+    public List<Toggle> levelToggles;
 
     // Index of this star's corresponding toggle in the array
     public int toggleIndex;
@@ -54,7 +54,7 @@ public class StarControl : MonoBehaviour
     private void ChangeToggleColor(int index, Color color)
     {
         // Ensure the index is valid
-        if (levelToggles != null && index >= 0 && index < levelToggles.Length)
+        if (levelToggles != null && index >= 0 && index < levelToggles.Count)
         {
             ColorBlock cb = levelToggles[index].colors;
             cb.normalColor = color;  // Change the normal color to yellow

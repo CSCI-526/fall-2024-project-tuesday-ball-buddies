@@ -9,42 +9,36 @@ using TMPro;
 
 public class GameEndManager : MonoBehaviour
 {
+    private BallControl ballControl;
     private StageTimeManager stageTimeManager;
     private FirestoreApiManager firestoreApiManager;
-    private BallControl ballControl;
-    private HUDManager hudManager; 
-    public GameObject endPanel;
-    public GameObject leaderboardPanel;
-    public GameObject currentPlayerRankPanel;
-    public TMP_Text star;
-    public TMP_Text time;
-    public TMP_InputField inputField;
-    public Button submitButton;
-    public TMP_Text submitButtonText;
+    private CanvasManager canvasManager;
+
+    /*public Button submitButton;
+    public TMP_Text submitButtonText;*/
 
     private bool isGameEnded = false;
-
     private string timeSpent;
     private int starCount; 
-
     private Scene currentScene;
+
     void Start()
     {
         stageTimeManager = FindObjectOfType<StageTimeManager>();
         firestoreApiManager = FindObjectOfType<FirestoreApiManager>();
         ballControl = FindObjectOfType<BallControl>();
-        hudManager = FindObjectOfType<HUDManager>();
+        canvasManager = FindObjectOfType<CanvasManager>();
         currentScene =  SceneManager.GetActiveScene();
         
     }
 
-    public bool GetIfGameEnded(){
+    public bool IsGameEnded(){
         return isGameEnded;
     }
 
     public void OnSubmit()
     {
-        string playerName = inputField.text;
+        string playerName = canvasManager.EndPanelGetPlayerName();
 
         // Populate the data
         PlayerData data = new PlayerData
@@ -58,14 +52,7 @@ public class GameEndManager : MonoBehaviour
         string jsonData = JsonUtility.ToJson(data);
 
         firestoreApiManager.UploadRecordWrap(currentScene.name, SessionManager.sessionID, jsonData);
-
-        submitButton.interactable = false;
-        submitButtonText.text = "Submitted";
-
-        leaderboardPanel.GetComponent<LeaderboardManager>().ClearGrid();
-        leaderboardPanel.GetComponent<GridLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
-        leaderboardPanel.transform.Find("StatusText").gameObject.SetActive(true);
-        currentPlayerRankPanel.SetActive(true);
+        canvasManager.EndPanelOnSubmit();
     }
     
     public void LoadNextScene()
@@ -91,16 +78,12 @@ public class GameEndManager : MonoBehaviour
         Time.timeScale = 1; 
         StarControl.starCount = 0; //clear starCount back to 0
         LoadNextScene();
-        hudManager.setGameWon(false);
+        //hudManager.setGameWon(false);
         stageTimeManager.ResetTimestamp();
-        Debug.Log("hudManager.gameWon" + hudManager.getGameWon());
     }
 
     public void OnRestart()
     {
-        endPanel.SetActive(false);
-        submitButton.interactable = true;
-        submitButtonText.text = "Submit Record";
         isGameEnded = false;
 
         //track player (only world 1 & 2) to see if he plays better
@@ -121,17 +104,12 @@ public class GameEndManager : MonoBehaviour
     public void HandleGameEnd()
     {
         isGameEnded = true;
-
+        
         SerializableList<string> timeList = stageTimeManager.GetCheckpointList();
-
         timeSpent = timeList.list.Last();
         starCount = StarControl.starCount;
 
-        star.text = $"Star: {starCount}";
-        time.text = $"Time: {timeSpent}";
-
-        if (endPanel != null)
-            endPanel.SetActive(true);
+        canvasManager.EndPanelHandleGameEnd(timeSpent, starCount);   
 
         /* Create leaderboard data */
         /* !TODO: make sure later on the stage_level is the name of current scene */
@@ -145,21 +123,18 @@ public class GameEndManager : MonoBehaviour
         firestoreApiManager.UploadCheckpointWrap(currentScene.name, SessionManager.sessionID, timeListStr);
 
         //check if this player performance is tracked
-        if (currentScene.name != "Tutorial")
+        firestoreApiManager.IsPlayerPerformanceTrackedWrap(currentScene.name, SessionManager.sessionID, (isTracked) =>
         {
-            firestoreApiManager.IsPlayerPerformanceTrackedWrap(currentScene.name, SessionManager.sessionID, (isTracked) =>
+            if (isTracked)
             {
-                if (isTracked)
-                {
-                    Debug.Log("Player is tracked.");
-                    TrackPlayerPerformance();
-                }
-                else
-                {
-                    Debug.Log("Player is not tracked.");
-                }
-            });
-        }
+                Debug.Log("Player is tracked.");
+                TrackPlayerPerformance();
+            }
+            else
+            {
+                Debug.Log("Player is not tracked.");
+            }
+        });
     }
 
     private void TrackPlayerPerformance()

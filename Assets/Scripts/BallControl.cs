@@ -16,8 +16,7 @@ public class BallControl : MonoBehaviour
     private PlatformControl currentPlatform;
     private BridgeControl currentBridge;
     private Rigidbody rb;
-    private Renderer ballRenderer; 
-    private HUDManager hudManager; 
+    private Renderer ballRenderer;
     private CheckpointManager checkpointManager;
     private Vector3 initialPosition;
     private Timer timer;
@@ -45,7 +44,6 @@ public class BallControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.sleepThreshold = 0f;
         ballRenderer = GetComponent<Renderer>();
-        hudManager = FindObjectOfType<HUDManager>();
         gameEndManager = FindAnyObjectByType<GameEndManager>();
         stageTimeManager = FindAnyObjectByType<StageTimeManager>();
         starAnalysis = FindObjectOfType<StarAnalysis>();
@@ -87,7 +85,7 @@ public class BallControl : MonoBehaviour
                 canJump = false;  
             }
         }
-        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !hudManager.getGameWon()))
+        if (transform.position.y < fallThreshold || (Input.GetKeyDown(KeyCode.R) && !gameEndManager.IsGameEnded()))
         {
             if (transform.position.y < fallThreshold)
             {
@@ -109,7 +107,7 @@ public class BallControl : MonoBehaviour
                 RestartGame();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R) && hudManager.getGameWon())
+        else if (Input.GetKeyDown(KeyCode.R) && gameEndManager.IsGameEnded())
             Debug.Log("Already won, NOT restarting game");
     }
 void LateUpdate()
@@ -119,7 +117,7 @@ void LateUpdate()
         Vector3 velocity = rb.velocity;
         velocity.y = 0; // Ignore vertical movement
         
-        Debug.Log($"current velocity: {velocity.magnitude}");
+        //Debug.Log($"current velocity: {velocity.magnitude}");
 
         if (velocity.magnitude > 0.05f)
         {
@@ -173,7 +171,7 @@ void LateUpdate()
         /* ----------- 1. Determine color based on velocity magnitude ----------- */
         float maxSpeed = 20.0f; // Adjust this value based on your desired maximum speed
         float speedFraction = Mathf.Clamp(velocity.magnitude / maxSpeed, 0f, 1f);
-        Debug.Log("Velocity magnitude: " + velocity.magnitude);
+        //Debug.Log("Velocity magnitude: " + velocity.magnitude);
         Color arrowColor = Color.Lerp(Color.green, Color.red, speedFraction);;
 
         /* ----------- 2. Determine color based on acceraltion ----------- */
@@ -320,22 +318,16 @@ void LateUpdate()
         //GOAL
         if (collider.CompareTag("Goal"))
         {
-            if (hudManager != null)
-            {
-                Debug.Log("Player won");
-                // Upload the stage time to Firestore
-                hudManager.setGameWon(true);
+            // Upload the stage time to Firestore
+            Time.timeScale = 0;
+            rb.velocity = Vector3.zero;
 
-                Time.timeScale = 0;
-                rb.velocity = Vector3.zero;
+            stageTimeManager.AddTimestamp();
+            gameEndManager.HandleGameEnd();
 
-                stageTimeManager.AddTimestamp();
-                gameEndManager.HandleGameEnd();
-
-                // Call the UploadStarData method
-                if (SceneManager.GetActiveScene().name != "Tutorial")
-                    starAnalysis.SubmitCollectedStar();
-            }
+            // Call the UploadStarData method
+            if (SceneManager.GetActiveScene().name != "Tutorial")
+                starAnalysis.SubmitCollectedStar();
         }
     }
 

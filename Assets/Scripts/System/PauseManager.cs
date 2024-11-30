@@ -3,49 +3,35 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pausePanel;
+    private StageTimeManager stageTimeManager;
+    private GameEndManager gameEndManager;
+    private CanvasManager canvasManager;
     private Timer timer;
     private bool isPaused = false;
-    private StageTimeManager stageTimeManager;
 
     void Start()
     {
         stageTimeManager = FindObjectOfType<StageTimeManager>();
-
+        gameEndManager = FindObjectOfType<GameEndManager>();
+        canvasManager = FindObjectOfType<CanvasManager>();
         timer = FindObjectOfType<Timer>();
-        if (pausePanel != null)
-            pausePanel.SetActive(false);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (isPaused)
-                ResumeGame();
-            else
-                PauseGame();
-        }
+            TogglePause();
     }
 
-    void PauseGame()
+    public void TogglePause()
     {
-        isPaused = true;
-        Time.timeScale = 0;
-        if (timer != null)
-            timer.PauseTimer();
-        if (pausePanel != null)
-            pausePanel.SetActive(true);
-    }
+        if (gameEndManager.IsGameEnded())
+            return;
 
-    public void ResumeGame()
-    {
-        isPaused = false;
-        Time.timeScale = 1;
-        if (timer != null)
-            timer.ResumeTimer();
-        if (pausePanel != null)
-            pausePanel.SetActive(false);
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
+        timer.ToggleTimer(isPaused);
+        canvasManager.PausePanelTogglePause(isPaused);
     }
 
     public void RestartLevel()

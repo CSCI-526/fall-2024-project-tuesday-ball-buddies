@@ -30,7 +30,7 @@ public class Elevator : MonoBehaviour
     {
         float step = movementSpeed * Time.deltaTime;
         Vector3 targetPosition = new Vector3(transform.position.x, currentTargetPosition, transform.position.z);
-        Debug.Log("Target Position: " + targetPosition); // Log the target position
+        //Debug.Log("Target Position: " + targetPosition); // Log the target position
         // Move towards the target position
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 

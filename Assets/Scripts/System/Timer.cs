@@ -32,13 +32,8 @@ public class Timer : MonoBehaviour
         return timerText.text;
     }
 
-    public void PauseTimer()
+    public void ToggleTimer(bool isPaused)
     {
-        isTimerRunning = false;
-    }
-
-    public void ResumeTimer()
-    {
-        isTimerRunning = true;
+        isTimerRunning = !isPaused;
     }
 }

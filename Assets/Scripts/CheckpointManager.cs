@@ -42,7 +42,7 @@ public class CheckpointManager : MonoBehaviour
         PlayerPrefs.SetFloat(CHECKPOINT_Z, position.z);
         PlayerPrefs.Save();
         // log the checkpoint position
-        Debug.Log("Checkpoint set at: " + position);
+        //Debug.Log("Checkpoint set at: " + position);
         
     }
 

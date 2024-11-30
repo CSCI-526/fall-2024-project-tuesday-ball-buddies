@@ -25,6 +25,7 @@ public class StageTimeManager : MonoBehaviour
     {
         timeList = new SerializableList<string>();
     }
+
     public SerializableList<string> GetCheckpointList()
     {
         return timeList;
