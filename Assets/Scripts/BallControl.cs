@@ -108,45 +108,46 @@ public class BallControl : MonoBehaviour
             }
         }
     }
-void LateUpdate()
-{
-    if (directionIndicator_1 != null && rb != null)
+
+    void LateUpdate()
     {
-        Vector3 velocity = rb.velocity;
-        velocity.y = 0; // Ignore vertical movement
+        if (directionIndicator_1 != null && rb != null)
+        {
+            Vector3 velocity = rb.velocity;
+            velocity.y = 0; // Ignore vertical movement
         
-        //Debug.Log($"current velocity: {velocity.magnitude}");
+            //Debug.Log($"current velocity: {velocity.magnitude}");
 
-        if (velocity.magnitude > 0.05f)
-        {
-            ArrowDisplay(directionIndicator_1, velocity, 0);
-        }
-        else
-        {
-            directionIndicator_1.SetActive(false);
-        }
+            if (velocity.magnitude > 0.05f)
+            {
+                ArrowDisplay(directionIndicator_1, velocity, 0);
+            }
+            else
+            {
+                directionIndicator_1.SetActive(false);
+            }
 
-        if (velocity.magnitude > 4.0f)
-        {
-            ArrowDisplay(directionIndicator_2, velocity, 1);
-        }
-        else
-        {
-            directionIndicator_2.SetActive(false);
-        }
+            if (velocity.magnitude > 4.0f)
+            {
+                ArrowDisplay(directionIndicator_2, velocity, 1);
+            }
+            else
+            {
+                directionIndicator_2.SetActive(false);
+            }
 
-        if (velocity.magnitude > 8.0f)
-        {
-            ArrowDisplay(directionIndicator_3, velocity, 2);
-        }
-        else
-        {
-            directionIndicator_3.SetActive(false);
-        }
+            if (velocity.magnitude > 8.0f)
+            {
+                ArrowDisplay(directionIndicator_3, velocity, 2);
+            }
+            else
+            {
+                directionIndicator_3.SetActive(false);
+            }
         
-        previousSpeed = velocity.magnitude;
+            previousSpeed = velocity.magnitude;
+        }
     }
-}
 
     void ArrowDisplay(GameObject arrow, Vector3 velocity, float distance){
         arrow.SetActive(true);
@@ -262,6 +263,7 @@ void LateUpdate()
                 currentPlatform.SetActive(false);
             }
 
+            currentBridge = null;
             currentPlatform = platform;
             currentPlatform.SetActive(true);
             
@@ -289,9 +291,11 @@ void LateUpdate()
             if (currentPlatform != null)
             {
                 ChangeColor(currentPlatform.gameObject, Color.white);  // White
+                currentPlatform.SetActive(false);
+                currentPlatform = null;
             }
 
-            currentPlatform.SetActive(false);
+            currentBridge = bridge;
             onBridge = true;
             canJump = false;
 
@@ -299,7 +303,6 @@ void LateUpdate()
             {
                 ChangeColor(currentBridge.gameObject, Color.white);  
             }*/
-            currentBridge = bridge;
         }
         
         // PowerUp
@@ -490,5 +493,8 @@ void LateUpdate()
         jumpForce = newJumpForce;
     }
     
-
+    public PlatformControl GetCurrentPlatformControl()
+    {
+        return currentPlatform;
+    }
 }
