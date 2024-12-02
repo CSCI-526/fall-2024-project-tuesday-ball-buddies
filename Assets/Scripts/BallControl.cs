@@ -270,6 +270,7 @@ void LateUpdate()
             currentPlatform.SetActive(true);
             
             Transform platformChild = currentPlatform.transform.Find("Platform");
+            Debug.Log($"collision tag: {platformChild}");
             if (platformChild != null && platformChild.CompareTag("Platform"))
             {
                 ChangeColor(platformChild.gameObject, new Color(0.7f, 1.0f, 0.7f, 1.0f)); // Green tint
