@@ -57,6 +57,10 @@ public class GameEndManager : MonoBehaviour
 
     public void OnNext()
     {
+        Time.timeScale = 1;
+        StarControl.starCount = 0; //clear starCount back to 0
+        stageTimeManager.ResetTimestamp();
+
         // Get the index of the current scene
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
@@ -65,16 +69,9 @@ public class GameEndManager : MonoBehaviour
 
         // Check if the next scene index is within the valid range
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
-            Time.timeScale = 1;
-            StarControl.starCount = 0; //clear starCount back to 0
-            stageTimeManager.ResetTimestamp();
             SceneManager.LoadScene(nextSceneIndex);
-        }
         else
-        {
             canvasManager.CompleteUIShow();
-        }
     }
 
     public void OnRestart()
