@@ -2088,23 +2088,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133228236}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &152830705 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 708845158567038568, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
-  m_PrefabInstance: {fileID: 1067581078}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &152830706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152830705}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c82cf1a03f6824b6c831f993a6bb5d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &160919568
 GameObject:
   m_ObjectHideFlags: 0
@@ -7356,28 +7339,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 708845158567038568, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583969645}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
---- !u!1 &583969644 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 708845158567038568, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
-  m_PrefabInstance: {fileID: 583969643}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &583969645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583969644}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c82cf1a03f6824b6c831f993a6bb5d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &593560798
 GameObject:
   m_ObjectHideFlags: 0
@@ -14182,6 +14145,10 @@ PrefabInstance:
       value: Bridge
       objectReference: {fileID: 0}
     - target: {fileID: 708845158567038568, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 708845158567038568, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
       propertyPath: m_TagString
       value: Bridge
       objectReference: {fileID: 0}
@@ -14228,10 +14195,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 708845158567038568, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 152830706}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a83ee7fa8ad946739edfd5f17af77d6, type: 3}
 --- !u!1 &1071172359
 GameObject:
