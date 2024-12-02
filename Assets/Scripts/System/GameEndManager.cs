@@ -54,8 +54,8 @@ public class GameEndManager : MonoBehaviour
         firestoreApiManager.UploadRecordWrap(currentScene.name, SessionManager.sessionID, jsonData);
         canvasManager.EndPanelOnSubmit();
     }
-    
-    public void LoadNextScene()
+
+    public void OnNext()
     {
         // Get the index of the current scene
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -66,20 +66,15 @@ public class GameEndManager : MonoBehaviour
         // Check if the next scene index is within the valid range
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
+            Time.timeScale = 1;
+            StarControl.starCount = 0; //clear starCount back to 0
+            stageTimeManager.ResetTimestamp();
             SceneManager.LoadScene(nextSceneIndex);
         }
         else
         {
-            Debug.LogWarning("No more scenes to load.");
+            canvasManager.CompleteUIShow();
         }
-    }
-    public void OnNext()
-    {
-        Time.timeScale = 1; 
-        StarControl.starCount = 0; //clear starCount back to 0
-        LoadNextScene();
-        //hudManager.setGameWon(false);
-        stageTimeManager.ResetTimestamp();
     }
 
     public void OnRestart()

@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
-    public GameObject mainUI, pausePanel, endPanel;
+    public GameObject mainUI, completeUI, pausePanel, endPanel;
     private GameObject buttonPause, buttonPlay, buttonRestart, buttonReturn, buttonSubmit, buttonReplay, buttonNext;
     private PauseManager pauseManager;
     private GameEndManager endManager;
@@ -19,6 +19,8 @@ public class CanvasManager : MonoBehaviour
     {
         if (mainUI == null)
             throw new System.NullReferenceException("CanvasManager: 'mainUI' is not assigned in the inspector.");
+        if (completeUI == null)
+            throw new System.NullReferenceException("CanvasManager: 'completeUI' is not assigned in the inspector.");
         if (pausePanel == null)
             throw new System.NullReferenceException("CanvasManager: 'pausePanel' is not assigned in the inspector.");
         if (endPanel == null)
@@ -32,6 +34,8 @@ public class CanvasManager : MonoBehaviour
         buttonPause.GetComponent<Button>().onClick.AddListener(() => pauseManager.TogglePause());
         buttonPlay.GetComponent<Button>().onClick.AddListener(() => pauseManager.TogglePause());
         buttonRestart.GetComponent<Button>().onClick.AddListener(() => pauseManager.RestartLevel());
+        buttonReturn.GetComponent<Button>().onClick.AddListener(() => pauseManager.ReturnToMainMenu());
+        buttonReturn = completeUI.transform.Find("Button-Return").gameObject;
         buttonReturn.GetComponent<Button>().onClick.AddListener(() => pauseManager.ReturnToMainMenu());
 
         endManager = FindObjectOfType<GameEndManager>();
@@ -105,5 +109,11 @@ public class CanvasManager : MonoBehaviour
 
         GameObject currentPlayerRankPanel = endPanel.transform.Find("Panel/Leaderboard/CurrentPlayerRank").gameObject;
         currentPlayerRankPanel.SetActive(true);
+    }
+
+    public void CompleteUIShow()
+    {
+        endPanel.SetActive(false);
+        completeUI.SetActive(true);
     }
 }

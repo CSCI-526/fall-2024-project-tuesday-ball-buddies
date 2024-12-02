@@ -885,6 +885,10 @@ PrefabInstance:
       propertyPath: endPanel
       value: 
       objectReference: {fileID: 1000194254}
+    - target: {fileID: 5164376148326194668, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
+      propertyPath: endPanel
+      value: 
+      objectReference: {fileID: 1000194254}
     - target: {fileID: 5361013203752514742, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -973,15 +977,17 @@ PrefabInstance:
     - {fileID: 1009873260214831709, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
     - {fileID: 8010253575543652112, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
     - {fileID: 8836890264972351168, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
+    - {fileID: 5769782503549972552, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
+    - {fileID: 2593227267459746877, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2117645664057169421, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6387864633132991177, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1000194255}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
 --- !u!224 &173943956 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2117645664057169421, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6387864633132991177, guid: b945a353fa1c7cb429b07ba705820892, type: 3}
   m_PrefabInstance: {fileID: 173943955}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &182930241
