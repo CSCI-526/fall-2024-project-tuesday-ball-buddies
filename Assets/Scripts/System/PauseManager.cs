@@ -45,6 +45,7 @@ public class PauseManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1;
+        StarControl.starCount = 0;
         SceneManager.LoadScene("Main Menu");
     }
 
